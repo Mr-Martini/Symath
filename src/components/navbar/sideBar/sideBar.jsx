@@ -19,10 +19,14 @@ const useStyles = makeStyles(theme => ({
     menuButton: {
         marginRight: theme.spacing(2),
     },
+    root: {
+        backgroundColor: '#424141'
+    },
 }));
 
 export default function TemporaryDrawer() {
-    const classes = useStyles();
+    const classes = useStyles()
+
     const [state, setState] = React.useState({
         left: false,
     });
