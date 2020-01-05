@@ -1,6 +1,6 @@
 import './App.css';
 import React from 'react'
-import NavBar from './components/navbar/pcbar/pcbar'
+import NavBar from './components/navbar/pcBar/pcbar'
 
 function App() {
   return (

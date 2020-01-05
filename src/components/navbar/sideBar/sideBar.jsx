@@ -8,6 +8,7 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import InfoIcon from '@material-ui/icons/Info'
+import GraphIcon from '@material-ui/icons/GraphicEq'
 
 const useStyles = makeStyles(theme => ({
     list: {
@@ -52,6 +53,13 @@ export default function TemporaryDrawer() {
                         <InfoIcon />
                     </ListItemIcon>
                     <ListItemText primary='About' />
+                </ListItem>
+                
+                <ListItem button >
+                    <ListItemIcon>
+                        <GraphIcon />
+                    </ListItemIcon>
+                    <ListItemText primary='Plot' />
                 </ListItem>
             </List>
         </div>
