@@ -1,1 +1,1 @@
-This site is currently under development. It will replaced Syath
+This site is currently under development. It will replace Syath
