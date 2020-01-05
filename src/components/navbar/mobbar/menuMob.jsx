@@ -3,6 +3,7 @@ import MoreIcon from '@material-ui/icons/MoreVert'
 import { makeStyles } from '@material-ui/core/styles'
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem'
+import { Link } from 'react-router-dom'
 
 const useStyles = makeStyles(theme => ({
     divMob: {
@@ -37,8 +38,8 @@ export default function () {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
             >
-                <MenuItem onClick={handleClose}>Login</MenuItem>
-                <MenuItem onClick={handleClose}>Register</MenuItem>
+                <MenuItem component={Link} to='/login' onClick={handleClose}>Login</MenuItem>
+                <MenuItem component={Link} to='/register' onClick={handleClose}>Register</MenuItem>
             </Menu>
         </div>
     )

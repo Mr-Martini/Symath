@@ -5,13 +5,15 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
+import LinkM from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { withRouter } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 function Copyright() {
   return (
@@ -46,7 +48,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Form = ({ title, }) => {
+const Form = ({ match }) => {
   const classes = useStyles();
 
   return (
@@ -57,9 +59,23 @@ const Form = ({ title, }) => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+        {match.path === '/login' ? 'Sign In' : 'Register'}
         </Typography>
         <form className={classes.form} noValidate>
+        { match.path === '/register' ?
+        <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="standart"
+            label="name"
+            name="name"
+            autoComplete="name"
+            autoFocus
+          />
+          : null
+        }
           <TextField
             variant="outlined"
             margin="normal"
@@ -93,18 +109,18 @@ const Form = ({ title, }) => {
             color="primary"
             className={classes.submit}
           >
-            Sign In
+            {match.path === '/login' ? 'Sign In' : 'Register'}
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link href="#" variant="body2">
+              <LinkM href="#" variant="body2">
                 Forgot password?
-              </Link>
+              </LinkM>
             </Grid>
             <Grid item>
-              <Link href="#" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
+              <LinkM component={Link} to={match.path === '/login' ? '/register' : '/login'} variant="body2">
+                {match.path === '/login' ? "Don't have an account? Sign Up" : 'I already have an account'}
+              </LinkM>
             </Grid>
           </Grid>
         </form>
@@ -116,4 +132,4 @@ const Form = ({ title, }) => {
   );
 }
 
-export default Form
+export default withRouter(Form)

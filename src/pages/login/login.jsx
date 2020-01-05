@@ -12,6 +12,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { withRouter } from 'react-router-dom'
 
 function Copyright() {
   return (
@@ -25,6 +26,7 @@ function Copyright() {
     </Typography>
   );
 }
+
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -46,8 +48,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SignIn() {
+const SignIn = ({ match }) => {
   const classes = useStyles();
+
 
   return (
     <Container component="main" maxWidth="xs">
@@ -57,7 +60,7 @@ export default function SignIn() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          {match.path === '/login' ? 'Sign In' : 'Register'}
         </Typography>
         <form className={classes.form} noValidate>
           <TextField
@@ -93,7 +96,7 @@ export default function SignIn() {
             color="primary"
             className={classes.submit}
           >
-            Sign In
+            {match.path === '/login' ? 'Sign In' : 'Register'}
           </Button>
           <Grid container>
             <Grid item xs>
@@ -115,3 +118,5 @@ export default function SignIn() {
     </Container>
   );
 }
+
+export default withRouter(SignIn)
