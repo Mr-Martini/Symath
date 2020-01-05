@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography'
 import MenuPC from '../pcBar/menupc'
 import MenuMobile from '../mobbar/menuMob'
 import SideDrawer from '../sideBar/sideBar'
+import { Link } from 'react-router-dom'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -18,6 +19,10 @@ const useStyles = makeStyles(theme => ({
         flexGrow: 1,
         cursor: 'pointer'
     },
+    link: {
+        textDecoration: 'none',
+        color: 'inherit',
+    },
 }));
 
 export default function ButtonAppBar() {
@@ -29,7 +34,9 @@ export default function ButtonAppBar() {
                 <Toolbar>
                     <SideDrawer />
                     <Typography variant="h6" className={classes.title}>
-                        Symath
+                        <Link to='/' className={classes.link}>
+                            Symath
+                        </Link>
                     </Typography>
                     <MenuPC />
                     <MenuMobile />

@@ -1,6 +1,7 @@
 import React from 'react'
 import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/core/styles'
+import { Link } from 'react-router-dom'
 
 const useStyles = makeStyles(theme => ({
     divPc: {
@@ -17,8 +18,8 @@ export default function () {
 
     return (
         <div className={classes.divPc}>
-            <Button color="inherit">Login</Button>
-            <Button color="inherit">Register</Button>
+            <Button component={Link} to='/login' color="inherit">Login</Button>
+            <Button component={Link} to='/register' color="inherit">Register</Button>
         </div>
     )
 } 

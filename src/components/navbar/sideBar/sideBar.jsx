@@ -8,7 +8,7 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import InfoIcon from '@material-ui/icons/Info'
-import GraphIcon from '@material-ui/icons/GraphicEq'
+import GraphIcon from '@material-ui/icons/InsertChart'
 
 const useStyles = makeStyles(theme => ({
     list: {
