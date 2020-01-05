@@ -1,6 +1,8 @@
 import { Paper, Container, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
-import React from 'react'
+import InputField from '../../components/input/InputFied'
+import React, { useState } from 'react'
+import Button from '../../components/input/button'
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -18,9 +20,18 @@ const useStyles = makeStyles(theme => ({
     },
 }))
 
+
 export default function () {
 
+    const [pureInput, setPureInput ] = useState()
+
     const classes = useStyles()
+
+    const pegarInput = e => {
+        e.preventDefault()
+        setPureInput(e.target.value)
+    }
+
 
     return (
         <Container maxWidth='lg'>
@@ -31,6 +42,10 @@ export default function () {
                 <Typography className={classes.text} color='secondary' variant='h3'>
                     Symath
                 </Typography>
+                <InputField pegarInput={pegarInput}/>
+                { pureInput ?
+                <Button color='secondary' variant='contained' >Calculate</Button>
+                : null}
             </Paper>
         </Container>
     )
