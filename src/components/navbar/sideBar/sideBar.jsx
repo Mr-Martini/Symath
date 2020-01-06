@@ -13,6 +13,7 @@ import GraphIcon from '@material-ui/icons/InsertChart'
 const useStyles = makeStyles(theme => ({
     list: {
         width: 250,
+        backgroundColor: '#C0C0C0'
     },
     fullList: {
         width: 'auto',
@@ -21,8 +22,11 @@ const useStyles = makeStyles(theme => ({
         marginRight: theme.spacing(2),
     },
     root: {
-        backgroundColor: '#424141'
+        backgroundColor: '#4d4d4d'
     },
+    drawer: {
+        background: '#202124'
+    }
 }));
 
 export default function TemporaryDrawer() {
@@ -54,7 +58,7 @@ export default function TemporaryDrawer() {
                     </ListItemIcon>
                     <ListItemText primary='About' />
                 </ListItem>
-                
+
                 <ListItem button >
                     <ListItemIcon>
                         <GraphIcon />
@@ -70,7 +74,14 @@ export default function TemporaryDrawer() {
             <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={toggleDrawer('left', true)}>
                 <MenuIcon />
             </IconButton>
-            <Drawer open={state.left} onClose={toggleDrawer('left', false)}>
+            <Drawer
+                elevation={16}
+                open={state.left}
+                onClose={toggleDrawer('left', false)}
+                PaperProps={{
+                    className: classes.drawer
+                }}
+            >
                 {sideList('left')}
             </Drawer>
         </div>

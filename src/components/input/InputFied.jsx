@@ -8,10 +8,11 @@ const useStyles = makeStyles(theme => ({
         marginRight: theme.spacing(1),
         marginBottom: theme.spacing(1),
         width: "60%",
-        backgroundColor: '#808080',
         borderRadius: '0.4em',
     },
-
+    input: {
+      color: 'white'
+    }
 }));
 
 
@@ -21,6 +22,12 @@ export default function ({pegarInput}) {
 
     return (
         <TextField
+            InputProps={{
+                className: classes.input
+            }}
+            InputLabelProps={{
+                className: classes.input
+            }}
             id="standard-search"
             label="Data"
             type="search"
