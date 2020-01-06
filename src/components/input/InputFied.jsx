@@ -1,6 +1,8 @@
 import React from 'react'
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import {TextField} from '@material-ui/core'
+import InputAdornment from '@material-ui/core/InputAdornment';
+import SearchIcon from '@material-ui/icons/Search'
 
 const useStyles = makeStyles(theme => ({
     textField: {
@@ -15,16 +17,35 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
+const CssTextField = withStyles({
+    root: {
+      '& label.Mui-focused': {
+        color: 'lightgreen',
+      },
+      '& .MuiInput-underline:after': {
+        borderBottomColor: 'green',
+      },
+      '& .MuiOutlinedInput-root': {
+        '& fieldset': {
+          borderColor: '#F50057',
+        },
+        '&:hover fieldset': {
+          borderColor: 'yellow',
+        },
+        '&.Mui-focused fieldset': {
+          borderColor: 'green',
+        },
+      },
+    },
+  })(TextField);
+
 
 export default function ({pegarInput}) {
 
     const classes = useStyles()
 
     return (
-        <TextField
-            InputProps={{
-                className: classes.input
-            }}
+        <CssTextField
             InputLabelProps={{
                 className: classes.input
             }}
@@ -36,6 +57,15 @@ export default function ({pegarInput}) {
             placeholder="Split the numbers by ; e.g(4;4.69;7.77;5)"
             onChange={pegarInput}
             color='secondary'
+            variant='outlined'
+            InputProps={{
+                className: classes.input,
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon />
+                  </InputAdornment>
+                ),
+              }}
         />
     )
 

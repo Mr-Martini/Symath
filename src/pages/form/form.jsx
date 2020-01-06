@@ -9,7 +9,7 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { withRouter } from 'react-router-dom'
 import { Link } from 'react-router-dom'
@@ -26,6 +26,7 @@ function Copyright() {
     </Typography>
   );
 }
+
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -50,7 +51,30 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+const CssTextField = withStyles({
+  root: {
+    '& label.Mui-focused': {
+      color: 'green',
+    },
+    '& .MuiInput-underline:after': {
+      borderBottomColor: 'green',
+    },
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+        borderColor: '#F50057',
+      },
+      '&:hover fieldset': {
+        borderColor: 'yellow',
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: 'green',
+      },
+    },
+  },
+})(TextField);
+
 const Form = ({ match }) => {
+
   const classes = useStyles();
 
   return (
@@ -65,8 +89,11 @@ const Form = ({ match }) => {
         </Typography>
         <form className={classes.form} noValidate>
           {match.path === '/register' ?
-            <TextField
+            <CssTextField
               InputLabelProps={{
+                className: classes.input
+              }}
+              inputProps={{
                 className: classes.input
               }}
               variant="outlined"
@@ -82,8 +109,11 @@ const Form = ({ match }) => {
             />
             : null
           }
-          <TextField
+          <CssTextField
             InputLabelProps={{
+              className: classes.input
+            }}
+            inputProps={{
               className: classes.input
             }}
             variant="outlined"
@@ -97,8 +127,11 @@ const Form = ({ match }) => {
             autoFocus
             color='secondary'
           />
-          <TextField
+          <CssTextField
             InputLabelProps={{
+              className: classes.input
+            }}
+            inputProps={{
               className: classes.input
             }}
             variant="outlined"
@@ -115,7 +148,7 @@ const Form = ({ match }) => {
           <FormControlLabel
             control={<Checkbox value="remember" color='secondary' />}
             label="Remember me"
-            
+
           />
           <Button
             type="submit"
