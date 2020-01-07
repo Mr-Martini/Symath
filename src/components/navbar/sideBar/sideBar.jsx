@@ -55,7 +55,7 @@ export default function TemporaryDrawer() {
         >
             <List>
                 {['About', 'Plot'].map((text, index) => (
-                <ListItem button component={Link} to={`/${text}`} >
+                <ListItem key={index} button component={Link} to={`/${text}`} >
                     <ListItemIcon>
                         {index === 0 ? <InfoIcon color='secondary' /> : <GraphIcon color='secondary'/>}
                     </ListItemIcon>
