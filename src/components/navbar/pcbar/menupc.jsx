@@ -7,7 +7,7 @@ const useStyles = makeStyles(theme => ({
     divPc: {
         display: 'none',
         [theme.breakpoints.up('md')]: {
-            display: 'flex'
+            display: 'flex',
         }
     }
 }))

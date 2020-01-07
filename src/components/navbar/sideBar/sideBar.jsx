@@ -13,7 +13,8 @@ import GraphIcon from '@material-ui/icons/InsertChart'
 const useStyles = makeStyles(theme => ({
     list: {
         width: 250,
-        backgroundColor: '#C0C0C0'
+        backgroundColor: '#202124',
+        color: 'white'
     },
     fullList: {
         width: 'auto',
@@ -54,14 +55,14 @@ export default function TemporaryDrawer() {
             <List>
                 <ListItem button >
                     <ListItemIcon>
-                        <InfoIcon />
+                        <InfoIcon color='secondary'/>
                     </ListItemIcon>
                     <ListItemText primary='About' />
                 </ListItem>
 
                 <ListItem button >
                     <ListItemIcon>
-                        <GraphIcon />
+                        <GraphIcon color='secondary' />
                     </ListItemIcon>
                     <ListItemText primary='Plot' />
                 </ListItem>

@@ -10,9 +10,13 @@ const useStyles = makeStyles(theme => ({
         display: 'none',
         cursor: 'pointer',
         [theme.breakpoints.down('md')]: {
-            display: 'flex'
+            display: 'flex',
         }
-    }
+    },
+    menu: {
+        backgroundColor: '#4d4d4d',
+        color: 'white'
+    },
 }))
 
 export default function () {
@@ -37,6 +41,9 @@ export default function () {
                 keepMounted
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
+                PaperProps={{
+                    className: classes.menu
+                }}
             >
                 <MenuItem component={Link} to='/login' onClick={handleClose}>Login</MenuItem>
                 <MenuItem component={Link} to='/register' onClick={handleClose}>Register</MenuItem>
