@@ -1,6 +1,6 @@
 import './App.css';
 import React from 'react'
-import NavBar from './components/navbar/pcBar/pcbar'
+import NavBar from './components/navbar/pcbar/pcbar.jsx'
 import Form from '../src/pages/form/form'
 import HomePage from '../src/pages/home/home'
 import { Route, BrowserRouter as Router } from 'react-router-dom'
