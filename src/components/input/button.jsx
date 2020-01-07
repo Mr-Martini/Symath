@@ -6,11 +6,11 @@ const useStyles = makeStyles(theme => ({
 
 }))
 
-export default function ({ color, variant, children }) {
+export default function ({ color, variant, children, onClick}) {
 
     const classes = useStyles()
 
     return (
-        <Button className={classes.button} color={color} variant={variant}>{children}</Button>
+        <Button className={classes.button} onClick={onClick} color={color} variant={variant}>{children}</Button>
     )
 }

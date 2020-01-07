@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import InputField from '../../components/input/InputFied'
 import React, { useState } from 'react'
 import Button from '../../components/input/button'
+import InfoCard from '../../components/infoCard/infoCard'
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -23,13 +24,64 @@ const useStyles = makeStyles(theme => ({
 
 export default function () {
 
-    const [pureInput, setPureInput] = useState()
-
     const classes = useStyles()
+
+    const [dados, setDados] = useState()
+    const [media, setMedia] = useState()
+    const [somatorio, setSomatorio] = useState()
+    const [desvioPadraoP, setDesvioPadraoP] = useState()
+    const [desvioPadraoA, setDesvioPadraoA] = useState()
+    const [start, setStart] = useState()
+
+    let separado = []
+    let get = []
+    let almostThere = []
 
     const pegarInput = e => {
         e.preventDefault()
-        setPureInput(e.target.value)
+        setDados(e.target.value)
+    }
+
+    const startOp = () => {
+        setStart(!start)
+
+        if (dados) {
+            get = dados.split(';')
+            for (let x = 0; x < get.length; ++x) {
+                if (get[x] !== '') {
+                    almostThere.push(get[x])
+                }
+            }
+            separado = almostThere.map(item => {
+                return parseFloat(item, 10)
+            })
+
+        }
+
+        if (separado) {
+            let x = 0
+            let localsoma = 0
+            for (x = 0; x < separado.length; ++x) {
+                localsoma = localsoma + separado[x]
+            }
+            setSomatorio(localsoma)
+            setMedia(localsoma / x)
+        }
+
+        let localsoma = 0
+        let x = 0
+        for (x = 0; x < separado.length; ++x) {
+            localsoma = localsoma + separado[x]
+        }
+        let localmedia = localsoma / x
+        let difquad = 0
+        let dif = 0
+        for (x = 0; x < separado.length; ++x) {
+            dif = separado[x] - localmedia
+            difquad = Math.pow(dif, 2) + difquad
+        }
+        setDesvioPadraoP(Math.sqrt(difquad / x))
+        setDesvioPadraoA(Math.sqrt(difquad / (x - 1)))
     }
 
 
@@ -51,9 +103,20 @@ export default function () {
                     placeholder='Split the numbers by ; e.g(4;4.69;7.77;5)'
                     icone='search'
                 />
-                {pureInput ?
-                    <Button color='secondary' variant='contained' >Calculate</Button>
+                {dados ?
+                    <Button color='secondary' onClick={startOp} variant='contained' >Calculate</Button>
                     : null}
+                {start ?
+                    ['Sum & average', 'S Stardand Deviation & P Stard. Dev.'].map((text, index) => (
+                        <InfoCard 
+                        key={index} 
+                        type={text} 
+                        first={index === 0 ? 'Av: '+media : 'S: '+desvioPadraoA}
+                        second={index === 0 ? 'Sum: '+somatorio : 'P: '+desvioPadraoP}
+                        ></InfoCard>
+                    ))
+                    : null
+                }
             </Paper>
         </Container>
     )
