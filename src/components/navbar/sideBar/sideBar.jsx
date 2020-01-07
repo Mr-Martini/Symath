@@ -9,6 +9,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import InfoIcon from '@material-ui/icons/Info'
 import GraphIcon from '@material-ui/icons/InsertChart'
+import { Link } from 'react-router-dom'
 
 const useStyles = makeStyles(theme => ({
     list: {
@@ -53,7 +54,7 @@ export default function TemporaryDrawer() {
             onKeyDown={toggleDrawer(side, false)}
         >
             <List>
-                <ListItem button >
+                <ListItem button component={Link} to='/about' >
                     <ListItemIcon>
                         <InfoIcon color='secondary'/>
                     </ListItemIcon>

@@ -67,6 +67,7 @@ export default function () {
             })
 
         }
+        
 
         if (separado) {
             let x = 0
@@ -121,7 +122,7 @@ export default function () {
                     <Button color='secondary' onClick={startOp} variant='contained' >{start ? 'Hide' : 'Calculate'}</Button>
                     : null}
                 <div className={classes.cards}>
-                {start ?
+                {start && dados ?
                     ['Sum & average', 'S Stardand Deviation & P Stard. Dev.'].map((text, index) => (
                         <InfoCard
                             key={index}
