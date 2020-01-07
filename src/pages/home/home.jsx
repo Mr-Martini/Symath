@@ -31,12 +31,13 @@ export default function () {
 
     const classes = useStyles()
 
+    const [previousData, setPreviousData] = useState()
     const [dados, setDados] = useState()
     const [media, setMedia] = useState()
     const [somatorio, setSomatorio] = useState()
     const [desvioPadraoP, setDesvioPadraoP] = useState()
     const [desvioPadraoA, setDesvioPadraoA] = useState()
-    const [start, setStart] = useState()
+    const [start, setStart] = useState(false)
 
     let separado = []
     let get = []
@@ -48,7 +49,11 @@ export default function () {
     }
 
     const startOp = () => {
+
         setStart(!start)
+
+        if (previousData === dados) return
+        if (start) return
 
         if (dados) {
             get = dados.split(';')
@@ -87,6 +92,10 @@ export default function () {
         }
         setDesvioPadraoP(Math.sqrt(difquad / x))
         setDesvioPadraoA(Math.sqrt(difquad / (x - 1)))
+
+        setPreviousData(dados)
+        console.log('calculated')
+
     }
 
 
