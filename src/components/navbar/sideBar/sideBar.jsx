@@ -54,19 +54,14 @@ export default function TemporaryDrawer() {
             onKeyDown={toggleDrawer(side, false)}
         >
             <List>
-                <ListItem button component={Link} to='/about' >
+                {['About', 'Plot'].map((text, index) => (
+                <ListItem button component={Link} to={`/${text}`} >
                     <ListItemIcon>
-                        <InfoIcon color='secondary'/>
+                        {index === 0 ? <InfoIcon color='secondary' /> : <GraphIcon color='secondary'/>}
                     </ListItemIcon>
-                    <ListItemText primary='About' />
+                    <ListItemText primary={text} />
                 </ListItem>
-
-                <ListItem button >
-                    <ListItemIcon>
-                        <GraphIcon color='secondary' />
-                    </ListItemIcon>
-                    <ListItemText primary='Plot' />
-                </ListItem>
+                ))}
             </List>
         </div>
     );
