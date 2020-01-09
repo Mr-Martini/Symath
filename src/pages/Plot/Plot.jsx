@@ -68,7 +68,7 @@ export default function () {
                     type='search'
                     margin='normal'
                     placeholder='Split the numbers by ; e.g(4;4.69;7.77;5)'
-                    icone='search'
+                    icone='graph'
                 />
                 <InputField
                     pegarInput={pegarYaxis}
@@ -77,7 +77,7 @@ export default function () {
                     type='search'
                     margin='normal'
                     placeholder='Split the numbers by ; e.g(4;4.69;7.77;5)'
-                    icone='search'
+                    icone='graph'
                 />
                 { dadosX && dadosY ?
                     <Button

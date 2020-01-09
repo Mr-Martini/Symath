@@ -3,6 +3,7 @@ import { makeStyles, withStyles } from '@material-ui/core/styles';
 import {TextField} from '@material-ui/core'
 import InputAdornment from '@material-ui/core/InputAdornment';
 import SearchIcon from '@material-ui/icons/Search'
+import DonutSmall from '@material-ui/icons/DonutSmall'
 
 const useStyles = makeStyles(theme => ({
     textField: {
@@ -63,7 +64,7 @@ export default function ({ pegarInput, id, label, type, margin, placeholder, ico
                 startAdornment: (
                   <InputAdornment position="start">
                     { icone === 'search' ?
-                    <SearchIcon /> : null
+                    <SearchIcon /> : <DonutSmall />
                     }
                   </InputAdornment>
                 ),
