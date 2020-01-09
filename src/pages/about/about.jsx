@@ -16,10 +16,10 @@ const useStyles = makeStyles(theme => ({
     large: {
         width: theme.spacing(10),
         height: theme.spacing(10),
-      },
-      text: {
-          margin: theme.spacing(2),
-      },
+    },
+    text: {
+        margin: theme.spacing(2),
+    },
 }))
 
 export default function () {

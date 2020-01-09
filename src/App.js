@@ -4,6 +4,7 @@ import NavBar from './components/navbar/pcbar/pcbar.jsx'
 import Form from '../src/pages/form/form'
 import HomePage from '../src/pages/home/home'
 import About from '../src/pages/about/about'
+import Plot from '../src/pages/Plot/Plot'
 import { Route, BrowserRouter as Router } from 'react-router-dom'
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
         <Route exact path='/login' component={Form}></Route>
         <Route exact path='/register' component={Form}></Route>
         <Route exact path='/About' component={About}></Route>
+        <Route exact path='/Plot' component={Plot}></Route>
     </Router>
   );
 }
