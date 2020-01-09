@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import Button from '../../input/button'
+import { Typography } from '@material-ui/core'
 import List from '@material-ui/core/List';
 import InputField from '../../input/InputFied'
 import Tooltip from '@material-ui/core/Tooltip';
@@ -48,6 +49,7 @@ export default function TemporaryDrawer({ pegarInputX, pegarInputY, setOptions, 
         >
             <List className={classes.list}>
                 <div>
+                    <Typography color='secondary' variant='h6'>Customization</Typography>
                     <InputField
                         pegarInput={pegarInputX}
                         id='standard-search'
