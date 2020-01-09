@@ -193,6 +193,7 @@ export default function () {
                             Ytitle={allowChangeAxisName ? YaxisName: 'Y Axis'}
                             lineColor={lineColor}
                             circleColor={circleColor}
+                            typeOfData='linearRegression'
                         />
                     </Paper>
                     : null
