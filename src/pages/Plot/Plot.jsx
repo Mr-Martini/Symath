@@ -1,10 +1,10 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Container, Typography } from '@material-ui/core'
 import React, { useState } from 'react'
-import { XYPlot, LineMarkSeries, VerticalGridLines, HorizontalGridLines, XAxis, YAxis } from 'react-vis'
 import InputField from '../../components/input/InputFied'
 import Button from '../../components/input/button'
 import BottomBar from '../../components/navbar/BottomBar/BottomBar'
+import PlotComponent from '../../components/Graphs/PlotComponent/PlotComponent'
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -185,27 +185,15 @@ export default function () {
                 }
                 {showData ?
                     <Paper className={classes.graph} elevation={12}>
-                        <XYPlot height={297} width={420} stroke='red'>
-                            <VerticalGridLines style={{ stroke: '#B7E9ED' }} />
-                            <HorizontalGridLines style={{ stroke: '#B7E9ED' }} />
-                            <XAxis title={allowChangeAxisName ? XaxisName : 'X Axis'}
-                                style={{
-                                    line: { stroke: '#ADDDE1' },
-                                    ticks: { stroke: '#ADDDE1' },
-                                    text: { stroke: 'none', fill: '#6b6b76', fontWeight: 600 },
-                                }}
-                            />
-                            <YAxis title={allowChangeAxisName ? YaxisName : 'Y Axis'} />
-                            <LineMarkSeries
-                                style={{
-                                    strokeWidth: '3px',
-                                    color: 'white'
-                                }}
-                                lineStyle={{ stroke: lineColor }}
-                                markStyle={{ stroke: circleColor }}
-                                data={data}
-                            />
-                        </XYPlot>
+                        <PlotComponent
+                            data={data}
+                            width={420}
+                            height={297}
+                            Xtitle={allowChangeAxisName ? XaxisName : 'X Axis'}
+                            Ytitle={allowChangeAxisName ? YaxisName: 'Y Axis'}
+                            lineColor={lineColor}
+                            circleColor={circleColor}
+                        />
                     </Paper>
                     : null
                 }
