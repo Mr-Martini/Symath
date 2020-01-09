@@ -18,10 +18,16 @@ const useStyles = makeStyles(theme => ({
     text: {
         margin: theme.spacing(2),
     },
+    graph: {
+        marginTop: theme.spacing(3),
+        marginBottom: theme.spacing(3),
+    }
 }))
 
 export default function () {
 
+    const [previousDataX, setPreviousDataX] = useState()
+    const [previousDataY, setPreviousDataY] = useState()
     const [start, setStart] = useState(false)
     const [dadosX, setDadosX] = useState()
     const [dadosY, setDadosY] = useState()
@@ -50,8 +56,53 @@ export default function () {
         setDadosY(e.target.value)
     }
 
-    const startOp = () => {
+    let separadoY = []
+    let getY = []
+    let almostThereY = []
+    let separadoX = []
+    let getX = []
+    let almostThereX = []
+    let unified = []
 
+    const startOp = () => {
+        setStart(!start)
+        setShowData(!showData)
+
+        if (previousDataX === dadosX && previousDataY === dadosY) return
+        if (start) return
+
+        if (dadosX) {
+            getX = dadosX.split(';')
+            for (let x = 0; x < getX.length; ++x) {
+                if (getX[x] !== '') {
+                    almostThereX.push(getX[x])
+                }
+            }
+            separadoX = almostThereX.map(item => {
+                return parseFloat(item, 10)
+            })
+
+        }
+
+        if (dadosY) {
+            getY = dadosY.split(';')
+            for (let x = 0; x < getY.length; ++x) {
+                if (getY[x] !== '') {
+                    almostThereY.push(getY[x])
+                }
+            }
+            separadoY = almostThereY.map(item => {
+                return parseFloat(item, 10)
+            })
+
+        }
+        setPreviousDataX(dadosX)
+        setPreviousDataY(dadosY)
+
+        for (let x = 0; x < separadoX.length; ++x) {
+            unified.push({ x: separadoX[x], y: separadoY[x]})
+        }
+        setData(unified)
     }
 
     const classes = useStyles()
@@ -79,7 +130,7 @@ export default function () {
                     placeholder='Split the numbers by ; e.g(4;4.69;7.77;5)'
                     icone='graph'
                 />
-                { dadosX && dadosY ?
+                {dadosX && dadosY ?
                     <Button
                         color='secondary'
                         onClick={startOp}
@@ -89,7 +140,7 @@ export default function () {
                     : null
                 }
                 {showData ?
-                    <Paper elevation={12}>
+                    <Paper className={classes.graph} elevation={12}>
                         <XYPlot height={300} width={400} stroke='red'>
                             <VerticalGridLines style={{ stroke: '#B7E9ED' }} />
                             <HorizontalGridLines style={{ stroke: '#B7E9ED' }} />
