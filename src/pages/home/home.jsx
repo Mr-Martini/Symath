@@ -22,7 +22,6 @@ const useStyles = makeStyles(theme => ({
     cards: {
         display: 'flex',
         flexWrap: 'wrap',
-
     }
 }))
 
@@ -67,7 +66,7 @@ export default function () {
             })
 
         }
-        
+
 
         if (separado) {
             let x = 0
@@ -119,21 +118,27 @@ export default function () {
                     icone='search'
                 />
                 {dados ?
-                    <Button color='secondary' onClick={startOp} variant='contained' >{start ? 'Hide' : 'Calculate'}</Button>
-                    : null}
-                <div className={classes.cards}>
-                {start && dados ?
-                    ['Sum & average', 'S Stardand Deviation & P Stard. Dev.'].map((text, index) => (
-                        <InfoCard
-                            key={index}
-                            type={text}
-                            first={index === 0 ? 'Av: ' + media : 'S: ' + desvioPadraoA}
-                            second={index === 0 ? 'Sum: ' + somatorio : 'P: ' + desvioPadraoP}
-                        ></InfoCard>
-                        
-                    ))
-                    : null
+                    <Button
+                        color='secondary'
+                        onClick={startOp}
+                        variant='contained'>
+                        {start ? 'Hide' : 'Calculate'}
+                    </Button>
+                    :   null
                 }
+                <div className={classes.cards}>
+                    {start && dados ?
+                        ['Sum & average', 'S Stardand Deviation & P Stard. Dev.'].map((text, index) => (
+                            <InfoCard
+                                key={index}
+                                type={text}
+                                first={index === 0 ? 'Av: ' + media : 'S: ' + desvioPadraoA}
+                                second={index === 0 ? 'Sum: ' + somatorio : 'P: ' + desvioPadraoP}
+                            ></InfoCard>
+
+                        ))
+                        : null
+                    }
                 </div>
             </Paper>
         </Container>
