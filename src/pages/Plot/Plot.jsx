@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { XYPlot, LineMarkSeries, VerticalGridLines, HorizontalGridLines, XAxis, YAxis } from 'react-vis'
 import InputField from '../../components/input/InputFied'
 import Button from '../../components/input/button'
+import BottomBar from '../../components/navbar/BottomBar/BottomBar'
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -21,11 +22,18 @@ const useStyles = makeStyles(theme => ({
     graph: {
         marginTop: theme.spacing(3),
         marginBottom: theme.spacing(3),
+    },
+    options: {
+        display: 'flex',
+        justifyContent: 'center',
     }
 }))
 
 export default function () {
 
+    const [allowChangeAxisName, setallowChangeAxisName] = useState(false)
+    const [XaxisName, setXaxisName] = useState()
+    const [YaxisName, setYaxisName] = useState()
     const [previousDataX, setPreviousDataX] = useState()
     const [previousDataY, setPreviousDataY] = useState()
     const [start, setStart] = useState(false)
@@ -105,6 +113,18 @@ export default function () {
         setData(unified)
     }
 
+    const handleXaxisName = (e) => {
+        setXaxisName(e.target.value)
+    }
+
+    const handleYaxisName = (e) => {
+        setYaxisName(e.target.value)
+    }
+
+    const setOptions = () => {
+        setallowChangeAxisName(!allowChangeAxisName)
+    }
+
     const classes = useStyles()
 
     return (
@@ -131,12 +151,19 @@ export default function () {
                     icone='graph'
                 />
                 {dadosX && dadosY ?
-                    <Button
-                        color='secondary'
-                        onClick={startOp}
-                        variant='contained'>
-                        {start ? 'Hide' : 'Plot Graph'}
-                    </Button>
+                    <div className={classes.options}>
+                        <Button
+                            color='secondary'
+                            onClick={startOp}
+                            variant='contained'>
+                            {start ? 'Hide' : 'Plot Graph'}
+                        </Button>
+                        <BottomBar
+                            pegarInputX={handleXaxisName}
+                            pegarInputY={handleYaxisName}
+                            setOptions={setOptions} 
+                        />
+                    </div>
                     : null
                 }
                 {showData ?
@@ -144,14 +171,14 @@ export default function () {
                         <XYPlot height={297} width={420} stroke='red'>
                             <VerticalGridLines style={{ stroke: '#B7E9ED' }} />
                             <HorizontalGridLines style={{ stroke: '#B7E9ED' }} />
-                            <XAxis title='X Axis'
+                            <XAxis title={allowChangeAxisName ? XaxisName : 'X Axis'}
                                 style={{
                                     line: { stroke: '#ADDDE1' },
                                     ticks: { stroke: '#ADDDE1' },
                                     text: { stroke: 'none', fill: '#6b6b76', fontWeight: 600 },
                                 }}
                             />
-                            <YAxis title='Y Axis' />
+                            <YAxis title={allowChangeAxisName ? YaxisName : 'Y Axis'} />
                             <LineMarkSeries
                                 style={{
                                     strokeWidth: '3px',
