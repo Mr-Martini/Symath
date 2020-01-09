@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Container, Typography } from '@material-ui/core'
 import React, { useState } from 'react'
-import { XYPlot, LineSeries, VerticalGridLines, HorizontalGridLines, XAxis, YAxis, MarkSeries } from 'react-vis'
+import { XYPlot, LineMarkSeries, VerticalGridLines, HorizontalGridLines, XAxis, YAxis } from 'react-vis'
 import InputField from '../../components/input/InputFied'
 import Button from '../../components/input/button'
 
@@ -100,7 +100,7 @@ export default function () {
         setPreviousDataY(dadosY)
 
         for (let x = 0; x < separadoX.length; ++x) {
-            unified.push({ x: separadoX[x], y: separadoY[x]})
+            unified.push({ x: separadoX[x], y: separadoY[x] })
         }
         setData(unified)
     }
@@ -141,7 +141,7 @@ export default function () {
                 }
                 {showData ?
                     <Paper className={classes.graph} elevation={12}>
-                        <XYPlot height={300} width={400} stroke='red'>
+                        <XYPlot height={297} width={420} stroke='red'>
                             <VerticalGridLines style={{ stroke: '#B7E9ED' }} />
                             <HorizontalGridLines style={{ stroke: '#B7E9ED' }} />
                             <XAxis title='X Axis'
@@ -152,11 +152,15 @@ export default function () {
                                 }}
                             />
                             <YAxis title='Y Axis' />
-                            <LineSeries data={data} />
-                            <MarkSeries
-                                className="mark-series-example"
-
-                                data={data} />
+                            <LineMarkSeries
+                                style={{
+                                    strokeWidth: '3px',
+                                    color: 'white'
+                                }}
+                                lineStyle={{ stroke: 'red' }}
+                                markStyle={{ stroke: 'blue' }}
+                                data={data}
+                            />
                         </XYPlot>
                     </Paper>
                     : null
