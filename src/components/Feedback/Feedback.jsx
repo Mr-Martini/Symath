@@ -18,6 +18,7 @@ const useStyles = makeStyles(theme => ({
         left: '1em',
         bottom: '1em',
         cursor: 'pointer',
+        minWidth: '100px'
     },
 }));
 
@@ -34,7 +35,7 @@ const CustomizedSnackbars = ({ match }) => {
         <>
             {isAlertNotClosed ?
                 <div onClick={handleClose} className={classes.root}>
-                    <Alert color="info">You are at '{match.url.split('/').join('')}'</Alert>
+                    <Alert color='error'>You are at '{match.url.split('/').join('')}'</Alert>
                 </div>
                 : null
             }

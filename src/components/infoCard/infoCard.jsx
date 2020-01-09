@@ -28,14 +28,16 @@ const useStyles = makeStyles(theme => ({
     },
     title: {
         fontSize: 16,
-        color: 'white',
     },
     pos: {
         marginBottom: 12,
-        color: 'white'
+        color: 'white',
     },
     icon: {
-        cursor: 'pointer'
+        cursor: 'pointer',
+    },
+    second: {
+        color: 'white'
     }
 }));
 
@@ -45,18 +47,18 @@ export default function SimpleCard({ type, first, second }) {
     return (
         <Card className={classes.card} elevation={12}>
             <CardContent>
-                <Typography className={classes.title} color="primary" gutterBottom>
+                <Typography className={classes.title} color="secondary" gutterBottom>
                     {type}
                 </Typography>
                 <Typography className={classes.pos} color="inherit">
                     {first}
                 </Typography>
-                <Typography color='primary' className={classes.title} gutterBottom>
+                <Typography className={classes.second}>
                     {second}
                 </Typography>
             </CardContent>
             <CardActions>
-                <UploadIcon className={classes.icon} color='primary' fontSize='large' />
+                <UploadIcon className={classes.icon} color='secondary' fontSize='large' />
             </CardActions>
         </Card>
     );
