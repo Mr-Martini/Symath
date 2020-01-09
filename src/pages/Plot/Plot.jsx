@@ -31,6 +31,8 @@ const useStyles = makeStyles(theme => ({
 
 export default function () {
 
+    const [circleColor, setCircleColor] = useState('#ADDDE1')
+    const [lineColor, setLineColor] = useState('#ADDDE1')
     const [press, setPress] = useState(false)
     const [allowChangeAxisName, setallowChangeAxisName] = useState(false)
     const [XaxisName, setXaxisName] = useState()
@@ -130,6 +132,14 @@ export default function () {
         setPress(!press)
     }
 
+    const takeLineColor = e => {
+        setLineColor(e.target.value)
+    }
+
+    const takeCircleColor = e => {
+        setCircleColor(e.target.value)
+    }
+
     const classes = useStyles()
 
     return (
@@ -167,6 +177,8 @@ export default function () {
                             pegarInputX={handleXaxisName}
                             pegarInputY={handleYaxisName}
                             setOptions={setOptions}
+                            takeLineColor={takeLineColor}
+                            takeCircleColor={takeCircleColor}
                         />
                     </div>
                     : null
@@ -189,8 +201,8 @@ export default function () {
                                     strokeWidth: '3px',
                                     color: 'white'
                                 }}
-                                lineStyle={{ stroke: 'red' }}
-                                markStyle={{ stroke: 'blue' }}
+                                lineStyle={{ stroke: lineColor }}
+                                markStyle={{ stroke: circleColor }}
                                 data={data}
                             />
                         </XYPlot>
@@ -198,7 +210,7 @@ export default function () {
                     : null
                 }
                 {showData ?
-                    <Button color='secondary' onClick={setImpress} variant='contained'>Print</Button>
+                    <Button size='large' color='secondary' onClick={setImpress} variant='contained'>Print</Button>
                     : null
                 }
             </Paper>

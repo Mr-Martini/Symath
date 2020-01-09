@@ -4,12 +4,16 @@ import Drawer from '@material-ui/core/Drawer';
 import Button from '../../input/button'
 import List from '@material-ui/core/List';
 import InputField from '../../input/InputFied'
+import Tooltip from '@material-ui/core/Tooltip';
+import AddIcon from '@material-ui/icons/Add';
+import Fab from '@material-ui/core/Fab';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
     list: {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+        alignContent: 'center'
 
     },
     fullList: {
@@ -17,10 +21,13 @@ const useStyles = makeStyles({
     },
     drawer: {
         background: '#202124'
-    }
-});
+    },
+    fab: {
+        margin: theme.spacing(2),
+    },
+}));
 
-export default function TemporaryDrawer({ pegarInputX, pegarInputY, setOptions }) {
+export default function TemporaryDrawer({ pegarInputX, pegarInputY, setOptions, takeLineColor, takeCircleColor }) {
     const classes = useStyles();
     const [state, setState] = React.useState({
         bottom: false,
@@ -59,8 +66,30 @@ export default function TemporaryDrawer({ pegarInputX, pegarInputY, setOptions }
                         placeholder="Y axis's name"
                         icone='graph'
                     />
+                    <InputField
+                        pegarInput={takeLineColor}
+                        id='standard-search'
+                        label='Line Color'
+                        type='search'
+                        margin='normal'
+                        placeholder="Insert the line color"
+                        icone='graph'
+                    />
+                    <InputField
+                        pegarInput={takeCircleColor}
+                        id='standard-search'
+                        label='Circle Color'
+                        type='search'
+                        margin='normal'
+                        placeholder="Insert the circle color"
+                        icone='graph'
+                    />
                 </div>
-                <Button color='secondary' onClick={setOptions} variant='contained'>OK</Button>
+                <Tooltip onClick={setOptions} title="Add" aria-label="add">
+                    <Fab color="secondary" className={classes.fab}>
+                        <AddIcon />
+                    </Fab>
+                </Tooltip>
             </List>
         </div>
     );
