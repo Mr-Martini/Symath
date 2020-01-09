@@ -5,6 +5,7 @@ import InputField from '../../components/input/InputFied'
 import Button from '../../components/input/button'
 import BottomBar from '../../components/navbar/BottomBar/BottomBar'
 import PlotComponent from '../../components/Graphs/PlotComponent/PlotComponent'
+import regression from 'regression'
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -31,6 +32,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function () {
 
+    const [dataLinear, setDataLinear] = useState([])
     const [circleColor, setCircleColor] = useState('#ADDDE1')
     const [lineColor, setLineColor] = useState('#ADDDE1')
     const [press, setPress] = useState(false)
@@ -74,6 +76,8 @@ export default function () {
     let getX = []
     let almostThereX = []
     let unified = []
+    let getVector = []
+    let getDataLinear = []
 
     const startOp = () => {
         setStart(!start)
@@ -114,6 +118,18 @@ export default function () {
             unified.push({ x: separadoX[x], y: separadoY[x] })
         }
         setData(unified)
+
+        for (let i = 0; i < data.length; ++i) {
+            getVector.push([data[i].x, data[i].y])
+        }
+    
+        const linearPoints = regression.linear(getVector)
+    
+        for (let i = 0; i < linearPoints.points.length; ++i) {
+            getDataLinear.push({ x: linearPoints.points[i][0], y: linearPoints.points[i][1] })
+        }
+        setDataLinear(getDataLinear)
+
     }
 
     const handleXaxisName = (e) => {
@@ -194,6 +210,7 @@ export default function () {
                             lineColor={lineColor}
                             circleColor={circleColor}
                             typeOfData='linearRegression'
+                            dataLinear={dataLinear}
                         />
                     </Paper>
                     : null

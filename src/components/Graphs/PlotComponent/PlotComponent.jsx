@@ -1,21 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { XYPlot, LineMarkSeries, VerticalGridLines, HorizontalGridLines, XAxis, YAxis } from 'react-vis'
-import regression from 'regression'
 
-export default function ({ height, width, Xtitle, Ytitle, lineColor, circleColor, data, typeOfData }) {
-
-    let getVector = []
-    let dataLinear = []
-
-    for (let i = 0; i < data.length; ++i) {
-        getVector.push([data[i].x, data[i].y])
-    }
-
-    const linearPoints = regression.linear(getVector)
-
-    for (let i = 0; i < linearPoints.points.length; ++i) {
-        dataLinear.push({ x: linearPoints.points[i][0], y: linearPoints.points[i][1] })
-    }
+export default function ({ height, width, Xtitle, Ytitle, lineColor, circleColor, data, dataLinear , typeOfData, numberOfGraphs }) {
 
     return (
         <XYPlot height={height} width={width} stroke='red'>
