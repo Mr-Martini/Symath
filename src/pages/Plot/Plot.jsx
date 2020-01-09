@@ -31,6 +31,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function () {
 
+    const [press, setPress] = useState(false)
     const [allowChangeAxisName, setallowChangeAxisName] = useState(false)
     const [XaxisName, setXaxisName] = useState()
     const [YaxisName, setYaxisName] = useState()
@@ -125,6 +126,10 @@ export default function () {
         setallowChangeAxisName(!allowChangeAxisName)
     }
 
+    const setImpress = () => {
+        setPress(!press)
+    }
+
     const classes = useStyles()
 
     return (
@@ -161,7 +166,7 @@ export default function () {
                         <BottomBar
                             pegarInputX={handleXaxisName}
                             pegarInputY={handleYaxisName}
-                            setOptions={setOptions} 
+                            setOptions={setOptions}
                         />
                     </div>
                     : null
@@ -190,6 +195,10 @@ export default function () {
                             />
                         </XYPlot>
                     </Paper>
+                    : null
+                }
+                {showData ?
+                    <Button color='secondary' onClick={setImpress} variant='contained'>Print</Button>
                     : null
                 }
             </Paper>
