@@ -1,7 +1,7 @@
 import React from 'react'
 import { XYPlot, LineMarkSeries, VerticalGridLines, HorizontalGridLines, XAxis, YAxis } from 'react-vis'
 
-export default function ({ height, width, Xtitle, Ytitle, lineColor, circleColor, data, dataLinear , typeOfData, numberOfGraphs }) {
+export default function ({ height, width, Xtitle, Ytitle, lineColor, circleColor, data, typeOfData, numberOfGraphs }) {
 
     return (
         <XYPlot height={height} width={width} stroke='red'>

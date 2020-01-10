@@ -117,10 +117,9 @@ export default function () {
         for (let x = 0; x < separadoX.length; ++x) {
             unified.push({ x: separadoX[x], y: separadoY[x] })
         }
-        setData(unified)
 
-        for (let i = 0; i < data.length; ++i) {
-            getVector.push([data[i].x, data[i].y])
+        for (let i = 0; i < unified.length; ++i) {
+            getVector.push([unified[i].x, unified[i].y])
         }
     
         const linearPoints = regression.linear(getVector)
@@ -128,8 +127,8 @@ export default function () {
         for (let i = 0; i < linearPoints.points.length; ++i) {
             getDataLinear.push({ x: linearPoints.points[i][0], y: linearPoints.points[i][1] })
         }
+        setData(unified)
         setDataLinear(getDataLinear)
-
     }
 
     const handleXaxisName = (e) => {
@@ -202,7 +201,7 @@ export default function () {
                 {showData ?
                     <Paper className={classes.graph} elevation={12}>
                         <PlotComponent
-                            data={data}
+                            data={dataLinear}
                             width={420}
                             height={297}
                             Xtitle={allowChangeAxisName ? XaxisName : 'X Axis'}
@@ -210,7 +209,6 @@ export default function () {
                             lineColor={lineColor}
                             circleColor={circleColor}
                             typeOfData='linearRegression'
-                            dataLinear={dataLinear}
                         />
                     </Paper>
                     : null
