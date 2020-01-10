@@ -36,7 +36,6 @@ export default function () {
     const [circleColor, setCircleColor] = useState('#ADDDE1')
     const [lineColor, setLineColor] = useState('#ADDDE1')
     const [press, setPress] = useState(false)
-    const [allowChangeAxisName, setallowChangeAxisName] = useState(false)
     const [XaxisName, setXaxisName] = useState()
     const [YaxisName, setYaxisName] = useState()
     const [previousDataX, setPreviousDataX] = useState()
@@ -59,15 +58,13 @@ export default function () {
             { x: 9, y: 0 }
         ]
     )
-
-    const pegarXaxis = e => {
-        e.preventDefault()
-        setDadosX(e.target.value)
-    }
-    const pegarYaxis = e => {
-        e.preventDefault()
-        setDadosY(e.target.value)
-    }
+    const [toggleSwitch, setToggleSwitch] = useState({
+        A: false,
+        B: false,
+        C: false,
+        D: false,
+        E: false,
+    })
 
     let separadoY = []
     let getY = []
@@ -139,9 +136,7 @@ export default function () {
         setYaxisName(e.target.value)
     }
 
-    const setOptions = () => {
-        setallowChangeAxisName(!allowChangeAxisName)
-    }
+ 
 
     const setImpress = () => {
         setPress(!press)
@@ -154,6 +149,19 @@ export default function () {
     const takeCircleColor = e => {
         setCircleColor(e.target.value)
     }
+
+    const pegarXaxis = e => {
+        e.preventDefault()
+        setDadosX(e.target.value)
+    }
+    const pegarYaxis = e => {
+        e.preventDefault()
+        setDadosY(e.target.value)
+    }
+
+    const handleChange = name => event => {
+        setToggleSwitch({ ...toggleSwitch, [name]: event.target.checked });
+      };
 
     const classes = useStyles()
 
@@ -191,9 +199,10 @@ export default function () {
                         <BottomBar
                             pegarInputX={handleXaxisName}
                             pegarInputY={handleYaxisName}
-                            setOptions={setOptions}
                             takeLineColor={takeLineColor}
                             takeCircleColor={takeCircleColor}
+                            toggleSwitch={toggleSwitch}
+                            handleChange={handleChange}
                         />
                     </div>
                     : null
@@ -202,11 +211,11 @@ export default function () {
                     <Paper className={classes.graph} elevation={12}>
                         <PlotComponent
                             data={data}
-                            dataLinear={dataLinear}
+                            dataLinear={toggleSwitch.A ? dataLinear : null}
                             width={420}
                             height={297}
-                            Xtitle={allowChangeAxisName ? XaxisName : 'X Axis'}
-                            Ytitle={allowChangeAxisName ? YaxisName : 'Y Axis'}
+                            Xtitle={XaxisName ? XaxisName : 'X Axis'}
+                            Ytitle={YaxisName ? YaxisName : 'Y Axis'}
                             lineColor={lineColor}
                             circleColor={circleColor}
                             typeOfData='linearRegression'

@@ -5,9 +5,7 @@ import Button from '../../input/button'
 import { Typography } from '@material-ui/core'
 import List from '@material-ui/core/List';
 import InputField from '../../input/InputFied'
-import Tooltip from '@material-ui/core/Tooltip';
-import AddIcon from '@material-ui/icons/Add';
-import Fab from '@material-ui/core/Fab';
+import Switch from '../../Switch/Switch'
 
 const useStyles = makeStyles(theme => ({
     list: {
@@ -37,7 +35,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function TemporaryDrawer({ pegarInputX, pegarInputY, setOptions, takeLineColor, takeCircleColor }) {
+export default function TemporaryDrawer({ pegarInputX, pegarInputY, takeLineColor, takeCircleColor, toggleSwitch, handleChange }) {
     const classes = useStyles();
     const [state, setState] = React.useState({
         bottom: false,
@@ -97,13 +95,8 @@ export default function TemporaryDrawer({ pegarInputX, pegarInputY, setOptions, 
                     />
                 </div>
                 <div className={classes.switchs}>
-                    
+                    <Switch state={toggleSwitch} handleChange={handleChange}/>
                 </div>
-                <Tooltip onClick={setOptions} title="Add" aria-label="add">
-                    <Fab color="secondary" className={classes.absolute}>
-                        <AddIcon />
-                    </Fab>
-                </Tooltip>
             </List>
         </div>
     );
