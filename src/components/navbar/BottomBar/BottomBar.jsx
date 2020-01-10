@@ -12,10 +12,8 @@ import Fab from '@material-ui/core/Fab';
 const useStyles = makeStyles(theme => ({
     list: {
         display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        alignContent: 'center'
-
+        justifyContent: 'flex-start',
+        padding: '1em',
     },
     fullList: {
         width: 'auto',
@@ -23,8 +21,19 @@ const useStyles = makeStyles(theme => ({
     drawer: {
         background: '#202124'
     },
-    fab: {
-        margin: theme.spacing(2),
+    absolute: {
+        position: 'absolute',
+        bottom: theme.spacing(2),
+        right: theme.spacing(3),
+    },
+    inputs: {
+        width: '45%',
+    },
+    switchs: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'flex-start',
+        justifyContent: 'center',
     },
 }));
 
@@ -48,7 +57,7 @@ export default function TemporaryDrawer({ pegarInputX, pegarInputY, setOptions, 
             role="presentation"
         >
             <List className={classes.list}>
-                <div>
+                <div className={classes.inputs}>
                     <Typography color='secondary' variant='h6'>Customization</Typography>
                     <InputField
                         pegarInput={pegarInputX}
@@ -87,8 +96,11 @@ export default function TemporaryDrawer({ pegarInputX, pegarInputY, setOptions, 
                         icone='graph'
                     />
                 </div>
+                <div className={classes.switchs}>
+                    
+                </div>
                 <Tooltip onClick={setOptions} title="Add" aria-label="add">
-                    <Fab color="secondary" className={classes.fab}>
+                    <Fab color="secondary" className={classes.absolute}>
                         <AddIcon />
                     </Fab>
                 </Tooltip>
