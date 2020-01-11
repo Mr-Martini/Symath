@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
         left: '1em',
         bottom: '1em',
         cursor: 'pointer',
-        minWidth: '100px'
+        minWidth: '150px'
     },
 }));
 

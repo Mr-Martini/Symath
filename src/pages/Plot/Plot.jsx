@@ -35,7 +35,6 @@ export default function () {
     const [dataLinear, setDataLinear] = useState([])
     const [circleColor, setCircleColor] = useState('#ADDDE1')
     const [lineColor, setLineColor] = useState('#ADDDE1')
-    const [press, setPress] = useState(false)
     const [XaxisName, setXaxisName] = useState()
     const [YaxisName, setYaxisName] = useState()
     const [previousDataX, setPreviousDataX] = useState()
@@ -136,12 +135,6 @@ export default function () {
         setYaxisName(e.target.value)
     }
 
- 
-
-    const setImpress = () => {
-        setPress(!press)
-    }
-
     const takeLineColor = e => {
         setLineColor(e.target.value)
     }
@@ -212,19 +205,14 @@ export default function () {
                         <PlotComponent
                             data={data}
                             dataLinear={toggleSwitch.A ? dataLinear : null}
-                            width={420}
-                            height={297}
+                            width={800}
+                            height={600}
                             Xtitle={XaxisName ? XaxisName : 'X Axis'}
                             Ytitle={YaxisName ? YaxisName : 'Y Axis'}
                             lineColor={lineColor}
                             circleColor={circleColor}
-                            typeOfData='linearRegression'
                         />
                     </Paper>
-                    : null
-                }
-                {showData ?
-                    <Button size='large' color='secondary' onClick={setImpress} variant='contained'>Print</Button>
                     : null
                 }
             </Paper>
