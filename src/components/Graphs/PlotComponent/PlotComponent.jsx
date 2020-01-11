@@ -34,8 +34,8 @@ class PlotComponent extends React.Component {
 
         return (
             <XYPlot height={height} width={width} stroke='red'>
-                <VerticalGridLines style={{ stroke: '#B7E9ED' }} />
-                <HorizontalGridLines style={{ stroke: '#B7E9ED' }} />
+                <VerticalGridLines style={{ stroke: 'black' }} />
+                <HorizontalGridLines style={{ stroke: 'black' }} />
                 <XAxis title={Xtitle}
                     style={{
                         line: { stroke: '#ADDDE1' },
