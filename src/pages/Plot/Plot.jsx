@@ -66,6 +66,7 @@ export default function () {
     })
 
     const startOp = () => {
+
         setStart(!start)
         setShowData(!showData)
 
@@ -167,7 +168,7 @@ export default function () {
                     pegarInput={pegarXaxis}
                     id='standard-search'
                     label='X Axis'
-                    type='number'
+                    type='search'
                     margin='normal'
                     placeholder='Split the numbers by ; e.g(4;4.69;7.77;5)'
                     icone='graph'
@@ -176,7 +177,7 @@ export default function () {
                     pegarInput={pegarYaxis}
                     id='standard-search'
                     label='Y Axis'
-                    type='number'
+                    type='search'
                     margin='normal'
                     placeholder='Split the numbers by ; e.g(4;4.69;7.77;5)'
                     icone='graph'
