@@ -12,6 +12,7 @@ const useStyles = makeStyles(theme => ({
         marginBottom: theme.spacing(1),
         width: "60%",
         borderRadius: '0.4em',
+        minWidth: '130px'
     },
     input: {
       color: 'white'

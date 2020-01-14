@@ -65,22 +65,22 @@ export default function () {
         E: false,
     })
 
-    let separadoY = []
-    let getY = []
-    let almostThereY = []
-    let separadoX = []
-    let getX = []
-    let almostThereX = []
-    let unified = []
-    let getVector = []
-    let getDataLinear = []
-
     const startOp = () => {
         setStart(!start)
         setShowData(!showData)
 
         if (previousDataX === dadosX && previousDataY === dadosY) return
         if (start) return
+
+        let separadoY = []
+        let getY = []
+        let almostThereY = []
+        let separadoX = []
+        let getX = []
+        let almostThereX = []
+        let unified = []
+        let getVector = []
+        let getDataLinear = []
 
         if (dadosX) {
             getX = dadosX.split(';')
@@ -154,7 +154,7 @@ export default function () {
 
     const handleChange = name => event => {
         setToggleSwitch({ ...toggleSwitch, [name]: event.target.checked });
-      };
+    };
 
     const classes = useStyles()
 
@@ -167,7 +167,7 @@ export default function () {
                     pegarInput={pegarXaxis}
                     id='standard-search'
                     label='X Axis'
-                    type='search'
+                    type='number'
                     margin='normal'
                     placeholder='Split the numbers by ; e.g(4;4.69;7.77;5)'
                     icone='graph'
@@ -176,7 +176,7 @@ export default function () {
                     pegarInput={pegarYaxis}
                     id='standard-search'
                     label='Y Axis'
-                    type='search'
+                    type='number'
                     margin='normal'
                     placeholder='Split the numbers by ; e.g(4;4.69;7.77;5)'
                     icone='graph'
