@@ -53,13 +53,9 @@ const PlotToPrint = ({
     lineColor,
     circleColor,
     data,
-    dataLinear,
-    dataExponential,
-    dataLogarithmic,
-    dataPower,
-    dataPolynomial,
 }) => {
     const componentRef = useRef();
+
     return (
         <div>
             <ReactToPrint
@@ -71,7 +67,6 @@ const PlotToPrint = ({
             <PlotComponent
                 ref={componentRef}
                 data={data}
-                dataLinear={dataLinear}
                 width={width}
                 height={height}
                 Xtitle={Xtitle}
