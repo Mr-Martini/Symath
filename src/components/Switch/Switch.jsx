@@ -20,7 +20,7 @@ export default function SwitchLabels({ state, handleChange }) {
                 control={
                     <Switch checked={state.A} onChange={handleChange('A')} value="A" />
                 }
-                label="Linear Regression"
+                label="Data Plot"
                 classes={{
                     root: classes.root
                 }}
@@ -37,7 +37,7 @@ export default function SwitchLabels({ state, handleChange }) {
                 classes={{
                     root: classes.root
                 }}
-                label="Exponential Regression"
+                label="Linear Regression"
             />
         </FormGroup>
     );

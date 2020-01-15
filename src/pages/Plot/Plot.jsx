@@ -42,7 +42,6 @@ export default function () {
     const [start, setStart] = useState(false)
     const [dadosX, setDadosX] = useState()
     const [dadosY, setDadosY] = useState()
-    const [showData, setShowData] = useState(false)
     const [data, setData] = useState(
         [
             { x: 0, y: 8 },
@@ -58,7 +57,7 @@ export default function () {
         ]
     )
     const [toggleSwitch, setToggleSwitch] = useState({
-        A: false,
+        A: true,
         B: false,
         C: false,
         D: false,
@@ -68,7 +67,6 @@ export default function () {
     const startOp = () => {
 
         setStart(!start)
-        setShowData(!showData)
 
         if (previousDataX === dadosX && previousDataY === dadosY) return
         if (start) return
@@ -201,11 +199,11 @@ export default function () {
                     </div>
                     : null
                 }
-                {showData ?
+                {start ?
                     <Paper className={classes.graph} elevation={12}>
                         <PlotComponent
-                            data={data}
-                            dataLinear={toggleSwitch.A ? dataLinear : null}
+                            data={toggleSwitch.A ? data : null}
+                            dataLinear={toggleSwitch.B ? dataLinear : null}
                             width={800}
                             height={600}
                             Xtitle={XaxisName ? XaxisName : 'X Axis'}
