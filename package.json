@@ -15,7 +15,8 @@
     "react-scripts": "3.3.0",
     "react-to-print": "^2.5.1",
     "react-vis": "^1.11.7",
-    "regression": "^2.0.1"
+    "regression": "^2.0.1",
+    "serialize-javascript": "^2.1.2"
   },
   "scripts": {
     "start": "react-scripts start",

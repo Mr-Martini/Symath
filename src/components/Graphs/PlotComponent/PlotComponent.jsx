@@ -74,5 +74,4 @@ const PlotToPrint = ({
         </div>
     );
 };
-
 export default PlotToPrint
