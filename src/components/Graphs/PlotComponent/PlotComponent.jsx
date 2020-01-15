@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import { XYPlot, LineMarkSeries, VerticalGridLines, HorizontalGridLines, XAxis, YAxis } from 'react-vis'
+import { LineMarkSeries, VerticalGridLines, HorizontalGridLines, XAxis, YAxis, FlexibleWidthXYPlot } from 'react-vis'
 import ReactToPrint from 'react-to-print';
 import Button from '../../input/button'
 import '../PlotComponent/PlotToPrint.css'
@@ -10,7 +10,6 @@ class PlotComponent extends React.Component {
 
         const {
             height,
-            width,
             Xtitle,
             Ytitle,
             lineColor,
@@ -19,7 +18,7 @@ class PlotComponent extends React.Component {
         } = this.props
 
         return (
-            <XYPlot height={height} width={width} stroke='red'>
+            <FlexibleWidthXYPlot height={height} stroke='red'>
                 <VerticalGridLines style={{ stroke: 'black' }} />
                 <HorizontalGridLines style={{ stroke: 'black' }} />
                 <XAxis title={Xtitle}
@@ -40,14 +39,13 @@ class PlotComponent extends React.Component {
                         markStyle={{ stroke: circleColor }}
                         data={data}
                     />
-            </XYPlot>
+            </FlexibleWidthXYPlot>
         )
     }
 }
 
 const PlotToPrint = ({
     height,
-    width,
     Xtitle,
     Ytitle,
     lineColor,
@@ -67,7 +65,6 @@ const PlotToPrint = ({
             <PlotComponent
                 ref={componentRef}
                 data={data}
-                width={width}
                 height={height}
                 Xtitle={Xtitle}
                 Ytitle={Ytitle}

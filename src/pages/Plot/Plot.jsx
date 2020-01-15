@@ -23,6 +23,7 @@ const useStyles = makeStyles(theme => ({
     graph: {
         marginTop: theme.spacing(3),
         marginBottom: theme.spacing(3),
+        width: '70%'
     },
     options: {
         display: 'flex',
@@ -32,7 +33,6 @@ const useStyles = makeStyles(theme => ({
 
 export default function () {
 
-    const [plotWidth, setPlotWidth] = useState(800)
     const [plotHeight, setPlotHeight] = useState(600)
     const [dataLinear, setDataLinear] = useState([])
     const [circleColor, setCircleColor] = useState('cadetblue')
@@ -160,18 +160,15 @@ export default function () {
 
     document.body.onresize = function () {
         if (document.body.clientWidth <= 600) {
-            setPlotWidth(350)
             setPlotHeight(262.5)
         }
         else {
-            setPlotWidth(800)
             setPlotHeight(600)
         }
     }
 
     document.body.onload = function () {
         if (document.body.clientWidth <= 600) {
-            setPlotWidth(350)
             setPlotHeight(262.5)
         }
     }
@@ -229,7 +226,6 @@ export default function () {
                                     <PlotComponent
                                         data={type}
                                         key={index}
-                                        width={plotWidth}
                                         height={plotHeight}
                                         Xtitle={XaxisName ? XaxisName : 'X Axis'}
                                         Ytitle={YaxisName ? YaxisName : 'Y Axis'}
