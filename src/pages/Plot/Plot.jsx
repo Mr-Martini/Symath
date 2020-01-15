@@ -32,6 +32,8 @@ const useStyles = makeStyles(theme => ({
 
 export default function () {
 
+    const [plotWidth, setPlotWidth] = useState(800)
+    const [plotHeight, setPlotHeight] = useState(600)
     const [dataLinear, setDataLinear] = useState([])
     const [circleColor, setCircleColor] = useState('cadetblue')
     const [lineColor, setLineColor] = useState('black')
@@ -156,6 +158,24 @@ export default function () {
         setToggleSwitch({ ...toggleSwitch, [name]: event.target.checked });
     };
 
+    document.body.onresize = function () {
+        if (document.body.clientWidth <= 600) {
+            setPlotWidth(350)
+            setPlotHeight(262.5)
+        }
+        else {
+            setPlotWidth(800)
+            setPlotHeight(600)
+        }
+    }
+
+    document.body.onload = function () {
+        if (document.body.clientWidth <= 600) {
+            setPlotWidth(350)
+            setPlotHeight(262.5)
+        }
+    }
+
     const classes = useStyles()
 
     return (
@@ -209,8 +229,8 @@ export default function () {
                                     <PlotComponent
                                         data={type}
                                         key={index}
-                                        width={800}
-                                        height={600}
+                                        width={plotWidth}
+                                        height={plotHeight}
                                         Xtitle={XaxisName ? XaxisName : 'X Axis'}
                                         Ytitle={YaxisName ? YaxisName : 'Y Axis'}
                                         lineColor={lineColor}
