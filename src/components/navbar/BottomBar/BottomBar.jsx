@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function TemporaryDrawer({ pegarInputX, pegarInputY, takeLineColor, takeCircleColor, toggleSwitch, handleChange }) {
+export default function TemporaryDrawer({ pegarInputX, pegarInputY, takeLineColor, takeCircleColor }) {
     const classes = useStyles();
     const [state, setState] = React.useState({
         bottom: false,
@@ -95,7 +95,7 @@ export default function TemporaryDrawer({ pegarInputX, pegarInputY, takeLineColo
                     />
                 </div>
                 <div className={classes.switchs}>
-                    <Switch state={toggleSwitch} handleChange={handleChange}/>
+                    <Switch/>
                 </div>
             </List>
         </div>

@@ -1,0 +1,5 @@
+const HANDLE_SWITCH = {
+    TOGGLE_SWITCH: 'TOGGLE_SWITCH'
+}
+
+export default (HANDLE_SWITCH)

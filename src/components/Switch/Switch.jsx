@@ -3,6 +3,8 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import { makeStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux'
+import { toggleSwitchButton } from '../../Redux/Switch/SwitchActions'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -10,7 +12,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function SwitchLabels({ state, handleChange }) {
+function SwitchLabels({ switchState,  toggleSwitch }) {
 
     const classes = useStyles()
 
@@ -18,7 +20,7 @@ export default function SwitchLabels({ state, handleChange }) {
         <FormGroup>
             <FormControlLabel
                 control={
-                    <Switch checked={state.A} onChange={handleChange('A')} value="A" />
+                    <Switch checked={switchState.A} onChange={toggleSwitch('A')} value="A" />
                 }
                 label="Data Plot"
                 classes={{
@@ -28,8 +30,8 @@ export default function SwitchLabels({ state, handleChange }) {
             <FormControlLabel
                 control={
                     <Switch
-                        checked={state.B}
-                        onChange={handleChange('B')}
+                        checked={switchState.B}
+                        onChange={toggleSwitch('B')}
                         value="B"
                         color="secondary"
                     />
@@ -42,3 +44,16 @@ export default function SwitchLabels({ state, handleChange }) {
         </FormGroup>
     );
 }
+
+const mapDispatch = dispatch => {
+    return {
+        toggleSwitch: name => event => dispatch(toggleSwitchButton(name, event))
+    }
+}
+
+const mapState = (state) => {
+    const switchState = state
+    return {switchState}
+}
+
+export default connect(mapState, mapDispatch)(SwitchLabels)

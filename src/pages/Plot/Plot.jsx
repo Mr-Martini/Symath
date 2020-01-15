@@ -6,6 +6,8 @@ import Button from '../../components/input/button'
 import BottomBar from '../../components/navbar/BottomBar/BottomBar'
 import PlotComponent from '../../components/Graphs/PlotComponent/PlotComponent'
 import regression from 'regression'
+import { connect } from 'react-redux'
+
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -31,7 +33,7 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-export default function () {
+const PlotPage = ({ switchState }) => {
 
     const [plotHeight, setPlotHeight] = useState(600)
     const [dataLinear, setDataLinear] = useState([])
@@ -58,14 +60,7 @@ export default function () {
             { x: 9, y: 0 }
         ]
     )
-    const [toggleSwitch, setToggleSwitch] = useState({
-        A: true,
-        B: false,
-        C: false,
-        D: false,
-        E: false,
-    })
-
+    
     const startOp = () => {
 
         if (previousDataX === dadosX && previousDataY === dadosY) return
@@ -154,10 +149,6 @@ export default function () {
         setDadosY(e.target.value)
     }
 
-    const handleChange = name => event => {
-        setToggleSwitch({ ...toggleSwitch, [name]: event.target.checked });
-    };
-
     document.body.onresize = function () {
         if (document.body.clientWidth <= 600) {
             setPlotHeight(262.5)
@@ -211,15 +202,13 @@ export default function () {
                             pegarInputY={handleYaxisName}
                             takeLineColor={takeLineColor}
                             takeCircleColor={takeCircleColor}
-                            toggleSwitch={toggleSwitch}
-                            handleChange={handleChange}
                         />
                     </div>
                     : null
                 }
                 {start ?
                     <>
-                        {[toggleSwitch.A ? data : null, toggleSwitch.B ? dataLinear : null].map((type, index) => (
+                        {[switchState.A ? data : null, switchState.B ? dataLinear : null].map((type, index) => (
                             <Paper key={index} className={classes.graph} elevation={12}>
 
                                 {type ?
@@ -244,3 +233,11 @@ export default function () {
         </Container>
     )
 }
+
+const mapState = (state) => {
+    const switchState = state
+    return {switchState}
+}
+
+
+export default connect(mapState)(PlotPage)
