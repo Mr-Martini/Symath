@@ -33,8 +33,8 @@ const useStyles = makeStyles(theme => ({
 export default function () {
 
     const [dataLinear, setDataLinear] = useState([])
-    const [circleColor, setCircleColor] = useState('#ADDDE1')
-    const [lineColor, setLineColor] = useState('#ADDDE1')
+    const [circleColor, setCircleColor] = useState('cadetblue')
+    const [lineColor, setLineColor] = useState('black')
     const [XaxisName, setXaxisName] = useState()
     const [YaxisName, setYaxisName] = useState()
     const [previousDataX, setPreviousDataX] = useState()
@@ -66,10 +66,9 @@ export default function () {
 
     const startOp = () => {
 
-        setStart(!start)
-
         if (previousDataX === dadosX && previousDataY === dadosY) return
-        if (start) return
+
+        setStart(true)
 
         let separadoY = []
         let getY = []
@@ -124,6 +123,8 @@ export default function () {
         }
         setData(unified)
         setDataLinear(getDataLinear)
+
+        console.log('calculated')
     }
 
     const handleXaxisName = (e) => {
@@ -186,7 +187,7 @@ export default function () {
                             color='secondary'
                             onClick={startOp}
                             variant='contained'>
-                            {start ? 'Hide' : 'Plot Graph'}
+                            Plot Graph
                         </Button>
                         <BottomBar
                             pegarInputX={handleXaxisName}
@@ -200,18 +201,27 @@ export default function () {
                     : null
                 }
                 {start ?
-                    <Paper className={classes.graph} elevation={12}>
-                        <PlotComponent
-                            data={toggleSwitch.A ? data : null}
-                            dataLinear={toggleSwitch.B ? dataLinear : null}
-                            width={800}
-                            height={600}
-                            Xtitle={XaxisName ? XaxisName : 'X Axis'}
-                            Ytitle={YaxisName ? YaxisName : 'Y Axis'}
-                            lineColor={lineColor}
-                            circleColor={circleColor}
-                        />
-                    </Paper>
+                    <>
+                        {[toggleSwitch.A ? data : null, toggleSwitch.B ? dataLinear : null].map((type, index) => (
+                            <Paper key={index} className={classes.graph} elevation={12}>
+
+                                {type ?
+                                    <PlotComponent
+                                        data={type}
+                                        key={index}
+                                        width={800}
+                                        height={600}
+                                        Xtitle={XaxisName ? XaxisName : 'X Axis'}
+                                        Ytitle={YaxisName ? YaxisName : 'Y Axis'}
+                                        lineColor={lineColor}
+                                        circleColor={circleColor}
+                                    />
+                                    : null
+                                }
+
+                            </Paper>
+                        ))}
+                    </>
                     : null
                 }
             </Paper>

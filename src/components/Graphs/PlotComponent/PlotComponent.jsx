@@ -16,21 +16,7 @@ class PlotComponent extends React.Component {
             lineColor,
             circleColor,
             data,
-            dataLinear,
-            dataExponential,
-            dataLogarithmic,
-            dataPower,
-            dataPolynomial,
         } = this.props
-
-        const regressions = [
-            data,
-            dataLinear,
-            dataExponential,
-            dataLogarithmic,
-            dataPower,
-            dataPolynomial,
-        ]
 
         return (
             <XYPlot height={height} width={width} stroke='red'>
@@ -38,14 +24,13 @@ class PlotComponent extends React.Component {
                 <HorizontalGridLines style={{ stroke: 'black' }} />
                 <XAxis title={Xtitle}
                     style={{
-                        line: { stroke: '#ADDDE1' },
-                        ticks: { stroke: '#ADDDE1' },
-                        text: { stroke: 'none', fill: '#6b6b76', fontWeight: 600 },
+                        line: { stroke: 'black' },
+                        ticks: { stroke: 'black' },
+                        text: { stroke: 'none', fill: 'black', fontWeight: 600 },
                     }}
                 />
                 <YAxis title={Ytitle} />
 
-                {regressions.map((type, index) => (
                     <LineMarkSeries
                         style={{
                             strokeWidth: '3px',
@@ -53,10 +38,8 @@ class PlotComponent extends React.Component {
                         }}
                         lineStyle={{ stroke: lineColor }}
                         markStyle={{ stroke: circleColor }}
-                        data={type}
-                        key={index}
+                        data={data}
                     />
-                ))}
             </XYPlot>
         )
     }
