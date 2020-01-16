@@ -19,3 +19,8 @@ export const FAILURE_SIGN_IN_EMAIL = error => ({
 export const USER_SIGN_OUT = () => ({
     type: HANDLE_USER_SIGN_IN.USER_SIGN_OUT
 })
+
+export const GET_USER_NAME = (userName) => ({
+    type:HANDLE_USER_SIGN_IN.GET_USER_NAME,
+    userName: userName
+})

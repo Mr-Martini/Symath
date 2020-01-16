@@ -14,9 +14,10 @@ import Container from '@material-ui/core/Container';
 import { withRouter } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { SUCCESS_SIGN_IN_EMAIL, START_SIGN_IN_EMAIL, FAILURE_SIGN_IN_EMAIL } from '../../Redux/User/UserActions'
 import { compose } from 'redux'
-import { auth } from '../../Firebase/Firebase'
+import { auth, createUserDoc } from '../../Firebase/Firebase'
+import { START_SIGN_IN_EMAIL, SUCCESS_SIGN_IN_EMAIL, FAILURE_SIGN_IN_EMAIL} from '../../Redux/User/UserActions'
+
 
 function Copyright() {
   return (
@@ -84,33 +85,21 @@ const Form = ({ match, pushUserStore, startPushing, failurePush }) => {
   const [userCredentials, setUserCredentials] = useState({
     password: '',
     email: '',
-    userName: ''
+    userName: '',
   })
 
   const handleSubmit = e => {
     e.preventDefault()
 
     if (match.url === '/register') {
-      startPushing()
-      auth.createUserWithEmailAndPassword(userCredentials.email, userCredentials.password)
-        .then(function (userRef) {
-          pushUserStore(userCredentials)
-          auth.currentUser.updateProfile({
-            displayName: userCredentials.userName
-          }).catch((error) => (
-            failurePush(error.message)
-          ))
-        })
-        .catch((error) => (
-          failurePush(error.message)
-        ))
+      pushUserStore(userCredentials)
+      createUserDoc(userCredentials)
     }
     else if (match.url === '/login') {
       startPushing()
       auth.signInWithEmailAndPassword(userCredentials.email, userCredentials.password)
         .then(function (userRef) {
           pushUserStore(userCredentials)
-          console.log(userRef)
         })
         .catch((error) => (
           failurePush(error.message)

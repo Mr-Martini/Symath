@@ -1,5 +1,5 @@
 import './App.css';
-import React from 'react'
+import React, { useEffect } from 'react'
 import NavBar from './components/navbar/pcbar/pcbar.jsx'
 import Form from '../src/pages/form/form'
 import HomePage from '../src/pages/home/home'
@@ -8,8 +8,27 @@ import Plot from '../src/pages/Plot/Plot'
 import Profile from '../src/pages/Profile/Profile'
 import { connect } from 'react-redux'
 import { Route, Switch, Redirect } from 'react-router-dom'
+import { auth, firestore } from './Firebase/Firebase'
+import { GET_USER_NAME } from './Redux/User/UserActions'
 
-function App({ userCredentials }) {
+
+function App({ userCredentials, getUserName }) {
+
+  useEffect(() => {
+    console.log('loopAp?')
+    if (!userCredentials.userName) {
+      auth.onAuthStateChanged(function (user) {
+        firestore.doc(`users/${user.uid}`).get()
+          .then(doc => (
+            getUserName(doc.data().name)
+          ))
+          .catch((error) => (
+            console.log(error.message)
+          ))
+      })
+    }
+  }, [getUserName, userCredentials.userName])
+
   return (
     <div>
       <NavBar />
@@ -29,4 +48,8 @@ const mapState = state => ({
   userCredentials: state.UserReducer
 })
 
-export default connect(mapState)(App);
+const mapDispatch = dispatch => ({
+  getUserName: (userCredentials) => dispatch(GET_USER_NAME(userCredentials))
+})
+
+export default connect(mapState, mapDispatch)(App);

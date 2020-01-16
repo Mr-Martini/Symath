@@ -37,6 +37,12 @@ const UserReducer = (state = INITIAL_STATE, action) => {
                 password: '',
                 isLoading: false
             }
+        case HANDLE_USER_SIGN_IN.GET_USER_NAME:
+            console.log(action.userName)
+            return {
+                ...state,
+                userName: action.userName
+            }
         default:
             return state
     }
