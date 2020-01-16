@@ -1,14 +1,14 @@
 import { HANDLE_USER_SIGN_IN } from './UserTypes'
 
-export const START_SIGN_IN_EMAIL = (email, password, username) => ({
+export const START_SIGN_IN_EMAIL = () => {
+    return {
     type: HANDLE_USER_SIGN_IN.START_SIGN_IN_EMAIL,
-    email: email,
-    password: password,
-    username: username
-})
+    }
+}
 
-export const SUCCESS_SIGN_IN_EMAIL = () => ({
-    type: HANDLE_USER_SIGN_IN.SUCCESS_SIGN_IN_EMAIL
+export const SUCCESS_SIGN_IN_EMAIL = (userCredentials) => ({
+    type: HANDLE_USER_SIGN_IN.SUCCESS_SIGN_IN_EMAIL,
+    userCredentials: userCredentials
 })
 
 export const FAILURE_SIGN_IN_EMAIL = error => ({

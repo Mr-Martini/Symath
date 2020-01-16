@@ -18,9 +18,9 @@ const UserReducer = (state = INITIAL_STATE, action) => {
         case HANDLE_USER_SIGN_IN.SUCCESS_SIGN_IN_EMAIL:
             return {
                 ...state,
-                userName: action.userName,
-                email: action.email,
-                password: action.password,
+                userName: action.userCredentials.userName,
+                email: action.userCredentials.email,
+                password: action.userCredentials.password,
                 isLoading: false,
             }
         case HANDLE_USER_SIGN_IN.FAILURE_SIGN_IN_EMAIL:

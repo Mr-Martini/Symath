@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -13,6 +13,9 @@ import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { withRouter } from 'react-router-dom'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { SUCCESS_SIGN_IN_EMAIL } from '../../Redux/User/UserActions'
+import { compose } from 'redux'
 
 function Copyright() {
   return (
@@ -73,9 +76,29 @@ const CssTextField = withStyles({
   },
 })(TextField);
 
-const Form = ({ match }) => {
+const Form = ({ match, pushUserStore }) => {
 
   const classes = useStyles();
+
+  const [userCredentials, setUserCredentials] = useState({
+    password: '',
+    email: '',
+    userName: ''
+  })
+
+  const handleSubmit = e => {
+    e.preventDefault()
+    
+    pushUserStore(userCredentials)
+  }
+
+
+  const handleChange = e => {
+
+    const { name, value } = e.target
+
+    setUserCredentials({ ...userCredentials, [name]: value })
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -102,10 +125,11 @@ const Form = ({ match }) => {
               fullWidth
               id="standart"
               label="name"
-              name="name"
+              name="userName"
               autoComplete="name"
               autoFocus
               color='secondary'
+              onChange={handleChange}
             />
             : null
           }
@@ -126,6 +150,7 @@ const Form = ({ match }) => {
             autoComplete="email"
             autoFocus
             color='secondary'
+            onChange={handleChange}
           />
           <CssTextField
             InputLabelProps={{
@@ -144,6 +169,7 @@ const Form = ({ match }) => {
             id="password"
             autoComplete="current-password"
             color='secondary'
+            onChange={handleChange}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color='secondary' />}
@@ -151,11 +177,12 @@ const Form = ({ match }) => {
 
           />
           <Button
-            type="submit"
+            type="button"
             fullWidth
             variant="contained"
             color='secondary'
             className={classes.submit}
+            onClick={handleSubmit}
           >
             {match.path === '/login' ? 'Sign In' : 'Register'}
           </Button>
@@ -180,4 +207,13 @@ const Form = ({ match }) => {
   );
 }
 
-export default withRouter(Form)
+const mapDispatch = dispatch => {
+  return {
+    pushUserStore: (userCredentials) => dispatch(SUCCESS_SIGN_IN_EMAIL(userCredentials))
+  }
+}
+
+export default compose(
+  withRouter,
+  connect(null, mapDispatch)
+)(Form)

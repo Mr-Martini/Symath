@@ -9,7 +9,6 @@ const INITIAL_STATE = {
 }
 
 const switchReducer = (state = INITIAL_STATE, action) => {
-    console.log(action.type)
     switch (action.type) {
         case HANDLE_SWITCH.TOGGLE_SWITCH:
             return {

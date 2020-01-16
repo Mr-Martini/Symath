@@ -7,6 +7,7 @@ import {
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 import InfoCard from '../../components/infoCard/infoCard'
+import { connect } from 'react-redux'
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -21,11 +22,12 @@ const useStyles = makeStyles(theme => ({
     large: {
         width: theme.spacing(10),
         height: theme.spacing(10),
-        marginBottom: theme.spacing(2)
+        marginBottom: theme.spacing(2),
+        cursor: 'pointer'
     },
 }))
 
-const Profile = () => {
+const Profile = ({ userCredentials }) => {
 
     const classes = useStyles()
 
@@ -33,11 +35,15 @@ const Profile = () => {
         <Container maxWidth='lg'>
             <Paper className={classes.paper}>
                 <Avatar className={classes.large} src='#'></Avatar>
-                <Typography variant='h4' color='secondary'>Profile</Typography>
-                <InfoCard type='gráfico' icon='showMore'/>
+                <Typography variant='h4' color='secondary'>{userCredentials.userName ? userCredentials.userName : 'Profile'}</Typography>
+                <InfoCard type='gráfico' icon='showMore' />
             </Paper>
         </Container>
     )
 }
 
-export default Profile
+const mapState = state => ({
+    userCredentials: state.UserReducer
+})
+
+export default connect(mapState)(Profile)
