@@ -5,6 +5,7 @@ import Form from '../src/pages/form/form'
 import HomePage from '../src/pages/home/home'
 import About from '../src/pages/about/about'
 import Plot from '../src/pages/Plot/Plot'
+import Profile from '../src/pages/Profile/Profile'
 import { Route, BrowserRouter as Router } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { store } from './Redux/store'
@@ -19,6 +20,7 @@ function App() {
         <Route exact path='/register' component={Form}></Route>
         <Route exact path='/About' component={About}></Route>
         <Route exact path='/Plot' component={Plot}></Route>
+        <Route exact path='/Profile' component={Profile}></Route>
       </Router>
     </Provider>
   );

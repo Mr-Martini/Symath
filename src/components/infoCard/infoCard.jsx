@@ -5,6 +5,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import UploadIcon from '@material-ui/icons/CloudUpload'
+import ShowMore from '@material-ui/icons/More'
 
 const useStyles = makeStyles(theme => ({
     card: {
@@ -41,7 +42,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default function SimpleCard({ type, first, second }) {
+export default function SimpleCard({ type, first, second, icon }) {
     const classes = useStyles();
 
     return (
@@ -58,7 +59,8 @@ export default function SimpleCard({ type, first, second }) {
                 </Typography>
             </CardContent>
             <CardActions>
-                <UploadIcon className={classes.icon} color='secondary' fontSize='large' />
+                {icon === 'upload' ? <UploadIcon className={classes.icon} color='secondary' fontSize='large' /> : null}
+                {icon === 'showMore' ? <ShowMore className={classes.icon} color='secondary' fontSize='large' /> : null}
             </CardActions>
         </Card>
     );

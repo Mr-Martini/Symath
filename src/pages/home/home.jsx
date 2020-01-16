@@ -134,6 +134,7 @@ export default function () {
                                 type={text}
                                 first={index === 0 ? 'Av: ' + media : 'S: ' + desvioPadraoA}
                                 second={index === 0 ? 'Sum: ' + somatorio : 'P: ' + desvioPadraoP}
+                                icon='upload'
                             ></InfoCard>
 
                         ))
