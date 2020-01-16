@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/core/styles'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { USER_SIGN_OUT } from '../../../Redux/User/UserActions'
 
 const useStyles = makeStyles(theme => ({
     divPc: {
@@ -13,7 +14,7 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-function MenuPc({ userCredentials }) {
+function MenuPc({ userCredentials, SignOut }) {
 
     const classes = useStyles()
 
@@ -21,7 +22,7 @@ function MenuPc({ userCredentials }) {
         <div className={classes.divPc}>
             {userCredentials.email ?
                 <>
-                    <Button component={Link} to='#' color="inherit">Logout</Button>
+                    <Button onClick={SignOut} color="inherit">Logout</Button>
                     <Button component={Link} to='#' color="inherit">Donate</Button>
                 </>
                 :
@@ -38,4 +39,8 @@ const mapState = state => ({
     userCredentials: state.UserReducer
 })
 
-export default connect(mapState)(MenuPc)
+const mapDispatch = dispatch => ({
+    SignOut: () => dispatch(USER_SIGN_OUT())
+})
+
+export default connect(mapState, mapDispatch)(MenuPc)

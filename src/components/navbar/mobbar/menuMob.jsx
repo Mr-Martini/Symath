@@ -5,6 +5,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
+import { USER_SIGN_OUT } from '../../../Redux/User/UserActions'
 
 const useStyles = makeStyles(theme => ({
     divMob: {
@@ -20,7 +21,7 @@ const useStyles = makeStyles(theme => ({
     },
 }))
 
-function MenuMob({ userCredentials }) {
+function MenuMob({ userCredentials, SignOut }) {
     const classes = useStyles()
 
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -32,6 +33,11 @@ function MenuMob({ userCredentials }) {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+    const onClick = event => {
+        handleClose()
+        SignOut()
+    }
 
     return (
         <div className={classes.divMob}>
@@ -47,7 +53,7 @@ function MenuMob({ userCredentials }) {
                 }}
             >   {userCredentials.email ?
                 <div>
-                    <MenuItem component={Link} to='#' onClick={handleClose}>Logout</MenuItem>
+                    <MenuItem component={Link} to='#' onClick={onClick}>Logout</MenuItem>
                     <MenuItem component={Link} to='#' onClick={handleClose}>Donate</MenuItem>
                 </div>
                 :
@@ -65,4 +71,8 @@ const mapState = state => ({
     userCredentials: state.UserReducer
 })
 
-export default connect(mapState)(MenuMob)
+const mapDispatch = dispatch => ({
+    SignOut: () => dispatch(USER_SIGN_OUT())
+})
+
+export default connect(mapState, mapDispatch)(MenuMob)

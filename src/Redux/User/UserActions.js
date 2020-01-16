@@ -15,3 +15,7 @@ export const FAILURE_SIGN_IN_EMAIL = error => ({
     type: HANDLE_USER_SIGN_IN.FAILURE_SIGN_IN_EMAIL,
     error: error
 })
+
+export const USER_SIGN_OUT = () => ({
+    type: HANDLE_USER_SIGN_IN.USER_SIGN_OUT
+})

@@ -14,7 +14,7 @@ import Container from '@material-ui/core/Container';
 import { withRouter } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { SUCCESS_SIGN_IN_EMAIL } from '../../Redux/User/UserActions'
+import { SUCCESS_SIGN_IN_EMAIL, START_SIGN_IN_EMAIL, FAILURE_SIGN_IN_EMAIL } from '../../Redux/User/UserActions'
 import { compose } from 'redux'
 import { auth } from '../../Firebase/Firebase'
 
@@ -77,7 +77,7 @@ const CssTextField = withStyles({
   },
 })(TextField);
 
-const Form = ({ match, pushUserStore }) => {
+const Form = ({ match, pushUserStore, startPushing, failurePush }) => {
 
   const classes = useStyles();
 
@@ -91,27 +91,27 @@ const Form = ({ match, pushUserStore }) => {
     e.preventDefault()
 
     if (match.url === '/register') {
+      startPushing()
       auth.createUserWithEmailAndPassword(userCredentials.email, userCredentials.password)
         .then(() => (
           pushUserStore(userCredentials)
         ))
         .catch((error) => (
-          alert(error.message)
+          failurePush(error.message)
         ))
     }
     else if (match.url === '/login') {
+      startPushing()
       auth.signInWithEmailAndPassword(userCredentials.email, userCredentials.password)
         .then(() => (
           pushUserStore(userCredentials)
         ))
-          .catch((error) => (
-            alert(error.message)
-          ))
+        .catch((error) => (
+          failurePush(error.message)
+        ))
     }
 
-
   }
-
 
   const handleChange = e => {
 
@@ -229,7 +229,9 @@ const Form = ({ match, pushUserStore }) => {
 
 const mapDispatch = dispatch => {
   return {
-    pushUserStore: (userCredentials) => dispatch(SUCCESS_SIGN_IN_EMAIL(userCredentials))
+    pushUserStore: (userCredentials) => dispatch(SUCCESS_SIGN_IN_EMAIL(userCredentials)),
+    startPushing: () => dispatch(START_SIGN_IN_EMAIL()),
+    failurePush: (error) => dispatch(FAILURE_SIGN_IN_EMAIL(error))
   }
 }
 

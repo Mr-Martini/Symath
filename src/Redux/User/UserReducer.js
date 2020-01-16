@@ -29,6 +29,14 @@ const UserReducer = (state = INITIAL_STATE, action) => {
                 isLoading: false,
                 error: action.error
             }
+        case HANDLE_USER_SIGN_IN.USER_SIGN_OUT:
+            return {
+                ...state,
+                userName: '',
+                email: '',
+                password: '',
+                isLoading: false
+            }
         default:
             return state
     }
