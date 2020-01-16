@@ -6,24 +6,27 @@ import HomePage from '../src/pages/home/home'
 import About from '../src/pages/about/about'
 import Plot from '../src/pages/Plot/Plot'
 import Profile from '../src/pages/Profile/Profile'
-import { Route, BrowserRouter as Router } from 'react-router-dom'
-import { Provider } from 'react-redux'
-import { store } from './Redux/store'
+import { connect } from 'react-redux'
+import { Route, Switch, Redirect } from 'react-router-dom'
 
-function App() {
+function App({ userCredentials }) {
   return (
-    <Provider store={store}>
-      <Router>
-        <NavBar />
+    <>
+      <NavBar />
+      <Switch>
         <Route exact path='/' component={HomePage}></Route>
-        <Route exact path='/login' component={Form}></Route>
-        <Route exact path='/register' component={Form}></Route>
+        <Route exact path='/login' render={() => userCredentials.email ? <Redirect to='/' /> : <Form />}></Route>
+        <Route exact path='/register' render={() => userCredentials.email ? <Redirect to='/' /> : <Form />}></Route>
         <Route exact path='/About' component={About}></Route>
         <Route exact path='/Plot' component={Plot}></Route>
         <Route exact path='/Profile' component={Profile}></Route>
-      </Router>
-    </Provider>
+      </Switch>
+    </>
   );
 }
 
-export default App;
+const mapState = state => ({
+  userCredentials: state.UserReducer
+})
+
+export default connect(mapState)(App);

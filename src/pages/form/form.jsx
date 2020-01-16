@@ -16,6 +16,7 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { SUCCESS_SIGN_IN_EMAIL } from '../../Redux/User/UserActions'
 import { compose } from 'redux'
+import { auth } from '../../Firebase/Firebase'
 
 function Copyright() {
   return (
@@ -88,8 +89,27 @@ const Form = ({ match, pushUserStore }) => {
 
   const handleSubmit = e => {
     e.preventDefault()
-    
-    pushUserStore(userCredentials)
+
+    if (match.url === '/register') {
+      auth.createUserWithEmailAndPassword(userCredentials.email, userCredentials.password)
+        .then(() => (
+          pushUserStore(userCredentials)
+        ))
+        .catch((error) => (
+          alert(error.message)
+        ))
+    }
+    else if (match.url === '/login') {
+      auth.signInWithEmailAndPassword(userCredentials.email, userCredentials.password)
+        .then(() => (
+          pushUserStore(userCredentials)
+        ))
+          .catch((error) => (
+            alert(error.message)
+          ))
+    }
+
+
   }
 
 

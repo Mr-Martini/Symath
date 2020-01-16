@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux';
 
 const useStyles = makeStyles(theme => ({
     divMob: {
@@ -19,7 +20,7 @@ const useStyles = makeStyles(theme => ({
     },
 }))
 
-export default function () {
+function MenuMob({ userCredentials }) {
     const classes = useStyles()
 
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -44,10 +45,24 @@ export default function () {
                 PaperProps={{
                     className: classes.menu
                 }}
-            >
-                <MenuItem component={Link} to='/login' onClick={handleClose}>Login</MenuItem>
-                <MenuItem component={Link} to='/register' onClick={handleClose}>Register</MenuItem>
+            >   {userCredentials.email ?
+                <>
+                    <MenuItem component={Link} to='#' onClick={handleClose}>Logout</MenuItem>
+                    <MenuItem component={Link} to='#' onClick={handleClose}>Donate</MenuItem>
+                </>
+                :
+                <>
+                    <MenuItem component={Link} to='/login' onClick={handleClose}>Login</MenuItem>
+                    <MenuItem component={Link} to='/register' onClick={handleClose}>Register</MenuItem>
+                </>
+                }
             </Menu>
         </div>
     )
 }
+
+const mapState = state => ({
+    userCredentials: state.UserReducer
+})
+
+export default connect(mapState)(MenuMob)
