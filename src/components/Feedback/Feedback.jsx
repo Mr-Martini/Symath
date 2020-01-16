@@ -18,7 +18,8 @@ const useStyles = makeStyles(theme => ({
         left: '1em',
         bottom: '1em',
         cursor: 'pointer',
-        minWidth: '150px'
+        minWidth: '150px',
+        marginBottom: theme.spacing(7)
     },
 }));
 

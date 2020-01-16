@@ -16,7 +16,7 @@ function App({ userCredentials, getUserName }) {
 
   useEffect(() => {
     console.log('loopAp?')
-    if (!userCredentials.userName) {
+    if (userCredentials.email) {
       auth.onAuthStateChanged( async function (user) {
         await firestore.doc(`users/${user.uid}`).get()
           .then(doc => (
@@ -27,7 +27,7 @@ function App({ userCredentials, getUserName }) {
           ))
       })
     }
-  }, [getUserName, userCredentials.userName])
+  }, [getUserName, userCredentials.email])
 
   return (
     <div>
