@@ -11,7 +11,7 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 
 function App({ userCredentials }) {
   return (
-    <>
+    <div>
       <NavBar />
       <Switch>
         <Route exact path='/' component={HomePage}></Route>
@@ -21,7 +21,7 @@ function App({ userCredentials }) {
         <Route exact path='/Plot' component={Plot}></Route>
         <Route exact path='/Profile' component={Profile}></Route>
       </Switch>
-    </>
+    </div>
   );
 }
 

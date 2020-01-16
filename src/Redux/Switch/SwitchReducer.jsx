@@ -16,7 +16,7 @@ const switchReducer = (state = INITIAL_STATE, action) => {
                 [action.name]: action.event.checked
                 }
         default: 
-            return {...state}
+            return state
     }
 }
 

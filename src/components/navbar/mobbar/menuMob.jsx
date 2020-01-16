@@ -46,15 +46,15 @@ function MenuMob({ userCredentials }) {
                     className: classes.menu
                 }}
             >   {userCredentials.email ?
-                <>
+                <div>
                     <MenuItem component={Link} to='#' onClick={handleClose}>Logout</MenuItem>
                     <MenuItem component={Link} to='#' onClick={handleClose}>Donate</MenuItem>
-                </>
+                </div>
                 :
-                <>
+                <div>
                     <MenuItem component={Link} to='/login' onClick={handleClose}>Login</MenuItem>
                     <MenuItem component={Link} to='/register' onClick={handleClose}>Register</MenuItem>
-                </>
+                </div>
                 }
             </Menu>
         </div>
