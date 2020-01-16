@@ -93,9 +93,14 @@ const Form = ({ match, pushUserStore, startPushing, failurePush }) => {
     if (match.url === '/register') {
       startPushing()
       auth.createUserWithEmailAndPassword(userCredentials.email, userCredentials.password)
-        .then(() => (
+        .then(function (userRef) {
           pushUserStore(userCredentials)
-        ))
+          auth.currentUser.updateProfile({
+            displayName: userCredentials.userName
+          }).catch((error) => (
+            failurePush(error.message)
+          ))
+        })
         .catch((error) => (
           failurePush(error.message)
         ))
@@ -103,9 +108,10 @@ const Form = ({ match, pushUserStore, startPushing, failurePush }) => {
     else if (match.url === '/login') {
       startPushing()
       auth.signInWithEmailAndPassword(userCredentials.email, userCredentials.password)
-        .then(() => (
+        .then(function (userRef) {
           pushUserStore(userCredentials)
-        ))
+          console.log(userRef)
+        })
         .catch((error) => (
           failurePush(error.message)
         ))
