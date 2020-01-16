@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useEffect } from 'react'
-import NavBar from './components/navbar/pcbar/pcbar.jsx'
+import NavBar from './components/navbar/DecideBar/DecideBar'
 import Form from '../src/pages/form/form'
 import HomePage from '../src/pages/home/home'
 import About from '../src/pages/about/about'
@@ -17,8 +17,8 @@ function App({ userCredentials, getUserName }) {
   useEffect(() => {
     console.log('loopAp?')
     if (!userCredentials.userName) {
-      auth.onAuthStateChanged(function (user) {
-        firestore.doc(`users/${user.uid}`).get()
+      auth.onAuthStateChanged( async function (user) {
+        await firestore.doc(`users/${user.uid}`).get()
           .then(doc => (
             getUserName(doc.data().name)
           ))
@@ -49,7 +49,7 @@ const mapState = state => ({
 })
 
 const mapDispatch = dispatch => ({
-  getUserName: (userCredentials) => dispatch(GET_USER_NAME(userCredentials))
+  getUserName: (userName) => dispatch(GET_USER_NAME(userName))
 })
 
 export default connect(mapState, mapDispatch)(App);

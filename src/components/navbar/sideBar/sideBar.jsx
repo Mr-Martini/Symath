@@ -10,7 +10,11 @@ import ListItemText from '@material-ui/core/ListItemText'
 import InfoIcon from '@material-ui/icons/Info'
 import GraphIcon from '@material-ui/icons/InsertChart'
 import ProfileIcon from '@material-ui/icons/People'
+import LoginIcon from '@material-ui/icons/Person'
+import RegisterIcon from '@material-ui/icons/Add'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { USER_SIGN_OUT } from '../../../Redux/User/UserActions'
 
 const useStyles = makeStyles(theme => ({
     list: {
@@ -32,7 +36,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default function TemporaryDrawer() {
+function TemporaryDrawer({ mobile, userCredentials, SignOut }) {
     const classes = useStyles()
 
     const [state, setState] = React.useState({
@@ -54,36 +58,77 @@ export default function TemporaryDrawer() {
             onClick={toggleDrawer(side, false)}
             onKeyDown={toggleDrawer(side, false)}
         >
-            <List>
-                {['About', 'Plot', 'Profile'].map((text, index) => (
-                    <ListItem key={index} button component={Link} to={`/${text}`} >
-                        {index === 0 ?
-                            <ListItemIcon>
-                                <InfoIcon color='secondary' />
-                            </ListItemIcon> : null
-                        }
-                        {index === 1 ?
-                            <ListItemIcon>
-                                <GraphIcon color='secondary' />
-                            </ListItemIcon> : null
-                        }
-                        {index === 2 ?
-                            <ListItemIcon>
-                                <ProfileIcon color='secondary' />
-                            </ListItemIcon> : null
-                        }
-                        <ListItemText primary={text} />
+            {!mobile ?
+                <List>
+                    <ListItem button component={Link} to={'/About'} >
+                        <ListItemIcon>
+                            <InfoIcon color='secondary' />
+                        </ListItemIcon>
+                        <ListItemText primary='About' />
                     </ListItem>
-                ))}
-            </List>
+
+                    <ListItem button component={Link} to={'/Plot'} >
+                        <ListItemIcon>
+                            <GraphIcon color='secondary' />
+                        </ListItemIcon>
+                        <ListItemText primary='Plot' />
+                    </ListItem>
+                    <ListItem button component={Link} to={'/Profile'} >
+                        <ListItemIcon>
+                            <ProfileIcon color='secondary' />
+                        </ListItemIcon>
+                        <ListItemText primary='Profile' />
+                    </ListItem>
+                </List>
+                :
+                <List>
+                    <ListItem button component={Link} to={'/About'} >
+                        <ListItemIcon>
+                            <InfoIcon color='secondary' />
+                        </ListItemIcon>
+                        <ListItemText primary='About' />
+                    </ListItem>
+
+                    {!userCredentials.userName ?
+                        <ListItem button component={Link} to={'/register'} >
+                            <ListItemIcon>
+                                <RegisterIcon color='secondary' />
+                            </ListItemIcon>
+                            <ListItemText primary='Register' />
+                        </ListItem>
+                        :
+                        null
+                    }
+                    {!userCredentials.userName ?
+                        <ListItem button component={Link} to={'/login'} >
+                            <ListItemIcon>
+                                <LoginIcon color='secondary' />
+                            </ListItemIcon>
+                            <ListItemText primary='Login' />
+                        </ListItem>
+                        :
+                        <ListItem button onClick={SignOut} >
+                            <ListItemIcon>
+                                <LoginIcon color='secondary' />
+                            </ListItemIcon>
+                            <ListItemText primary='Logout' />
+                        </ListItem>
+                    }
+                </List>
+            }
         </div>
     );
 
     return (
         <div>
-            <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={toggleDrawer('left', true)}>
-                <MenuIcon />
-            </IconButton>
+            {!mobile ?
+                <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={toggleDrawer('left', true)}>
+                    <MenuIcon />
+                </IconButton>
+                : <div onClick={toggleDrawer('left', true)}>
+                    <MenuIcon color='secondary' />
+                </div>
+            }
             <Drawer
                 elevation={16}
                 open={state.left}
@@ -97,3 +142,13 @@ export default function TemporaryDrawer() {
         </div>
     )
 }
+
+const mapState = state => ({
+    userCredentials: state.UserReducer
+})
+
+const mapDispatch = dispatch => ({
+    SignOut: () => dispatch(USER_SIGN_OUT())
+})
+
+export default connect(mapState, mapDispatch)(TemporaryDrawer)
