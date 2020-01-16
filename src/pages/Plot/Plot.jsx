@@ -235,7 +235,7 @@ const PlotPage = ({ switchState }) => {
 }
 
 const mapState = (state) => {
-    const switchState = state
+    const switchState = state.SwitchReducer
     return {switchState}
 }
 

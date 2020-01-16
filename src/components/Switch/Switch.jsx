@@ -16,6 +16,8 @@ function SwitchLabels({ switchState,  toggleSwitch }) {
 
     const classes = useStyles()
 
+    console.log(switchState)
+
     return (
         <FormGroup>
             <FormControlLabel
@@ -52,7 +54,7 @@ const mapDispatch = dispatch => {
 }
 
 const mapState = (state) => {
-    const switchState = state
+    const switchState = state.SwitchReducer
     return {switchState}
 }
 
