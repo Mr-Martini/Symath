@@ -6,7 +6,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import PlotIcon from '@material-ui/icons/GraphicEq';
 import ProfileIcon from '@material-ui/icons/People';
 import MenuButton from '../sideBar/sideBar'
-import { Link, withRouter } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -17,14 +17,14 @@ const useStyles = makeStyles(theme => ({
     zIndex: 500
   },
   label: {
-      color: 'white'
+    color: 'white'
   },
   selected: {
-      color: '#F50057'
+    color: '#F50057'
   }
 }));
 
-function SimpleBottomNavigation( {match }) {
+function SimpleBottomNavigation() {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -40,8 +40,8 @@ function SimpleBottomNavigation( {match }) {
       <BottomNavigationAction classes={{ label: classes.label, selected: classes.selected }} component={Link} to='/' label="Home" icon={<HomeIcon color='secondary' />} />
       <BottomNavigationAction classes={{ label: classes.label, selected: classes.selected }} component={Link} to='/Plot' label="Plot" icon={<PlotIcon color='secondary' />} />
       <BottomNavigationAction classes={{ label: classes.label, selected: classes.selected }} component={Link} to='/Profile' label="Profile" icon={<ProfileIcon color='secondary' />} />
-      <BottomNavigationAction classes={{ label: classes.label, selected: classes.selected }} label="Menu" icon={<MenuButton mobile={true}/>} />
+      <BottomNavigationAction classes={{ label: classes.label, selected: classes.selected }} label="Menu" icon={<MenuButton mobile={true} />} />
     </BottomNavigation>
   );
 }
-export default withRouter(SimpleBottomNavigation)
+export default (SimpleBottomNavigation)

@@ -17,7 +17,7 @@ function App({ userCredentials, getUserName }) {
   useEffect(() => {
     console.log('loopAp?')
     if (userCredentials.email) {
-      auth.onAuthStateChanged( async function (user) {
+      let unsubscribe = auth.onAuthStateChanged( async function (user) {
         await firestore.doc(`users/${user.uid}`).get()
           .then(doc => (
             getUserName(doc.data().name)
@@ -26,6 +26,7 @@ function App({ userCredentials, getUserName }) {
             console.log(error.message)
           ))
       })
+      return unsubscribe()
     }
   }, [getUserName, userCredentials.email])
 
@@ -34,11 +35,11 @@ function App({ userCredentials, getUserName }) {
       <NavBar />
       <Switch>
         <Route exact path='/' component={HomePage}></Route>
-        <Route exact path='/login' render={() => userCredentials.email ? <Redirect to='/' /> : <Form />}></Route>
-        <Route exact path='/register' render={() => userCredentials.email ? <Redirect to='/' /> : <Form />}></Route>
-        <Route exact path='/About' component={About}></Route>
-        <Route exact path='/Plot' component={Plot}></Route>
-        <Route exact path='/Profile' component={Profile}></Route>
+        <Route path='/login' render={() => userCredentials.email ? <Redirect to='/' /> : <Form />}></Route>
+        <Route path='/register' render={() => userCredentials.email ? <Redirect to='/' /> : <Form />}></Route>
+        <Route path='/About' component={About}></Route>
+        <Route path='/Plot' component={Plot}></Route>
+        <Route path='/Profile' component={Profile}></Route>
       </Switch>
     </div>
   );
