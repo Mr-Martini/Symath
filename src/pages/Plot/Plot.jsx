@@ -7,7 +7,7 @@ import BottomBar from '../../components/navbar/BottomBar/BottomBar'
 import PlotComponent from '../../components/Graphs/PlotComponent/PlotComponent'
 import regression from 'regression'
 import { connect } from 'react-redux'
-
+import { PlotComponentFlexible } from '../../components/Graphs/PlotView/PlotView'
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -26,7 +26,8 @@ const useStyles = makeStyles(theme => ({
     graph: {
         marginTop: theme.spacing(3),
         marginBottom: theme.spacing(3),
-        width: '70%'
+        width: '100%',
+        maxWidth: '800px'
     },
     options: {
         display: 'flex',
@@ -61,7 +62,7 @@ const PlotPage = ({ switchState }) => {
             { x: 9, y: 0 }
         ]
     )
-    
+
     const startOp = () => {
 
         if (previousDataX === dadosX && previousDataY === dadosY) return
@@ -213,15 +214,26 @@ const PlotPage = ({ switchState }) => {
                             <Paper key={index} className={classes.graph} elevation={12}>
 
                                 {type ?
-                                    <PlotComponent
-                                        data={type}
-                                        key={index}
-                                        height={plotHeight}
-                                        Xtitle={XaxisName ? XaxisName : 'X Axis'}
-                                        Ytitle={YaxisName ? YaxisName : 'Y Axis'}
-                                        lineColor={lineColor}
-                                        circleColor={circleColor}
-                                    />
+                                    <div>
+                                        <PlotComponent
+                                            data={type}
+                                            key={type}
+                                            height={plotHeight}
+                                            Xtitle={XaxisName ? XaxisName : 'X Axis'}
+                                            Ytitle={YaxisName ? YaxisName : 'Y Axis'}
+                                            lineColor={lineColor}
+                                            circleColor={circleColor}
+                                        />
+                                        <PlotComponentFlexible
+                                            data={type}
+                                            key={index}
+                                            height={plotHeight}
+                                            Xtitle={XaxisName ? XaxisName : 'X Axis'}
+                                            Ytitle={YaxisName ? YaxisName : 'Y Axis'}
+                                            lineColor={lineColor}
+                                            circleColor={circleColor}
+                                        />
+                                    </div>
                                     : null
                                 }
 
@@ -237,7 +249,7 @@ const PlotPage = ({ switchState }) => {
 
 const mapState = (state) => {
     const switchState = state.SwitchReducer
-    return {switchState}
+    return { switchState }
 }
 
 

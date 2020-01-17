@@ -7,3 +7,13 @@
     width: 800px;
     height: 600px;
 }
+
+.printedPage {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    margin-top: -300px;
+    margin-left: -400px;
+    width: 800px;
+    height: 600px;
+}
