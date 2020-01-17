@@ -16,4 +16,5 @@
     margin-left: -400px;
     width: 800px;
     height: 600px;
+    @page {size: landscape}
 }
