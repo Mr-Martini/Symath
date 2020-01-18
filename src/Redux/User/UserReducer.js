@@ -5,7 +5,8 @@ const INITIAL_STATE = {
     email: '',
     password: '',
     isLoading: false,
-    error: ''
+    error: '',
+    photo: null
 }
 
 const UserReducer = (state = INITIAL_STATE, action) => {
@@ -38,10 +39,14 @@ const UserReducer = (state = INITIAL_STATE, action) => {
                 isLoading: false
             }
         case HANDLE_USER_SIGN_IN.GET_USER_NAME:
-            console.log(action.userName)
             return {
                 ...state,
                 userName: action.userName
+            }
+        case HANDLE_USER_SIGN_IN.UPLOAD_USER_PHOTO:
+            return {
+                ...state,
+                photo: action.photo
             }
         default:
             return state

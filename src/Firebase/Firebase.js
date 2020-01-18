@@ -1,6 +1,7 @@
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
+import 'firebase/storage'
 
 
 var firebaseConfig = {
@@ -17,13 +18,14 @@ firebase.initializeApp(firebaseConfig);
 
 export const auth = firebase.auth()
 export const firestore = firebase.firestore()
+export const storage = firebase.storage()
 
 export default firebase
 
-export const createUserDoc =  (userCredentials) => {
-  
+export const createUserDoc = (userCredentials) => {
+
   auth.createUserWithEmailAndPassword(userCredentials.email, userCredentials.password)
-    .then( async function (user) {
+    .then(async function (user) {
       let userAuth = user.user
       let userRef = firestore.doc(`users/${userAuth.uid}`)
       const snapshot = await userRef.get()
@@ -41,7 +43,7 @@ export const createUserDoc =  (userCredentials) => {
         catch (error) {
           console.log(error.message)
         }
-        
+
       }
     })
     .catch((error) => (
@@ -49,3 +51,13 @@ export const createUserDoc =  (userCredentials) => {
     ))
 }
 
+export const uploadUserImage = (photo) => {
+  let user = auth.currentUser.uid
+  let storageRef = storage.ref(`users/${user}`)
+  let imagesRef = storageRef.child(`/images/profile/${photo.name}`)
+  let uploadImage = imagesRef.put(photo)
+  uploadImage.resume()
+  firestore.doc(`users/${user}`).update({
+    photoName: photo.name
+  })
+}

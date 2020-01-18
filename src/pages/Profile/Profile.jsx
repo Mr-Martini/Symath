@@ -3,11 +3,11 @@ import {
     Container,
     Paper,
     Typography,
-    Avatar
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 import InfoCard from '../../components/infoCard/infoCard'
 import { connect } from 'react-redux'
+import PopUpAvatar from '../../components/PopUp/PopUp'
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -35,7 +35,7 @@ const Profile = ({ userCredentials }) => {
     return (
         <Container maxWidth='lg'>
             <Paper className={classes.paper}>
-                <Avatar className={classes.large} src='#'></Avatar>
+                <PopUpAvatar userCredentials={userCredentials} />
                 <Typography variant='h4' color='secondary'>{userCredentials.userName ? userCredentials.userName : 'Profile'}</Typography>
                 <InfoCard type='gráfico' icon='showMore' />
             </Paper>

@@ -8,27 +8,35 @@ import Plot from '../src/pages/Plot/Plot'
 import Profile from '../src/pages/Profile/Profile'
 import { connect } from 'react-redux'
 import { Route, Switch, Redirect } from 'react-router-dom'
-import { auth, firestore } from './Firebase/Firebase'
-import { GET_USER_NAME } from './Redux/User/UserActions'
+import { auth, firestore, storage } from './Firebase/Firebase'
+import { GET_USER_NAME, UPLOAD_USER_PHOTO } from './Redux/User/UserActions'
 
 
-function App({ userCredentials, getUserName }) {
+function App({ userCredentials, getUserName, getProfilePhoto }) {
 
   useEffect(() => {
     console.log('loopAp?')
     if (userCredentials.email) {
-      let unsubscribe = auth.onAuthStateChanged( async function (user) {
+      let unsubscribe = auth.onAuthStateChanged(async function (user) {
         await firestore.doc(`users/${user.uid}`).get()
-          .then(doc => (
+          .then(doc => {
             getUserName(doc.data().name)
-          ))
+            let storageRef = storage.ref(`users/${user.uid}`)
+            let imagesRef = storageRef.child(`/images/profile/${doc.data().photoName}`)
+            imagesRef.getDownloadURL()
+              .then((resposta) => (
+                getProfilePhoto(resposta)
+              )).catch(function (erro) {
+                console.log("Erro: " + erro);
+              });
+          })
           .catch((error) => (
             console.log(error.message)
           ))
       })
       return unsubscribe()
     }
-  }, [getUserName, userCredentials.email])
+  }, [getUserName, userCredentials.email, getProfilePhoto])
 
   return (
     <div>
@@ -50,7 +58,8 @@ const mapState = state => ({
 })
 
 const mapDispatch = dispatch => ({
-  getUserName: (userName) => dispatch(GET_USER_NAME(userName))
+  getUserName: (userName) => dispatch(GET_USER_NAME(userName)),
+  getProfilePhoto: (photoName) => dispatch(UPLOAD_USER_PHOTO(photoName))
 })
 
 export default connect(mapState, mapDispatch)(App);

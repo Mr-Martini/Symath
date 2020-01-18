@@ -24,3 +24,8 @@ export const GET_USER_NAME = (userName) => ({
     type:HANDLE_USER_SIGN_IN.GET_USER_NAME,
     userName: userName
 })
+
+export const UPLOAD_USER_PHOTO = photo => ({
+    type: HANDLE_USER_SIGN_IN.UPLOAD_USER_PHOTO,
+    photo: photo
+})
