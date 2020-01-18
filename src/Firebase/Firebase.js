@@ -52,6 +52,7 @@ export const createUserDoc = (userCredentials) => {
 }
 
 export const uploadUserImage = (photo) => {
+  if (!photo) return 
   let user = auth.currentUser.uid
   let storageRef = storage.ref(`users/${user}`)
   let imagesRef = storageRef.child(`/images/profile/${photo.name}`)
