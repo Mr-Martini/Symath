@@ -21,6 +21,7 @@ function App({ userCredentials, getUserName, getProfilePhoto }) {
         await firestore.doc(`users/${user.uid}`).get()
           .then(doc => {
             getUserName(doc.data().name)
+            if (!userCredentials.photo) {
             let storageRef = storage.ref(`users/${user.uid}`)
             let imagesRef = storageRef.child(`/images/profile/${doc.data().photoName}`)
             imagesRef.getDownloadURL()
@@ -29,6 +30,7 @@ function App({ userCredentials, getUserName, getProfilePhoto }) {
               )).catch(function (erro) {
                 console.log("Erro: " + erro);
               });
+            }
           })
           .catch((error) => (
             console.log(error.message)
@@ -36,7 +38,7 @@ function App({ userCredentials, getUserName, getProfilePhoto }) {
       })
       return unsubscribe()
     }
-  }, [getUserName, userCredentials.email, getProfilePhoto])
+  }, [getUserName, userCredentials.email, getProfilePhoto, userCredentials.photo])
 
   return (
     <div>
