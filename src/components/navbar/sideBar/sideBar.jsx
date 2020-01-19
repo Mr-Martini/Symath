@@ -89,7 +89,7 @@ function TemporaryDrawer({ mobile, userCredentials, SignOut }) {
                         <ListItemText primary='About' />
                     </ListItem>
 
-                    {!userCredentials.userName ?
+                    {!userCredentials.email ?
                         <ListItem button component={Link} to={'/register'} >
                             <ListItemIcon>
                                 <RegisterIcon color='secondary' />
@@ -99,7 +99,7 @@ function TemporaryDrawer({ mobile, userCredentials, SignOut }) {
                         :
                         null
                     }
-                    {!userCredentials.userName ?
+                    {!userCredentials.email ?
                         <ListItem button component={Link} to={'/login'} >
                             <ListItemIcon>
                                 <LoginIcon color='secondary' />
