@@ -8,8 +8,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import InfoCard from '../../components/infoCard/infoCard'
 import { connect } from 'react-redux'
 import PopUpAvatar from '../../components/PopUp/PopUp'
-import { getUserName, getUserPhoto } from '../../Firebase/Firebase'
-import { GET_USER_NAME, UPLOAD_USER_PHOTO } from '../../Redux/User/UserActions'
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -30,22 +28,9 @@ const useStyles = makeStyles(theme => ({
     },
 }))
 
-const Profile = ({ userCredentials, pushPhotoStore, pushUserNameStore }) => {
+const Profile = ({ userCredentials }) => {
 
     const classes = useStyles()
-
-    if ((!userCredentials.userName) && userCredentials.email) {
-        getUserName().then(name => {
-            pushUserNameStore(name)
-        }).catch(error => {
-            console.log(error.message)
-        })
-        getUserPhoto().then(photo => {
-            pushPhotoStore(photo)
-        }).catch(error => {
-            console.log(error.message)
-        })
-    }
 
     return (
         <Container maxWidth='lg'>
@@ -62,9 +47,4 @@ const mapState = state => ({
     userCredentials: state.UserReducer
 })
 
-const mapDispatch = dispatch => ({
-    pushUserNameStore: (userName) => dispatch(GET_USER_NAME(userName)),
-    pushPhotoStore: (photo) => dispatch(UPLOAD_USER_PHOTO(photo))
-  })
-
-export default connect(mapState, mapDispatch)(Profile)
+export default connect(mapState)(Profile)
