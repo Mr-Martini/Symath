@@ -16,7 +16,7 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { auth, createUserDoc } from '../../Firebase/Firebase'
-import { START_SIGN_IN_EMAIL, SUCCESS_SIGN_IN_EMAIL, FAILURE_SIGN_IN_EMAIL} from '../../Redux/User/UserActions'
+import { SUCCESS_SIGN_IN_EMAIL } from '../../Redux/User/UserActions'
 
 
 function Copyright() {
@@ -79,7 +79,7 @@ const CssTextField = withStyles({
   },
 })(TextField);
 
-const Form = ({ match, pushUserStore, startPushing, failurePush }) => {
+const Form = ({ match, pushUserStore, }) => {
 
   const classes = useStyles();
 
@@ -97,16 +97,15 @@ const Form = ({ match, pushUserStore, startPushing, failurePush }) => {
       createUserDoc(userCredentials)
     }
     else if (match.url === '/login') {
-      startPushing()
       auth.signInWithEmailAndPassword(userCredentials.email, userCredentials.password)
         .then(function (userRef) {
           pushUserStore(userCredentials)
         })
         .catch((error) => (
-          failurePush(error.message)
+          console.log(error.message)
         ))
     }
-
+    setUserCredentials({ userName: '', password: '', email: ''})
   }
 
   const handleChange = e => {
@@ -226,8 +225,6 @@ const Form = ({ match, pushUserStore, startPushing, failurePush }) => {
 const mapDispatch = dispatch => {
   return {
     pushUserStore: (userCredentials) => dispatch(SUCCESS_SIGN_IN_EMAIL(userCredentials)),
-    startPushing: () => dispatch(START_SIGN_IN_EMAIL()),
-    failurePush: (error) => dispatch(FAILURE_SIGN_IN_EMAIL(error))
   }
 }
 

@@ -6,6 +6,7 @@ import MenuItem from '@material-ui/core/MenuItem'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { USER_SIGN_OUT } from '../../../Redux/User/UserActions'
+import { auth } from '../../../Firebase/Firebase'
 
 const useStyles = makeStyles(theme => ({
     divMob: {
@@ -36,7 +37,12 @@ function MenuMob({ userCredentials, SignOut }) {
 
     const onClick = event => {
         handleClose()
-        SignOut()
+        auth.signOut().then(
+            SignOut()
+        ).catch((error) =>(
+            console.log(error.message)
+        ))
+        
     }
 
     return (

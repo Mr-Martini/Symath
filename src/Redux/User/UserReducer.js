@@ -36,7 +36,8 @@ const UserReducer = (state = INITIAL_STATE, action) => {
                 userName: '',
                 email: '',
                 password: '',
-                isLoading: false
+                isLoading: false,
+                photo: null
             }
         case HANDLE_USER_SIGN_IN.GET_USER_NAME:
             return {

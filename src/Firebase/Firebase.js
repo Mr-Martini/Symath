@@ -3,7 +3,6 @@ import 'firebase/auth'
 import 'firebase/firestore'
 import 'firebase/storage'
 
-
 var firebaseConfig = {
   apiKey: "AIzaSyA8an12749Yyt2mBb_Jl_PgVYce7e9tp50",
   authDomain: "symath-fbf14.firebaseapp.com",
@@ -22,11 +21,14 @@ export const storage = firebase.storage()
 
 export default firebase
 
-export const createUserDoc = (userCredentials) => {
+export const createUserDoc = async (userCredentials) => {
 
   auth.createUserWithEmailAndPassword(userCredentials.email, userCredentials.password)
     .then(async function (user) {
       let userAuth = user.user
+      userAuth.updateProfile({
+        displayName: userCredentials.userName
+      })
       let userRef = firestore.doc(`users/${userAuth.uid}`)
       const snapshot = await userRef.get()
 
@@ -37,7 +39,8 @@ export const createUserDoc = (userCredentials) => {
           await userRef.set({
             name: userCredentials.userName,
             email: userCredentials.email,
-            createdAt: createdAt
+            createdAt: createdAt,
+            photoName: '',
           })
         }
         catch (error) {
@@ -51,14 +54,42 @@ export const createUserDoc = (userCredentials) => {
     ))
 }
 
-export const uploadUserImage = (photo) => {
+export const uploadUserImage = async (photo) => {
   if (!photo) return 
-  let user = auth.currentUser.uid
-  let storageRef = storage.ref(`users/${user}`)
+  let user = auth.currentUser
+  let storageRef = storage.ref(`users/${user.uid}`)
   let imagesRef = storageRef.child(`/images/profile/${photo.name}`)
   let uploadImage = imagesRef.put(photo)
   uploadImage.resume()
-  firestore.doc(`users/${user}`).update({
+  firestore.doc(`users/${user.uid}`).update({
     photoName: photo.name
   })
+  const getUrl = await imagesRef.getDownloadURL()
+  user.updateProfile({
+    photoURL: getUrl
+  }).then( result => {
+  }).catch(error =>{
+    console.log(error.message)
+  })
+}
+
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = auth.onAuthStateChanged(userAuth => {
+      unsubscribe()
+      resolve(userAuth)
+    }, reject)
+  })
+}
+
+export const getUserName = async () => {
+  const userAuth = await getCurrentUser()
+  if (!userAuth) return null
+  return userAuth.displayName
+}
+
+export const getUserPhoto = async () => {
+  const userAuth = await getCurrentUser()
+  if (!userAuth) return null
+  return userAuth.photoURL
 }
