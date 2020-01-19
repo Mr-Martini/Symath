@@ -15,8 +15,7 @@ import { withRouter } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { auth, createUserDoc } from '../../Firebase/Firebase'
-import { SUCCESS_SIGN_IN_EMAIL } from '../../Redux/User/UserActions'
+import { START_SIGN_IN_EMAIL, START_SIGN_UP_EMAIL } from '../../Redux/User/UserActions'
 
 
 function Copyright() {
@@ -79,7 +78,7 @@ const CssTextField = withStyles({
   },
 })(TextField);
 
-const Form = ({ match, pushUserStore, }) => {
+const Form = ({ match, START_SIGN_UP_EMAIL, START_SIGN_IN_EMAIL }) => {
 
   const classes = useStyles();
 
@@ -93,17 +92,11 @@ const Form = ({ match, pushUserStore, }) => {
     e.preventDefault()
 
     if (match.url === '/register') {
-      pushUserStore(userCredentials)
-      createUserDoc(userCredentials)
+      START_SIGN_UP_EMAIL(userCredentials)
     }
     else if (match.url === '/login') {
-      auth.signInWithEmailAndPassword(userCredentials.email, userCredentials.password)
-        .then(function (userRef) {
-          pushUserStore(userCredentials)
-        })
-        .catch((error) => (
-          console.log(error.message)
-        ))
+      console.log("chegou form")
+      START_SIGN_IN_EMAIL({ email: userCredentials.email, password: userCredentials.password })
     }
     setUserCredentials({ userName: '', password: '', email: ''})
   }
@@ -224,7 +217,8 @@ const Form = ({ match, pushUserStore, }) => {
 
 const mapDispatch = dispatch => {
   return {
-    pushUserStore: (userCredentials) => dispatch(SUCCESS_SIGN_IN_EMAIL(userCredentials)),
+    START_SIGN_IN_EMAIL: (userCredentials) => dispatch(START_SIGN_IN_EMAIL(userCredentials)),
+    START_SIGN_UP_EMAIL: (userCredentials) => dispatch(START_SIGN_UP_EMAIL(userCredentials)),
   }
 }
 

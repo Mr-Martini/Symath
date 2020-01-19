@@ -11,7 +11,7 @@ import Paper from '@material-ui/core/Paper';
 import Draggable from 'react-draggable';
 import InputField from '../input/InputFied'
 import { connect } from 'react-redux'
-import { uploadUserImage } from '../../Firebase/Firebase'
+import { START_UPLOAD_PHOTO } from '../../Redux/User/UserActions'
 
 function PaperComponent(props) {
     return (
@@ -40,7 +40,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-function AlertDialog({ userCredentials }) {
+function AlertDialog({ userCredentials, uploadPhoto }) {
     const [open, setOpen] = React.useState(false);
     const [userPhoto, setUserPhoto] = React.useState()
 
@@ -52,7 +52,7 @@ function AlertDialog({ userCredentials }) {
 
     const handleClose = () => {
         setOpen(false);
-        uploadUserImage(userPhoto)
+        uploadPhoto(userPhoto)
     };
 
     return (
@@ -82,4 +82,8 @@ function AlertDialog({ userCredentials }) {
     );
 }
 
-export default connect()(AlertDialog)
+const mapDispatch = dispatch => ({
+    uploadPhoto: (photoName) => dispatch(START_UPLOAD_PHOTO(photoName))
+})
+
+export default connect(null, mapDispatch)(AlertDialog)

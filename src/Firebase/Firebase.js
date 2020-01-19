@@ -73,23 +73,3 @@ export const uploadUserImage = async (photo) => {
   })
 }
 
-export const getCurrentUser = () => {
-  return new Promise((resolve, reject) => {
-    const unsubscribe = auth.onAuthStateChanged(userAuth => {
-      unsubscribe()
-      resolve(userAuth)
-    }, reject)
-  })
-}
-
-export const getUserName = async () => {
-  const userAuth = await getCurrentUser()
-  if (!userAuth) return null
-  return userAuth.displayName
-}
-
-export const getUserPhoto = async () => {
-  const userAuth = await getCurrentUser()
-  if (!userAuth) return null
-  return userAuth.photoURL
-}

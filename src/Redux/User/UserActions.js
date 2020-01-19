@@ -1,8 +1,11 @@
-import { HANDLE_USER_SIGN_IN } from './UserTypes'
+import { HANDLE_USER_SIGN_IN, HANDLE_USER_SIGN_UP } from './UserTypes'
 
-export const START_SIGN_IN_EMAIL = () => {
+
+//Sign In
+export const START_SIGN_IN_EMAIL = (emailAndPassword) => {
     return {
     type: HANDLE_USER_SIGN_IN.START_SIGN_IN_EMAIL,
+    payload: emailAndPassword
     }
 }
 
@@ -20,12 +23,39 @@ export const USER_SIGN_OUT = () => ({
     type: HANDLE_USER_SIGN_IN.USER_SIGN_OUT
 })
 
-export const GET_USER_NAME = (userName) => ({
-    type:HANDLE_USER_SIGN_IN.GET_USER_NAME,
-    userName: userName
+export const START_UPLOAD_PHOTO = (photoName) => ({
+    type: HANDLE_USER_SIGN_IN.START_UPLOAD_PHOTO,
+    photo: photoName
 })
 
-export const UPLOAD_USER_PHOTO = photo => ({
-    type: HANDLE_USER_SIGN_IN.UPLOAD_USER_PHOTO,
-    photo: photo
+export const SUCCESS_UPLOAD_PHOTO = (photoURL) => ({
+    type: HANDLE_USER_SIGN_IN.SUCCESS_UPLOAD_PHOTO,
+    photoURL: photoURL
+})
+
+export const FAILURE_UPLOAD_PHOTO = (error) => ({
+    type: HANDLE_USER_SIGN_IN.FAILURE_UPLOAD_PHOTO,
+    error: error
+})
+
+
+
+
+//Sign Up
+
+export const START_SIGN_UP_EMAIL = (emailAndPasswordAndName) => {
+    return {
+    type: HANDLE_USER_SIGN_UP.START_SIGN_UP_EMAIL,
+    payload: emailAndPasswordAndName
+    }
+}
+
+export const SUCCESS_SIGN_UP_EMAIL = (userCredentials) => ({
+    type: HANDLE_USER_SIGN_UP.SUCCESS_SIGN_UP_EMAIL,
+    userCredentials: userCredentials
+})
+
+export const FAILURE_SIGN_UP_EMAIL = error => ({
+    type: HANDLE_USER_SIGN_UP.FAILURE_SIGN_UP_EMAIL,
+    error: error
 })
