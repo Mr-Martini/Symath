@@ -53,8 +53,13 @@ function AlertDialog({ userCredentials, uploadPhoto, isLoading }) {
 
     const handleClose = () => {
         setOpen(false);
-        uploadPhoto(userPhoto)
+        
     };
+
+    const uploadButton = () => {
+        uploadPhoto(userPhoto)
+        setOpen(false)
+    }
 
     return (
         <div>
@@ -74,7 +79,7 @@ function AlertDialog({ userCredentials, uploadPhoto, isLoading }) {
                     <InputField pegarInput={e => setUserPhoto(e.target.files[0])} type='file' placeholder='!' id='file' />
                 </DialogContent>
                 <DialogActions style={{ display: 'flex', justifyContent: 'center' }} disableSpacing={true} classes={{ root: classes.root }}>
-                    <Button onClick={handleClose} color="secondary" autoFocus>
+                    <Button onClick={uploadButton} color="secondary" autoFocus>
                         Upload
                     </Button>
                 </DialogActions>
