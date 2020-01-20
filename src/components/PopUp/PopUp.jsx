@@ -12,6 +12,7 @@ import Draggable from 'react-draggable';
 import InputField from '../input/InputFied'
 import { connect } from 'react-redux'
 import { START_UPLOAD_PHOTO } from '../../Redux/User/UserActions'
+import Progress from '../Feedback/Progress'
 
 function PaperComponent(props) {
     return (
@@ -40,7 +41,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-function AlertDialog({ userCredentials, uploadPhoto }) {
+function AlertDialog({ userCredentials, uploadPhoto, isLoading }) {
     const [open, setOpen] = React.useState(false);
     const [userPhoto, setUserPhoto] = React.useState()
 
@@ -57,7 +58,7 @@ function AlertDialog({ userCredentials, uploadPhoto }) {
 
     return (
         <div>
-            <Avatar onClick={handleClickOpen} className={classes.large} src={userCredentials.photo ? userCredentials.photo : '#'}></Avatar>
+            {isLoading? <Progress /> :<Avatar onClick={handleClickOpen} className={classes.large} src={userCredentials.photo ? userCredentials.photo : '#'}></Avatar>}
             <Dialog
                 open={open}
                 onClose={handleClose}
@@ -86,4 +87,8 @@ const mapDispatch = dispatch => ({
     uploadPhoto: (photoName) => dispatch(START_UPLOAD_PHOTO(photoName))
 })
 
-export default connect(null, mapDispatch)(AlertDialog)
+const mapState = state => ({
+    isLoading: state.UserReducer.isLoadingPhoto
+})
+
+export default connect(mapState, mapDispatch)(AlertDialog)

@@ -6,7 +6,8 @@ const INITIAL_STATE = {
     password: '',
     isLoading: false,
     error: '',
-    photo: null
+    photo: null,
+    isLoadingPhoto: false
 }
 
 const UserReducer = (state = INITIAL_STATE, action) => {
@@ -68,18 +69,19 @@ const UserReducer = (state = INITIAL_STATE, action) => {
             case HANDLE_USER_SIGN_IN.START_UPLOAD_PHOTO:
                 return {
                     ...state,
-                    isLoading: true,
+                    isLoadingPhoto: true,
                     error: '',
                 }
             case HANDLE_USER_SIGN_IN.SUCCESS_UPLOAD_PHOTO:
                 return {
                     ...state,
-                    photo: action.photoURL
+                    photo: action.photoURL,
+                    isLoadingPhoto: false
                 }
             case HANDLE_USER_SIGN_IN.FAILURE_UPLOAD_PHOTO:
                 return {
                     ...state,
-                    isLoading: false,
+                    isLoadingPhoto: false,
                     error: action.error
                 }
         default:
