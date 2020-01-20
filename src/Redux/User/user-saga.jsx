@@ -48,10 +48,10 @@ export function* uploadPhoto(photo) {
         const firestoreRef = yield firestore.doc(`users/${user.uid}`).get()
         const firestoreData = firestoreRef.data()
         const userPhoto = firestoreData.photoName
-        const deletePreviousPhoto = yield storage.ref(`users/${user.uid}/images/profile/${userPhoto}`)
-        yield deletePreviousPhoto.delete()
         const imagesRef = yield storageRef.child(`/images/profile/${photo.photo.name}`)
         yield imagesRef.put(photo.photo)
+        const deletePreviousPhoto = yield storage.ref(`users/${user.uid}/images/profile/${userPhoto}`)
+        yield deletePreviousPhoto.delete()
         yield firestore.doc(`users/${user.uid}`).update({
             photoName: photo.photo.name
         })
@@ -59,7 +59,7 @@ export function* uploadPhoto(photo) {
         yield user.updateProfile({ photoURL: getUrl })
         yield put(SUCCESS_UPLOAD_PHOTO(getUrl))
     } catch (error) {
-        yield put(FAILURE_UPLOAD_PHOTO(error.message))
+        yield put(FAILURE_UPLOAD_PHOTO('Upload error'))
     }
 }
 

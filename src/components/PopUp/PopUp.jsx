@@ -51,9 +51,9 @@ function AlertDialog({ userCredentials, uploadPhoto, isLoading }) {
         setOpen(true);
     };
 
-    const handleClose = () => {
+    const handleDialogClose = () => {
         setOpen(false);
-        
+
     };
 
     const uploadButton = () => {
@@ -63,10 +63,10 @@ function AlertDialog({ userCredentials, uploadPhoto, isLoading }) {
 
     return (
         <div>
-            {isLoading? <Progress /> :<Avatar onClick={handleClickOpen} className={classes.large} src={userCredentials.photo ? userCredentials.photo : '#'}></Avatar>}
+            {isLoading ? <Progress /> : <Avatar onClick={handleClickOpen} className={classes.large} src={userCredentials.photo ? userCredentials.photo : '#'}></Avatar>}
             <Dialog
                 open={open}
-                onClose={handleClose}
+                onClose={handleDialogClose}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
                 keepMounted
@@ -89,11 +89,11 @@ function AlertDialog({ userCredentials, uploadPhoto, isLoading }) {
 }
 
 const mapDispatch = dispatch => ({
-    uploadPhoto: (photoName) => dispatch(START_UPLOAD_PHOTO(photoName))
+    uploadPhoto: (photoName) => dispatch(START_UPLOAD_PHOTO(photoName)),
 })
 
 const mapState = state => ({
-    isLoading: state.UserReducer.isLoadingPhoto
+    isLoading: state.UserReducer.isLoadingPhoto,
 })
 
 export default connect(mapState, mapDispatch)(AlertDialog)
