@@ -45,6 +45,11 @@ export function* uploadPhoto(photo) {
     try {
         const user = yield auth.currentUser
         const storageRef = yield storage.ref(`users/${user.uid}`)
+        const firestoreRef = yield firestore.doc(`users/${user.uid}`).get()
+        const firestoreData = firestoreRef.data()
+        const userPhoto = firestoreData.photoName
+        const deletePreviousPhoto = yield storage.ref(`users/${user.uid}/images/profile/${userPhoto}`)
+        yield deletePreviousPhoto.delete()
         const imagesRef = yield storageRef.child(`/images/profile/${photo.photo.name}`)
         yield imagesRef.put(photo.photo)
         yield firestore.doc(`users/${user.uid}`).update({
