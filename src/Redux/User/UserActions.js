@@ -19,10 +19,6 @@ export const FAILURE_SIGN_IN_EMAIL = error => ({
     error: error
 })
 
-export const USER_SIGN_OUT = () => ({
-    type: HANDLE_USER_SIGN_IN.USER_SIGN_OUT
-})
-
 export const START_UPLOAD_PHOTO = (photoName) => ({
     type: HANDLE_USER_SIGN_IN.START_UPLOAD_PHOTO,
     photo: photoName
@@ -37,6 +33,20 @@ export const FAILURE_UPLOAD_PHOTO = (error) => ({
     type: HANDLE_USER_SIGN_IN.FAILURE_UPLOAD_PHOTO,
     error: error
 })
+
+export const START_USER_SIGN_OUT = () => ({
+    type: HANDLE_USER_SIGN_IN.START_USER_SIGN_OUT
+})
+
+export const SUCCESS_USER_SIGN_OUT = () => ({
+    type: HANDLE_USER_SIGN_IN.SUCCESS_USER_SIGN_OUT
+})
+
+export const FAILURE_USER_SIGN_OUT = () => ({
+    type: HANDLE_USER_SIGN_IN.FAILURE_USER_SIGN_OUT
+})
+
+
 
 
 

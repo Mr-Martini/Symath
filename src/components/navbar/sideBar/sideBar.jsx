@@ -14,7 +14,7 @@ import LoginIcon from '@material-ui/icons/Person'
 import RegisterIcon from '@material-ui/icons/Add'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { USER_SIGN_OUT } from '../../../Redux/User/UserActions'
+import { START_USER_SIGN_OUT } from '../../../Redux/User/UserActions'
 
 const useStyles = makeStyles(theme => ({
     list: {
@@ -148,7 +148,7 @@ const mapState = state => ({
 })
 
 const mapDispatch = dispatch => ({
-    SignOut: () => dispatch(USER_SIGN_OUT())
+    SignOut: () => dispatch(START_USER_SIGN_OUT())
 })
 
 export default connect(mapState, mapDispatch)(TemporaryDrawer)

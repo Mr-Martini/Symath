@@ -7,7 +7,9 @@ import {
     SUCCESS_SIGN_UP_EMAIL,
     FAILURE_SIGN_UP_EMAIL,
     SUCCESS_UPLOAD_PHOTO,
-    FAILURE_UPLOAD_PHOTO
+    FAILURE_UPLOAD_PHOTO,
+    SUCCESS_USER_SIGN_OUT,
+    FAILURE_USER_SIGN_OUT
 } from '../User/UserActions'
 
 
@@ -56,6 +58,15 @@ export function* uploadPhoto(photo) {
     }
 }
 
+export function* signOutSaga() {
+    try {
+        yield auth.signOut()
+        yield put(SUCCESS_USER_SIGN_OUT())
+    } catch(error) {
+        yield put(FAILURE_USER_SIGN_OUT())
+    }   
+}
+
 export function* onEmailSignInStart() {
     yield takeLatest(HANDLE_USER_SIGN_IN.START_SIGN_IN_EMAIL, signInWithEmail)
 }
@@ -68,10 +79,15 @@ export function* onStartUploadPhoto() {
     yield takeLatest(HANDLE_USER_SIGN_IN.START_UPLOAD_PHOTO, uploadPhoto)
 }
 
+export function* onStartUserSignOut() {
+    yield takeLatest(HANDLE_USER_SIGN_IN.START_USER_SIGN_OUT, signOutSaga)
+}
+
 export function* userSaga() {
     yield all([
         call(onEmailSignInStart),
         call(onEmailSignUpStart),
-        call(onStartUploadPhoto)
+        call(onStartUploadPhoto),
+        call(onStartUserSignOut)
     ])
 }

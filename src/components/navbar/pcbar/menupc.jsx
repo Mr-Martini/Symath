@@ -3,8 +3,7 @@ import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/core/styles'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { USER_SIGN_OUT } from '../../../Redux/User/UserActions'
-import { auth } from '../../../Firebase/Firebase'
+import { START_USER_SIGN_OUT } from '../../../Redux/User/UserActions'
 
 const useStyles = makeStyles(theme => ({
     divPc: {
@@ -20,12 +19,7 @@ function MenuPc({ userCredentials, SignOut }) {
     const classes = useStyles()
 
     const handleSignOut = () => {
-        auth.signOut().then(
-            SignOut()
-        ).catch((error) =>(
-            console.log(error.message)
-        ))
-        
+        SignOut()
     }
 
     return (
@@ -50,7 +44,7 @@ const mapState = state => ({
 })
 
 const mapDispatch = dispatch => ({
-    SignOut: () => dispatch(USER_SIGN_OUT())
+    SignOut: () => dispatch(START_USER_SIGN_OUT())
 })
 
 export default connect(mapState, mapDispatch)(MenuPc)
