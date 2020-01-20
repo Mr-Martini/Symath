@@ -1,6 +1,7 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import SwitchReducer from '../Redux/Switch/SwitchReducer'
 import UserReducer from '../Redux/User/UserReducer'
+import FeedReducer from '../Redux/FeedBack/FeedBackReducer'
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import logger from 'redux-logger'
@@ -20,7 +21,7 @@ const persistConfig = {
   storage,
 }
 
-const rootReducer = combineReducers({ SwitchReducer: SwitchReducer, UserReducer: UserReducer })
+const rootReducer = combineReducers({ SwitchReducer: SwitchReducer, UserReducer: UserReducer, FeedReducer: FeedReducer })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 

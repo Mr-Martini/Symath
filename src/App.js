@@ -1,7 +1,7 @@
 import './App.css';
 import React from 'react'
 import NavBar from './components/navbar/DecideBar/DecideBar'
-import Form from '../src/pages/form/form'
+import Form from './pages/form/form.container'
 import HomePage from '../src/pages/home/home'
 import About from '../src/pages/about/about'
 import Plot from '../src/pages/Plot/Plot'

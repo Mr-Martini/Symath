@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import LinkM from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
@@ -16,6 +14,7 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { START_SIGN_IN_EMAIL, START_SIGN_UP_EMAIL } from '../../Redux/User/UserActions'
+import { setFeedFalse, setFeedTrue } from '../../Redux/FeedBack/FeedBackActions'
 import FeedBack from '../../components/Feedback/Feedback'
 
 function Copyright() {
@@ -78,7 +77,7 @@ const CssTextField = withStyles({
   },
 })(TextField);
 
-const Form = ({ match, START_SIGN_UP_EMAIL, START_SIGN_IN_EMAIL, userStore }) => {
+const Form = ({ match, START_SIGN_UP_EMAIL, START_SIGN_IN_EMAIL, userStore, open, SET_FEED_TRUE, SET_FEED_FALSE }) => {
 
   const classes = useStyles();
 
@@ -88,11 +87,9 @@ const Form = ({ match, START_SIGN_UP_EMAIL, START_SIGN_IN_EMAIL, userStore }) =>
     userName: '',
   })
 
-  const [open, setOpen] = useState(false)
-
   const handleSubmit = e => {
     e.preventDefault()
-    setOpen(true)
+    SET_FEED_TRUE(true)
 
     if (match.url === '/register') {
       START_SIGN_UP_EMAIL(userCredentials)
@@ -114,8 +111,9 @@ const Form = ({ match, START_SIGN_UP_EMAIL, START_SIGN_IN_EMAIL, userStore }) =>
       return;
     }
 
-    setOpen(false);
+    SET_FEED_FALSE(false)
   };
+
 
   return (
     <Container component="main" maxWidth="xs">
@@ -194,11 +192,6 @@ const Form = ({ match, START_SIGN_UP_EMAIL, START_SIGN_IN_EMAIL, userStore }) =>
             color='secondary'
             onChange={handleChange}
           />
-          <FormControlLabel
-            control={<Checkbox value="remember" color='secondary' />}
-            label="Remember me"
-
-          />
           <Button
             type="button"
             fullWidth
@@ -234,11 +227,14 @@ const mapDispatch = dispatch => {
   return {
     START_SIGN_IN_EMAIL: (userCredentials) => dispatch(START_SIGN_IN_EMAIL(userCredentials)),
     START_SIGN_UP_EMAIL: (userCredentials) => dispatch(START_SIGN_UP_EMAIL(userCredentials)),
+    SET_FEED_TRUE: (state) => dispatch(setFeedTrue(state)),
+    SET_FEED_FALSE: (state) => dispatch(setFeedFalse(state))
   }
 }
 
 const mapState = state => ({
-  userStore: state.UserReducer
+  userStore: state.UserReducer,
+  open: state.FeedReducer.open
 })
 
 export default compose(
