@@ -14,7 +14,8 @@ const UserReducer = (state = INITIAL_STATE, action) => {
         case HANDLE_USER_SIGN_IN.START_SIGN_IN_EMAIL:
             return {
                 ...state,
-                isLoading: true
+                isLoading: true,
+                error: '',
             }
         case HANDLE_USER_SIGN_IN.SUCCESS_SIGN_IN_EMAIL:
             return {
@@ -23,7 +24,8 @@ const UserReducer = (state = INITIAL_STATE, action) => {
                 email: action.userCredentials.email,
                 password: action.userCredentials.password,
                 isLoading: false,
-                photo: action.userCredentials.photo
+                photo: action.userCredentials.photo,
+                error: '',
             }
         case HANDLE_USER_SIGN_IN.FAILURE_SIGN_IN_EMAIL:
             return {
@@ -38,12 +40,14 @@ const UserReducer = (state = INITIAL_STATE, action) => {
                 email: '',
                 password: '',
                 isLoading: false,
-                photo: null
+                photo: null,
+                error: '',
             }
             case HANDLE_USER_SIGN_UP.START_SIGN_UP_EMAIL:
                 return {
                     ...state,
-                    isLoading: true
+                    isLoading: true,
+                    error: '',
                 }
             case HANDLE_USER_SIGN_UP.SUCCESS_SIGN_UP_EMAIL:
                 return {
@@ -52,6 +56,7 @@ const UserReducer = (state = INITIAL_STATE, action) => {
                     email: action.userCredentials.email,
                     password: action.userCredentials.password,
                     isLoading: false,
+                    error: '',
                 }
             case HANDLE_USER_SIGN_UP.FAILURE_SIGN_UP_EMAIL:
                 return {
@@ -63,7 +68,8 @@ const UserReducer = (state = INITIAL_STATE, action) => {
             case HANDLE_USER_SIGN_IN.START_UPLOAD_PHOTO:
                 return {
                     ...state,
-                    isLoading: true
+                    isLoading: true,
+                    error: '',
                 }
             case HANDLE_USER_SIGN_IN.SUCCESS_UPLOAD_PHOTO:
                 return {

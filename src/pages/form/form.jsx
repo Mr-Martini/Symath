@@ -16,7 +16,7 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { START_SIGN_IN_EMAIL, START_SIGN_UP_EMAIL } from '../../Redux/User/UserActions'
-
+import FeedBack from '../../components/Feedback/Feedback'
 
 function Copyright() {
   return (
@@ -78,7 +78,7 @@ const CssTextField = withStyles({
   },
 })(TextField);
 
-const Form = ({ match, START_SIGN_UP_EMAIL, START_SIGN_IN_EMAIL }) => {
+const Form = ({ match, START_SIGN_UP_EMAIL, START_SIGN_IN_EMAIL, userStore }) => {
 
   const classes = useStyles();
 
@@ -88,17 +88,18 @@ const Form = ({ match, START_SIGN_UP_EMAIL, START_SIGN_IN_EMAIL }) => {
     userName: '',
   })
 
+  const [open, setOpen] = useState(false)
+
   const handleSubmit = e => {
     e.preventDefault()
+    setOpen(true)
 
     if (match.url === '/register') {
       START_SIGN_UP_EMAIL(userCredentials)
     }
     else if (match.url === '/login') {
-      console.log("chegou form")
       START_SIGN_IN_EMAIL({ email: userCredentials.email, password: userCredentials.password })
     }
-    setUserCredentials({ userName: '', password: '', email: ''})
   }
 
   const handleChange = e => {
@@ -107,6 +108,14 @@ const Form = ({ match, START_SIGN_UP_EMAIL, START_SIGN_IN_EMAIL }) => {
 
     setUserCredentials({ ...userCredentials, [name]: value })
   }
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -118,6 +127,12 @@ const Form = ({ match, START_SIGN_UP_EMAIL, START_SIGN_IN_EMAIL }) => {
         <Typography color='secondary' component="h1" variant="h5">
           {match.path === '/login' ? 'Sign In' : 'Register'}
         </Typography>
+        { userStore.error ?
+          <FeedBack
+          error={userStore.error}
+          open={open}
+          handleClose={handleClose}
+        /> : null}
         <form className={classes.form} noValidate>
           {match.path === '/register' ?
             <CssTextField
@@ -222,7 +237,11 @@ const mapDispatch = dispatch => {
   }
 }
 
+const mapState = state => ({
+  userStore: state.UserReducer
+})
+
 export default compose(
   withRouter,
-  connect(null, mapDispatch)
+  connect(mapState, mapDispatch)
 )(Form)

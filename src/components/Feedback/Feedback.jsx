@@ -1,47 +1,31 @@
-import React, { useState } from 'react';
+import React from 'react';
+import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
-import { withRouter } from 'react-router-dom'
-
 
 function Alert(props) {
-    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
 const useStyles = makeStyles(theme => ({
-    root: {
-        width: '10%',
-        '& > * + *': {
-            marginTop: theme.spacing(2),
-        },
-        position: 'fixed',
-        left: '1em',
-        bottom: '1em',
-        cursor: 'pointer',
-        minWidth: '150px',
-        marginBottom: theme.spacing(7)
+  root: {
+    width: '100%',
+    '& > * + *': {
+      marginTop: theme.spacing(2),
     },
+  },
 }));
 
-const CustomizedSnackbars = ({ match }) => {
-    const classes = useStyles();
+export default function CustomizedSnackbars({ error, open, handleClose }) {
+  const classes = useStyles();
 
-    const [isAlertNotClosed, setIsAlertNotClosed] = useState(true)
-
-    const handleClose = () => {
-        setIsAlertNotClosed(false)
-    }
-
-    return (
-        <>
-            {isAlertNotClosed ?
-                <div onClick={handleClose} className={classes.root}>
-                    <Alert color='error'>You are at '{match.url.split('/').join('')}'</Alert>
-                </div>
-                : null
-            }
-        </>
-    );
+  return (
+    <div className={classes.root}>
+      <Snackbar anchorOrigin={{ vertical: 'bottom', horizontal: 'left'}} open={open} autoHideDuration={4000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="error">
+          {error}
+        </Alert>
+      </Snackbar>
+    </div>
+  );
 }
-
-export default withRouter(CustomizedSnackbars)
