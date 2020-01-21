@@ -14,7 +14,7 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { START_SIGN_IN_EMAIL, START_SIGN_UP_EMAIL } from '../../Redux/User/UserActions'
-import { setFeedFalse, setFeedTrue } from '../../Redux/FeedBack/FeedBackActions'
+import { setFeedTrue } from '../../Redux/FeedBack/FeedBackActions'
 import FeedBack from '../../components/Feedback/Feedback'
 
 function Copyright() {
@@ -77,7 +77,7 @@ const CssTextField = withStyles({
   },
 })(TextField);
 
-const Form = ({ match, START_SIGN_UP_EMAIL, START_SIGN_IN_EMAIL, userStore, open, SET_FEED_TRUE, SET_FEED_FALSE }) => {
+const Form = ({ match, START_SIGN_UP_EMAIL, START_SIGN_IN_EMAIL, userStore, open, SET_FEED_TRUE }) => {
 
   const classes = useStyles();
 
@@ -106,15 +106,6 @@ const Form = ({ match, START_SIGN_UP_EMAIL, START_SIGN_IN_EMAIL, userStore, open
     setUserCredentials({ ...userCredentials, [name]: value })
   }
 
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    SET_FEED_FALSE(false)
-  };
-
-
   return (
     <Container component="main" maxWidth="xs">
 
@@ -125,12 +116,11 @@ const Form = ({ match, START_SIGN_UP_EMAIL, START_SIGN_IN_EMAIL, userStore, open
         <Typography color='secondary' component="h1" variant="h5">
           {match.path === '/login' ? 'Sign In' : 'Register'}
         </Typography>
-        { userStore.error ?
+        {userStore.error ?
           <FeedBack
-          error={userStore.error}
-          open={open}
-          handleClose={handleClose}
-        /> : null}
+            error={userStore.error}
+            open={open}
+          /> : null}
         <form className={classes.form} noValidate>
           {match.path === '/register' ?
             <CssTextField
@@ -228,7 +218,6 @@ const mapDispatch = dispatch => {
     START_SIGN_IN_EMAIL: (userCredentials) => dispatch(START_SIGN_IN_EMAIL(userCredentials)),
     START_SIGN_UP_EMAIL: (userCredentials) => dispatch(START_SIGN_UP_EMAIL(userCredentials)),
     SET_FEED_TRUE: (state) => dispatch(setFeedTrue(state)),
-    SET_FEED_FALSE: (state) => dispatch(setFeedFalse(state))
   }
 }
 
