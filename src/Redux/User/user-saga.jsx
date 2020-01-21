@@ -63,7 +63,7 @@ export function* uploadPhoto(file) {
         }
         yield put(SUCCESS_UPLOAD_PHOTO(getUrl))
     } catch (error) {
-        yield put(FAILURE_UPLOAD_PHOTO(error.message))
+        yield put(FAILURE_UPLOAD_PHOTO('Failed to upload photo'))
     }
 }
 

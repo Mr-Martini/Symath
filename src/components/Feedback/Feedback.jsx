@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const CustomizedSnackbars = ({ error, open, setFeedFalse }) => {
+const CustomizedSnackbars = ({ error, open, setFeedFalse, severity, duration }) => {
   const classes = useStyles();
 
   const handleClose = (event, reason) => {
@@ -29,8 +29,8 @@ const CustomizedSnackbars = ({ error, open, setFeedFalse }) => {
 
   return (
     <div className={classes.root}>
-      <Snackbar anchorOrigin={{ vertical: 'bottom', horizontal: 'left'}} open={open} autoHideDuration={4000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="error">
+      <Snackbar anchorOrigin={{ vertical: 'bottom', horizontal: 'left'}} open={open} autoHideDuration={duration ? duration : 4000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity={severity ? severity : 'error'}>
           {error}
         </Alert>
       </Snackbar>

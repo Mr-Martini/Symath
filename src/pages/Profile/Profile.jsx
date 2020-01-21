@@ -9,6 +9,8 @@ import { connect } from 'react-redux'
 import PopUpAvatar from '../../components/PopUp/PopUp'
 import { startUploadData } from '../../Redux/Data/DataAction'
 import FileInput from '../../components/input/FileInput'
+import FeedBack from '../../components/Feedback/Feedback'
+import { setFeedTrue } from '../../Redux/FeedBack/FeedBackActions'
 
 
 const useStyles = makeStyles(theme => ({
@@ -33,12 +35,13 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-const Profile = ({ userCredentials, uploadData }) => {
+const Profile = ({ userCredentials, uploadData, setFeedTrue, data, open }) => {
 
     const classes = useStyles()
 
     const handleUpload = e => {
         uploadData(e.target.files[0])
+        setFeedTrue(true)
     }
 
     return userCredentials.email ? (
@@ -53,6 +56,13 @@ const Profile = ({ userCredentials, uploadData }) => {
                 >
                     Upload PDF
                 </FileInput>
+                {userCredentials.error || data.error ?
+                    <FeedBack open={open} error={userCredentials.error ? userCredentials : data.error ? data.error : null} />
+                    : null
+                }
+                {data.success ?
+                    <FeedBack duration={2000} open={open} error={data.success} severity='success' />
+                    : null}
             </Paper>
         </Container>
     ) : (
@@ -66,10 +76,13 @@ const Profile = ({ userCredentials, uploadData }) => {
 
 const mapState = state => ({
     userCredentials: state.UserReducer,
+    open: state.FeedReducer.open,
+    data: state.DataReducer
 })
 
 const mapDispatch = dispatch => ({
-    uploadData: (file) => dispatch(startUploadData(file))
+    uploadData: (file) => dispatch(startUploadData(file)),
+    setFeedTrue: (state) => dispatch(setFeedTrue(state))
 })
 
 export default connect(mapState, mapDispatch)(Profile)
