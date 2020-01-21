@@ -12,7 +12,7 @@ const useStyles = makeStyles(theme => ({
         marginBottom: theme.spacing(1),
         width: "60%",
         borderRadius: '0.4em',
-        minWidth: '130px'
+        minWidth: '130px',
     },
     input: {
       color: 'white'
@@ -42,7 +42,7 @@ const CssTextField = withStyles({
   })(TextField);
 
 
-export default function ({ pegarInput, id, label, type, margin, placeholder, icone }) {
+export default function ({ pegarInput, id, label, type, margin, placeholder, icone, width, accept }) {
 
     const classes = useStyles()
 
@@ -53,6 +53,7 @@ export default function ({ pegarInput, id, label, type, margin, placeholder, ico
             }}
             id={id}
             label={label}
+            style={{ width: width }}
             type={type}
             className={classes.textField}
             margin={margin}
@@ -69,6 +70,9 @@ export default function ({ pegarInput, id, label, type, margin, placeholder, ico
                     }
                   </InputAdornment>
                 ),
+              }}
+              inputProps={{
+                accept: accept
               }}
             
         />

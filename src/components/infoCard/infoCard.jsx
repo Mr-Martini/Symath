@@ -42,7 +42,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default function SimpleCard({ type, first, second, icon }) {
+export default function SimpleCard({ type, first, second, icon, onClick }) {
     const classes = useStyles();
 
     return (
@@ -58,7 +58,7 @@ export default function SimpleCard({ type, first, second, icon }) {
                     {second}
                 </Typography>
             </CardContent>
-            <CardActions>
+            <CardActions onClick={onClick}>
                 {icon === 'upload' ? <UploadIcon className={classes.icon} color='secondary' fontSize='large' /> : null}
                 {icon === 'showMore' ? <ShowMore className={classes.icon} color='secondary' fontSize='large' /> : null}
             </CardActions>

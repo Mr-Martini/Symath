@@ -1,0 +1,26 @@
+import { all, takeLatest, call, put } from 'redux-saga/effects'
+import HANDLE_DATA from '../Data/DataType'
+import { auth, storage } from '../../Firebase/Firebase'
+import { successUploadData, failureUploadData } from '../Data/DataAction'
+
+export function* dataUpload(data) {
+    try {
+        const user = yield auth.currentUser
+        const storageRef = yield storage.ref(`users/${user.uid}`)
+        const dataRef = yield storageRef.child(`/documents/PDFs/${data.payload.name}`)
+        yield dataRef.put(data.payload)
+        yield put(successUploadData('Success uploading your file!'))
+    } catch (error) {
+        yield put(failureUploadData('Failed to upload your data'))
+    }
+}
+
+export function* onStartDataUpload() {
+    yield takeLatest(HANDLE_DATA.START_UPLOAD_DATA, dataUpload)
+}
+
+export function* dataSaga() {
+    yield all([
+        call(onStartDataUpload)
+    ])
+}

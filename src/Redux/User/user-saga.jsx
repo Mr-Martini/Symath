@@ -48,18 +48,22 @@ export function* uploadPhoto(file) {
         const firestoreRef = yield firestore.doc(`users/${user.uid}`).get()
         const firestoreData = firestoreRef.data()
         const userPhoto = firestoreData.photoName
-        const imagesRef = yield storageRef.child(`/images/profile/${file.photo.name}`)
-        yield imagesRef.put(file.photo)
-        const deletePreviousPhoto = yield storage.ref(`users/${user.uid}/images/profile/${userPhoto}`)
-        yield deletePreviousPhoto.delete()
-        yield firestore.doc(`users/${user.uid}`).update({
-            photoName: file.photo.name
-        })
-        const getUrl = yield imagesRef.getDownloadURL()
-        yield user.updateProfile({ photoURL: getUrl })
+        let getUrl = user.photoURL
+        if (userPhoto !== file.photo.name) {
+            const imagesRef = yield storageRef.child(`/images/profile/${file.photo.name}`)
+            yield imagesRef.put(file.photo)
+            const profileRef = yield storage.ref(`users/${user.uid}/images/profile`)
+            const deletePreviousPhoto = yield profileRef.child(`/${userPhoto}`)
+            yield deletePreviousPhoto.delete()
+            yield firestore.doc(`users/${user.uid}`).update({
+                photoName: file.photo.name
+            })
+            getUrl = yield imagesRef.getDownloadURL()
+            yield user.updateProfile({ photoURL: getUrl })
+        }
         yield put(SUCCESS_UPLOAD_PHOTO(getUrl))
     } catch (error) {
-        yield put(FAILURE_UPLOAD_PHOTO('Upload error'))
+        yield put(FAILURE_UPLOAD_PHOTO(error.message))
     }
 }
 

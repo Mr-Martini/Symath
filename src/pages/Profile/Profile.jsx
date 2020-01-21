@@ -5,9 +5,11 @@ import {
     Typography,
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
-import InfoCard from '../../components/infoCard/infoCard'
 import { connect } from 'react-redux'
 import PopUpAvatar from '../../components/PopUp/PopUp'
+import { startUploadData } from '../../Redux/Data/DataAction'
+import FileInput from '../../components/input/FileInput'
+
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -26,18 +28,31 @@ const useStyles = makeStyles(theme => ({
         marginBottom: theme.spacing(2),
         cursor: 'pointer'
     },
+    text: {
+        marginBottom: theme.spacing(3),
+    }
 }))
 
-const Profile = ({ userCredentials }) => {
+const Profile = ({ userCredentials, uploadData }) => {
 
     const classes = useStyles()
+
+    const handleUpload = e => {
+        uploadData(e.target.files[0])
+    }
 
     return userCredentials.email ? (
         <Container maxWidth='lg'>
             <Paper className={classes.paper}>
                 <PopUpAvatar userCredentials={userCredentials} />
-                <Typography variant='h4' color='secondary'>{userCredentials.userName ? userCredentials.userName : 'Profile'}</Typography>
-                <InfoCard type='Upload your graph' icon='upload' />
+                <Typography className={classes.text} variant='h4' color='secondary'>{userCredentials.userName ? userCredentials.userName : 'Profile'}</Typography>
+                <FileInput
+                    accept='.pdf'
+                    onChange={handleUpload}
+                    id='contained-button-file-profile'
+                >
+                    Upload PDF
+                </FileInput>
             </Paper>
         </Container>
     ) : (
@@ -50,7 +65,11 @@ const Profile = ({ userCredentials }) => {
 }
 
 const mapState = state => ({
-    userCredentials: state.UserReducer
+    userCredentials: state.UserReducer,
 })
 
-export default connect(mapState)(Profile)
+const mapDispatch = dispatch => ({
+    uploadData: (file) => dispatch(startUploadData(file))
+})
+
+export default connect(mapState, mapDispatch)(Profile)

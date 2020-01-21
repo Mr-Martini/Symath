@@ -9,7 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Slide from '@material-ui/core/Slide';
 import Paper from '@material-ui/core/Paper';
 import Draggable from 'react-draggable';
-import InputField from '../input/InputFied'
+import InputProfilePhoto from '../input/FileInput'
 import { connect } from 'react-redux'
 import { START_UPLOAD_PHOTO } from '../../Redux/User/UserActions'
 import Progress from '../Feedback/Progress'
@@ -31,7 +31,8 @@ const useStyles = makeStyles(theme => ({
     },
     root: {
         backgroundColor: '#4d4d4d',
-        color: 'white'
+        color: 'white',
+        textAlign: 'center'
     }
 }))
 
@@ -76,10 +77,10 @@ function AlertDialog({ userCredentials, uploadPhoto, isLoading }) {
             >
                 <DialogTitle classes={{ root: classes.root }} id="alert-dialog-title">{"Upload a profile photo"}</DialogTitle>
                 <DialogContent classes={{ root: classes.root }}>
-                    <InputField pegarInput={e => setUserPhoto(e.target.files[0])} type='file' placeholder='!' id='file' />
+                    <InputProfilePhoto id='contained-button-file-pop' accept='image/*' onChange={e => setUserPhoto(e.target.files[0])}>Choose a profile photo</InputProfilePhoto>
                 </DialogContent>
                 <DialogActions style={{ display: 'flex', justifyContent: 'center' }} disableSpacing={true} classes={{ root: classes.root }}>
-                    <Button onClick={uploadButton} color="secondary" autoFocus>
+                    <Button onClick={uploadButton} color="inherit" autoFocus>
                         Upload
                     </Button>
                 </DialogActions>

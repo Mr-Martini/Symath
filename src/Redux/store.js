@@ -2,6 +2,7 @@ import { createStore, combineReducers, applyMiddleware } from 'redux'
 import SwitchReducer from '../Redux/Switch/SwitchReducer'
 import UserReducer from '../Redux/User/UserReducer'
 import FeedReducer from '../Redux/FeedBack/FeedBackReducer'
+import DataReducer from './Data/DataReducer'
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import logger from 'redux-logger'
@@ -12,7 +13,7 @@ const sagaMidleware = createSaga()
 
 const middlewares = [sagaMidleware]
 
-if (process.env.NODE_ENV === 'development'){
+if (process.env.NODE_ENV === 'development') {
   middlewares.push(logger)
 }
 
@@ -21,7 +22,12 @@ const persistConfig = {
   storage,
 }
 
-const rootReducer = combineReducers({ SwitchReducer: SwitchReducer, UserReducer: UserReducer, FeedReducer: FeedReducer })
+const rootReducer = combineReducers({
+  SwitchReducer: SwitchReducer,
+  UserReducer: UserReducer,
+  FeedReducer: FeedReducer,
+  DataReducer: DataReducer
+})
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
