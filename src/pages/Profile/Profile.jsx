@@ -32,15 +32,21 @@ const Profile = ({ userCredentials }) => {
 
     const classes = useStyles()
 
-    return (
+    return userCredentials.email ? (
         <Container maxWidth='lg'>
             <Paper className={classes.paper}>
                 <PopUpAvatar userCredentials={userCredentials} />
                 <Typography variant='h4' color='secondary'>{userCredentials.userName ? userCredentials.userName : 'Profile'}</Typography>
-                <InfoCard type='gráfico' icon='showMore' />
+                <InfoCard type='Upload your graph' icon='upload' />
             </Paper>
         </Container>
-    )
+    ) : (
+            <Container maxWidth='xl'>
+                <Paper className={classes.paper}>
+                    <Typography variant='h2' color='secondary'>You must be logged in to see your data</Typography>
+                </Paper>
+            </Container>
+        )
 }
 
 const mapState = state => ({

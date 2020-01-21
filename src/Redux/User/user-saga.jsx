@@ -41,19 +41,19 @@ export function* signUpWithEmail({ payload: { email, password, userName } }) {
     }
 }
 
-export function* uploadPhoto(photo) {
+export function* uploadPhoto(file) {
     try {
         const user = yield auth.currentUser
         const storageRef = yield storage.ref(`users/${user.uid}`)
         const firestoreRef = yield firestore.doc(`users/${user.uid}`).get()
         const firestoreData = firestoreRef.data()
         const userPhoto = firestoreData.photoName
-        const imagesRef = yield storageRef.child(`/images/profile/${photo.photo.name}`)
-        yield imagesRef.put(photo.photo)
+        const imagesRef = yield storageRef.child(`/images/profile/${file.photo.name}`)
+        yield imagesRef.put(file.photo)
         const deletePreviousPhoto = yield storage.ref(`users/${user.uid}/images/profile/${userPhoto}`)
         yield deletePreviousPhoto.delete()
         yield firestore.doc(`users/${user.uid}`).update({
-            photoName: photo.photo.name
+            photoName: file.photo.name
         })
         const getUrl = yield imagesRef.getDownloadURL()
         yield user.updateProfile({ photoURL: getUrl })
@@ -67,9 +67,9 @@ export function* signOutSaga() {
     try {
         yield auth.signOut()
         yield put(SUCCESS_USER_SIGN_OUT())
-    } catch(error) {
+    } catch (error) {
         yield put(FAILURE_USER_SIGN_OUT())
-    }   
+    }
 }
 
 export function* onEmailSignInStart() {
