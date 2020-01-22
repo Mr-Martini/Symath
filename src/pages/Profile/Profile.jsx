@@ -51,7 +51,7 @@ const Profile = ({ userCredentials, uploadData, setFeedTrue, data, open }) => {
                 <Typography className={classes.text} variant='h4' color='inherit'>{userCredentials.userName ? userCredentials.userName : 'Profile'}</Typography>
                 <FileInput
                     accept='.pdf'
-                    onChange={handleUpload}
+                    onChange={(e) => handleUpload(e)}
                     id='contained-button-file-profile'
                 >
                     Upload PDF

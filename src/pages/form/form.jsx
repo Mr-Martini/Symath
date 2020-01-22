@@ -188,7 +188,7 @@ const Form = ({ match, START_SIGN_UP_EMAIL, START_SIGN_IN_EMAIL, userStore, open
             variant="contained"
             color='secondary'
             className={classes.submit}
-            onClick={handleSubmit}
+            onClick={(e) => handleSubmit(e)}
           >
             {match.path === '/login' ? 'Sign In' : 'Register'}
           </Button>

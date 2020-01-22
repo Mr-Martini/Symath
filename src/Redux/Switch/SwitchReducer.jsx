@@ -13,7 +13,7 @@ const switchReducer = (state = INITIAL_STATE, action) => {
         case HANDLE_SWITCH.TOGGLE_SWITCH:
             return {
                 ...state, 
-                [action.name]: action.event.checked
+                [action.name]: action.event
                 }
         default: 
             return state

@@ -80,7 +80,7 @@ function AlertDialog({ userCredentials, uploadPhoto, isLoading }) {
                     <InputProfilePhoto id='contained-button-file-pop' accept='image/*' onChange={e => setUserPhoto(e.target.files[0])}>Choose a profile photo</InputProfilePhoto>
                 </DialogContent>
                 <DialogActions style={{ display: 'flex', justifyContent: 'center' }} disableSpacing={true} classes={{ root: classes.root }}>
-                    <Button onClick={uploadButton} color="inherit" autoFocus>
+                    <Button onClick={() => uploadButton()} color="inherit" autoFocus>
                         Upload
                     </Button>
                 </DialogActions>

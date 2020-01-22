@@ -16,11 +16,13 @@ function SwitchLabels({ switchState,  toggleSwitch }) {
 
     const classes = useStyles()
 
+    console.log('swtich-> (A,B)->', switchState.A, switchState.B)
+
     return (
         <FormGroup>
             <FormControlLabel
                 control={
-                    <Switch checked={switchState.A} onChange={toggleSwitch('A')} value="A" />
+                    <Switch checked={switchState.A} onChange={(name, event) => toggleSwitch('A', event)} value="A" />
                 }
                 label="Data Plot"
                 classes={{
@@ -31,7 +33,7 @@ function SwitchLabels({ switchState,  toggleSwitch }) {
                 control={
                     <Switch
                         checked={switchState.B}
-                        onChange={toggleSwitch('B')}
+                        onChange={ (name, event) => toggleSwitch('B', event)}
                         value="B"
                         color="secondary"
                     />
@@ -47,7 +49,7 @@ function SwitchLabels({ switchState,  toggleSwitch }) {
 
 const mapDispatch = dispatch => {
     return {
-        toggleSwitch: name => event => dispatch(toggleSwitchButton(name, event))
+        toggleSwitch: (name, event) => dispatch(toggleSwitchButton(name, event))
     }
 }
 
