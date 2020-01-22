@@ -36,7 +36,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-function TemporaryDrawer({ mobile, userCredentials, SignOut }) {
+function TemporaryDrawer({ mobile, userCredentials, SignOut, value }) {
     const classes = useStyles()
 
     const [state, setState] = React.useState({
@@ -62,20 +62,20 @@ function TemporaryDrawer({ mobile, userCredentials, SignOut }) {
                 <List>
                     <ListItem button component={Link} to={'/About'} >
                         <ListItemIcon>
-                            <InfoIcon color='secondary' />
+                            <InfoIcon style={{ color: 'white'}} />
                         </ListItemIcon>
                         <ListItemText primary='About' />
                     </ListItem>
 
                     <ListItem button component={Link} to={'/Plot'} >
                         <ListItemIcon>
-                            <GraphIcon color='secondary' />
+                            <GraphIcon style={{ color: 'white'}} />
                         </ListItemIcon>
                         <ListItemText primary='Plot' />
                     </ListItem>
                     <ListItem button component={Link} to={'/Profile'} >
                         <ListItemIcon>
-                            <ProfileIcon color='secondary' />
+                            <ProfileIcon style={{ color: 'white'}} />
                         </ListItemIcon>
                         <ListItemText primary='Profile' />
                     </ListItem>
@@ -84,7 +84,7 @@ function TemporaryDrawer({ mobile, userCredentials, SignOut }) {
                 <List>
                     <ListItem button component={Link} to={'/About'} >
                         <ListItemIcon>
-                            <InfoIcon color='secondary' />
+                            <InfoIcon style={{ color: 'white'}} />
                         </ListItemIcon>
                         <ListItemText primary='About' />
                     </ListItem>
@@ -92,7 +92,7 @@ function TemporaryDrawer({ mobile, userCredentials, SignOut }) {
                     {!userCredentials.email ?
                         <ListItem button component={Link} to={'/register'} >
                             <ListItemIcon>
-                                <RegisterIcon color='secondary' />
+                                <RegisterIcon style={{ color: 'white'}} />
                             </ListItemIcon>
                             <ListItemText primary='Register' />
                         </ListItem>
@@ -102,14 +102,14 @@ function TemporaryDrawer({ mobile, userCredentials, SignOut }) {
                     {!userCredentials.email ?
                         <ListItem button component={Link} to={'/login'} >
                             <ListItemIcon>
-                                <LoginIcon color='secondary' />
+                                <LoginIcon style={{ color: 'white'}} />
                             </ListItemIcon>
                             <ListItemText primary='Login' />
                         </ListItem>
                         :
                         <ListItem button onClick={SignOut} >
                             <ListItemIcon>
-                                <LoginIcon color='secondary' />
+                                <LoginIcon style={{ color: 'white'}} />
                             </ListItemIcon>
                             <ListItemText primary='Logout' />
                         </ListItem>
@@ -126,7 +126,7 @@ function TemporaryDrawer({ mobile, userCredentials, SignOut }) {
                     <MenuIcon />
                 </IconButton>
                 : <div onClick={toggleDrawer('left', true)}>
-                    <MenuIcon color='secondary' />
+                    <MenuIcon style={{ color: value === 3 ? '#F50057' : 'white' }} />
                 </div>
             }
             <Drawer

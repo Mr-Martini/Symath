@@ -49,7 +49,7 @@ export function* uploadPhoto(file) {
         const firestoreData = firestoreRef.data()
         const userPhoto = firestoreData.photoName
         let getUrl = user.photoURL
-        if (userPhoto !== file.photo.name) {
+        if (userPhoto !== file.photo.name && file.photo.size < 4000000) {
             const imagesRef = yield storageRef.child(`/images/profile/${file.photo.name}`)
             yield imagesRef.put(file.photo)
             const profileRef = yield storage.ref(`users/${user.uid}/images/profile`)
@@ -60,8 +60,9 @@ export function* uploadPhoto(file) {
             })
             getUrl = yield imagesRef.getDownloadURL()
             yield user.updateProfile({ photoURL: getUrl })
+            yield put(SUCCESS_UPLOAD_PHOTO(getUrl))
         }
-        yield put(SUCCESS_UPLOAD_PHOTO(getUrl))
+        yield put(FAILURE_UPLOAD_PHOTO('Failed to upload photo'))
     } catch (error) {
         yield put(FAILURE_UPLOAD_PHOTO('Failed to upload photo'))
     }

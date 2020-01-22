@@ -67,7 +67,8 @@ const UserReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 photo: action.photoURL,
-                isLoadingPhoto: false
+                isLoadingPhoto: false,
+                error: ''
             }
         case HANDLE_USER_SIGN_IN.FAILURE_UPLOAD_PHOTO:
             return {
@@ -91,7 +92,7 @@ const UserReducer = (state = INITIAL_STATE, action) => {
                 password: '',
                 isLoading: false,
                 error: '',
-                photo: null,
+                photo: '',
                 isLoadingPhoto: false
             }
         case HANDLE_USER_SIGN_IN.FAILURE_USER_SIGN_OUT:

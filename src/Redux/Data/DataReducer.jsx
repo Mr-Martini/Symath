@@ -12,13 +12,16 @@ const DataReducer = (state = INITIAL_STATE, action) => {
         case HANDLE_DATA.START_UPLOAD_DATA:
             return {
                 ...state,
-                isLoading: true
+                isLoading: true,
+                error: '',
+                success: '',
             }
         case HANDLE_DATA.SUCCESS_UPLOAD_DATA:
             return {
                 ...state,
                 isLoading: false,
-                success: action.payload
+                success: action.payload,
+                error: '',
             }
         case HANDLE_DATA.FAILURE_UPLOAD_DATA:
             return {

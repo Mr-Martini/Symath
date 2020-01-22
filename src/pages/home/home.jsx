@@ -106,7 +106,7 @@ export default function () {
                 <Typography>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur quam tortor, suscipit vitae suscipit quis, sodales ac elit. Sed pulvinar dolor ipsum, vitae rutrum tortor fermentum a. Praesent neque massa, malesuada vestibulum mi eu, suscipit pharetra felis. Proin condimentum luctus dui, ac tristique diam dignissim vel.
                 </Typography>
-                <Typography className={classes.text} color='secondary' variant='h3'>
+                <Typography className={classes.text} color='inherit' variant='h3'>
                     Symath
                 </Typography>
                 <InputField

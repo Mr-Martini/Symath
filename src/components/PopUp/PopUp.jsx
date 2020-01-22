@@ -75,7 +75,7 @@ function AlertDialog({ userCredentials, uploadPhoto, isLoading }) {
                 PaperComponent={PaperComponent}
                 style={{ cursor: 'move' }}
             >
-                <DialogTitle classes={{ root: classes.root }} id="alert-dialog-title">{"Upload a profile photo"}</DialogTitle>
+                <DialogTitle classes={{ root: classes.root }} id="alert-dialog-title">{"Upload a profile photo (<4MB)"}</DialogTitle>
                 <DialogContent classes={{ root: classes.root }}>
                     <InputProfilePhoto id='contained-button-file-pop' accept='image/*' onChange={e => setUserPhoto(e.target.files[0])}>Choose a profile photo</InputProfilePhoto>
                 </DialogContent>

@@ -48,7 +48,7 @@ const Profile = ({ userCredentials, uploadData, setFeedTrue, data, open }) => {
         <Container maxWidth='lg'>
             <Paper className={classes.paper}>
                 <PopUpAvatar userCredentials={userCredentials} />
-                <Typography className={classes.text} variant='h4' color='secondary'>{userCredentials.userName ? userCredentials.userName : 'Profile'}</Typography>
+                <Typography className={classes.text} variant='h4' color='inherit'>{userCredentials.userName ? userCredentials.userName : 'Profile'}</Typography>
                 <FileInput
                     accept='.pdf'
                     onChange={handleUpload}
@@ -57,7 +57,7 @@ const Profile = ({ userCredentials, uploadData, setFeedTrue, data, open }) => {
                     Upload PDF
                 </FileInput>
                 {userCredentials.error || data.error ?
-                    <FeedBack open={open} error={userCredentials.error ? userCredentials : data.error ? data.error : null} />
+                    <FeedBack open={open} error={userCredentials.error ? userCredentials.error : data.error ? data.error : null} />
                     : null
                 }
                 {data.success ?

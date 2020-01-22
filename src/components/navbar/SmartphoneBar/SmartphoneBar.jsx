@@ -37,10 +37,10 @@ function SimpleBottomNavigation() {
       showLabels
       className={classes.root}
     >
-      <BottomNavigationAction classes={{ label: classes.label, selected: classes.selected }} component={Link} to='/' label="Home" icon={<HomeIcon color='secondary' />} />
-      <BottomNavigationAction classes={{ label: classes.label, selected: classes.selected }} component={Link} to='/Plot' label="Plot" icon={<PlotIcon color='secondary' />} />
-      <BottomNavigationAction classes={{ label: classes.label, selected: classes.selected }} component={Link} to='/Profile' label="Profile" icon={<ProfileIcon color='secondary' />} />
-      <BottomNavigationAction classes={{ label: classes.label, selected: classes.selected }} label="Menu" icon={<MenuButton mobile={true} />} />
+      <BottomNavigationAction classes={{ label: classes.label, selected: classes.selected }} component={Link} to='/' label="Home" icon={<HomeIcon style={{ color: value === 0 ? '#F50057' : 'white' }} />} />
+      <BottomNavigationAction classes={{ label: classes.label, selected: classes.selected }} component={Link} to='/Plot' label="Plot" icon={<PlotIcon style={{ color: value === 1 ? '#F50057' : 'white' }} />} />
+      <BottomNavigationAction classes={{ label: classes.label, selected: classes.selected }} component={Link} to='/Profile' label="Profile" icon={<ProfileIcon style={{ color: value === 2 ? '#F50057' : 'white' }} />} />
+      <BottomNavigationAction classes={{ label: classes.label, selected: classes.selected }} label="Menu" icon={<MenuButton mobile={true} value={value} />} />
     </BottomNavigation>
   );
 }
