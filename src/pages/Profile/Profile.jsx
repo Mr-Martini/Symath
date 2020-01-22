@@ -56,8 +56,8 @@ const Profile = ({ userCredentials, uploadData, setFeedTrue, data, open }) => {
                 >
                     Upload PDF
                 </FileInput>
-                {userCredentials.error || data.error ?
-                    <FeedBack open={open} error={userCredentials.error ? userCredentials.error : data.error ? data.error : null} />
+                {data.error ?
+                    <FeedBack open={open} error={ data.error ? data.error : null} />
                     : null
                 }
                 {data.success ?

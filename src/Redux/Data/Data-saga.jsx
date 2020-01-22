@@ -5,11 +5,11 @@ import { successUploadData, failureUploadData } from '../Data/DataAction'
 
 export function* dataUpload(data) {
     const fileSizeLimit = 500000 // 500kb
-    const allowableNumbOfFiles = 6
+    const allowableNumbOfFilesOnCloud = 6
     try {
         const user = yield auth.currentUser
         const listRef = yield storage.ref(`users/${user.uid}/documents/PDFs`).listAll()
-        if (listRef.items.length <= allowableNumbOfFiles && data.payload.size <= fileSizeLimit) {
+        if (listRef.items.length <= allowableNumbOfFilesOnCloud && data.payload.size <= fileSizeLimit) {
             const storageRef = yield storage.ref(`users/${user.uid}`)
             const dataRef = yield storageRef.child(`/documents/PDFs/${data.payload.name}`)
             yield dataRef.put(data.payload)
