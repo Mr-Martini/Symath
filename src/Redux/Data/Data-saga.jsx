@@ -15,8 +15,11 @@ export function* dataUpload(data) {
             yield dataRef.put(data.payload)
             yield put(successUploadData('Success uploading your file!'))
         }
+        else {
+            yield put(failureUploadData('Failed to upload your file'))
+        }
     } catch (error) {
-        yield put(failureUploadData("Failed to upload data"))
+        yield put(failureUploadData("Failed to upload your file"))
     }
 }
 
