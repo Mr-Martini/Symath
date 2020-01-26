@@ -14,7 +14,8 @@ const useStyles = makeStyles(theme => ({
     position: 'fixed',
     bottom: 0,
     backgroundColor: '#4d4d4d',
-    zIndex: 500
+    zIndex: 500,
+    borderTop: '1px solid #7e7e7e',
   },
   label: {
     color: 'white'

@@ -223,6 +223,7 @@ const PlotPage = ({ switchState }) => {
                                             Ytitle={YaxisName ? YaxisName : 'Y Axis'}
                                             lineColor={lineColor}
                                             circleColor={circleColor}
+                                            isLinear={index === 1 ? true : false}
                                         />
                                         <PlotComponentFlexible
                                             data={type}

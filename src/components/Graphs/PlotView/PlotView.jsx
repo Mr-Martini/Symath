@@ -52,7 +52,9 @@ export class PlotComponentForPDF extends React.Component {
             lineColor,
             circleColor,
             data,
+            isLinear
         } = this.props
+
 
         return (
             <XYPlot height={600} width={800} stroke='red'>
@@ -76,6 +78,13 @@ export class PlotComponentForPDF extends React.Component {
                     markStyle={{ stroke: circleColor }}
                     data={data}
                 />
+                { isLinear ?
+                    <div className='paper-info'>
+                    <p>Additional Info1</p>
+                    <p>Additional Info2</p>
+                </div>
+                : null    
+                }
             </XYPlot>
         )
     }

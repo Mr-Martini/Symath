@@ -12,6 +12,7 @@ const PlotToPrint = ({
     lineColor,
     circleColor,
     data,
+    isLinear
 }) => {
     const componentRef = useRef();
 
@@ -32,6 +33,7 @@ const PlotToPrint = ({
                     Ytitle={Ytitle}
                     lineColor={lineColor}
                     circleColor={circleColor}
+                    isLinear={isLinear}
                 />
             </div>
         </div>
