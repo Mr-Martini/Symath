@@ -158,8 +158,6 @@ const PlotPage = ({ switchState }) => {
         console.log('calculated')
     }
 
-    console.log(errorForB)
-
     const handleXaxisName = (e) => {
         setXaxisName(e.target.value)
     }

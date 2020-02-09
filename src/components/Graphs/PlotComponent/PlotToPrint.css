@@ -33,3 +33,7 @@
     background-color: #F0F8FF;
     color: black;
 }
+
+.paper-info p {
+    margin-bottom: -0.2em;
+}
