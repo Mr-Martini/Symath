@@ -48,6 +48,10 @@ const PlotPage = ({ switchState }) => {
     const [start, setStart] = useState(false)
     const [dadosX, setDadosX] = useState()
     const [dadosY, setDadosY] = useState()
+    const [additionalInfo, setAdditionalInfo] = useState()
+    const [createdAt, setCreatedAt] = useState()
+    const [errorForA, setErrorForA] = useState()
+    const [errorForB, setErrorForB] = useState()
     const [data, setData] = useState(
         [
             { x: 0, y: 8 },
@@ -78,6 +82,13 @@ const PlotPage = ({ switchState }) => {
         let unified = []
         let getVector = []
         let getDataLinear = []
+        let deltaY = []
+        let deltaYSquare = []
+        let sumDeltaYSquare = 0 //chi quadrado
+        let sumX = 0
+        let xSquare = []
+        let sumXSquare = 0
+
 
         if (dadosX) {
             getX = dadosX.split(';')
@@ -115,14 +126,32 @@ const PlotPage = ({ switchState }) => {
             getVector.push([unified[i].x, unified[i].y])
         }
 
-        const linearPoints = regression.linear(getVector)
+        const linearPoints = regression.linear(getVector, { precision: 8 })
+        setAdditionalInfo(linearPoints)
+
+        const sizeX = separadoX.length
+
+        for (let i = 0; i < sizeX; ++i) {
+            deltaY.push(separadoY[i] - linearPoints.equation[0] * separadoX[i] - linearPoints.equation[1])
+            deltaYSquare.push(deltaY[i] * deltaY[i])
+            sumDeltaYSquare = sumDeltaYSquare + deltaYSquare[i]
+            sumX = sumX + separadoX[i]
+            xSquare.push(separadoX[i] * separadoX[i])
+            sumXSquare = sumXSquare + xSquare[i]
+        }
+
+        const standardError = Math.sqrt(sumDeltaYSquare / (sizeX - 2))
+
+        setErrorForA(Math.sqrt((sizeX * standardError ** 2) / (sizeX * sumXSquare - sumX ** 2)).toFixed(8))
+        setErrorForB(Math.sqrt((standardError ** 2 * sumXSquare ** 2) / (sizeX * sumXSquare - sumX ** 2)))
 
         for (let i = 0; i < linearPoints.points.length; ++i) {
             getDataLinear.push({ x: linearPoints.points[i][0], y: linearPoints.points[i][1] })
         }
         setData(unified)
         setDataLinear(getDataLinear)
-
+        const dateAndtime = new Date()
+        setCreatedAt(`${dateAndtime.getDate()}/${dateAndtime.getMonth()}/${dateAndtime.getFullYear()}   ${dateAndtime.getHours()}h:${dateAndtime.getMinutes()}m:${dateAndtime.getSeconds()}s `)
         console.log('calculated')
     }
 
@@ -224,6 +253,12 @@ const PlotPage = ({ switchState }) => {
                                             lineColor={lineColor}
                                             circleColor={circleColor}
                                             isLinear={index === 1 ? true : false}
+                                            r2={additionalInfo.r2}
+                                            A={additionalInfo.equation[0]}
+                                            B={additionalInfo.equation[1]}
+                                            createdAt={createdAt}
+                                            errorForA={errorForA}
+                                            errorForB={errorForB}
                                         />
                                         <PlotComponentFlexible
                                             data={type}

@@ -16,8 +16,6 @@ function SwitchLabels({ switchState,  toggleSwitch }) {
 
     const classes = useStyles()
 
-    console.log('swtich-> (A,B)->', switchState.A, switchState.B)
-
     return (
         <FormGroup>
             <FormControlLabel

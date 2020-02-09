@@ -27,8 +27,9 @@
     right: 140px;
     bottom: 130px;
     display: flex;
+    padding: 10px;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
     flex-direction: column;
     border: 1px solid #8c8c8c;
     box-shadow: 5px 5px #8c8c8c;

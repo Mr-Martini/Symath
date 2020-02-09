@@ -12,7 +12,13 @@ const PlotToPrint = ({
     lineColor,
     circleColor,
     data,
-    isLinear
+    isLinear,
+    A,
+    B,
+    r2,
+    createdAt,
+    errorForA,
+    errorForB
 }) => {
     const componentRef = useRef();
 
@@ -34,6 +40,12 @@ const PlotToPrint = ({
                     lineColor={lineColor}
                     circleColor={circleColor}
                     isLinear={isLinear}
+                    A={A}
+                    B={B}
+                    r2={r2}
+                    createdAt={createdAt}
+                    errorForA={errorForA}
+                    errorForB={errorForB}
                 />
             </div>
         </div>
