@@ -52,6 +52,7 @@ const PlotPage = ({ switchState }) => {
     const [createdAt, setCreatedAt] = useState()
     const [errorForA, setErrorForA] = useState()
     const [errorForB, setErrorForB] = useState()
+    const [chiSquare, setChiSquare] = useState(0)
     const [data, setData] = useState(
         [
             { x: 0, y: 8 },
@@ -140,10 +141,12 @@ const PlotPage = ({ switchState }) => {
             sumXSquare = sumXSquare + xSquare[i]
         }
 
+        setChiSquare(sumDeltaYSquare)
+
         const standardError = Math.sqrt(sumDeltaYSquare / (sizeX - 2))
 
         setErrorForA(Math.sqrt((sizeX * standardError ** 2) / (sizeX * sumXSquare - sumX ** 2)).toFixed(8))
-        setErrorForB(Math.sqrt((standardError ** 2 * sumXSquare ** 2) / (sizeX * sumXSquare - sumX ** 2)))
+        setErrorForB(Math.sqrt( ( standardError**2 * sumXSquare) / (sizeX*sumXSquare - sumX**2) ).toFixed(8))
 
         for (let i = 0; i < linearPoints.points.length; ++i) {
             getDataLinear.push({ x: linearPoints.points[i][0], y: linearPoints.points[i][1] })
@@ -154,6 +157,8 @@ const PlotPage = ({ switchState }) => {
         setCreatedAt(`${dateAndtime.getDate()}/${dateAndtime.getMonth()}/${dateAndtime.getFullYear()}   ${dateAndtime.getHours()}h:${dateAndtime.getMinutes()}m:${dateAndtime.getSeconds()}s `)
         console.log('calculated')
     }
+
+    console.log(errorForB)
 
     const handleXaxisName = (e) => {
         setXaxisName(e.target.value)
@@ -259,6 +264,7 @@ const PlotPage = ({ switchState }) => {
                                             createdAt={createdAt}
                                             errorForA={errorForA}
                                             errorForB={errorForB}
+                                            chiSquare={chiSquare}
                                         />
                                         <PlotComponentFlexible
                                             data={type}

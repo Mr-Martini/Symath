@@ -18,7 +18,8 @@ const PlotToPrint = ({
     r2,
     createdAt,
     errorForA,
-    errorForB
+    errorForB,
+    chiSquare
 }) => {
     const componentRef = useRef();
 
@@ -46,6 +47,7 @@ const PlotToPrint = ({
                     createdAt={createdAt}
                     errorForA={errorForA}
                     errorForB={errorForB}
+                    chiSquare={chiSquare}
                 />
             </div>
         </div>

@@ -22,15 +22,12 @@
 
 .paper-info {
     position: fixed;
-    width: 220px;
+    width: 250px;
     height: 200px;
     right: 140px;
     bottom: 130px;
-    display: flex;
     padding: 10px;
-    align-items: center;
-    justify-content: space-evenly;
-    flex-direction: column;
+    display: block;
     border: 1px solid #8c8c8c;
     box-shadow: 5px 5px #8c8c8c;
     background-color: #F0F8FF;

@@ -58,7 +58,8 @@ export class PlotComponentForPDF extends React.Component {
             A,
             B,
             errorForA,
-            errorForB
+            errorForB,
+            chiSquare
         } = this.props
 
 
@@ -90,6 +91,7 @@ export class PlotComponentForPDF extends React.Component {
                         <p>B (y-intercept): {B} +/- {errorForB}</p>
                         <p>A (slope): {A} +/- {errorForA} </p>
                         <p>R^2: {r2}</p>
+                        <p>Chi^2: {chiSquare}</p>
                     </div>
                     : null
                 }
