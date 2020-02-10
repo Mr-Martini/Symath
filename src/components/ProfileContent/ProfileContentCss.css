@@ -1,0 +1,10 @@
+.see-file-button {
+    color: #F40057;
+    text-decoration: none;
+}
+
+.see-file-button:hover {
+    transition: 0.2s ease-in;
+    color: white;
+    text-decoration: underline #F40057;
+}

@@ -24,7 +24,7 @@ const PlotToPrint = ({
     const componentRef = useRef();
 
     return (
-        <div>
+        <>
             <ReactToPrint
                 trigger={() => <Button size='large' color='secondary' variant='contained'>Print</Button>}
                 content={() => componentRef.current}
@@ -50,7 +50,7 @@ const PlotToPrint = ({
                     chiSquare={chiSquare}
                 />
             </div>
-        </div>
+        </>
     );
 };
 export default PlotToPrint

@@ -9,7 +9,7 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-export default function ({ color, variant, children, onClick, size}) {
+export default function ({ color, variant, children, onClick, size, download}) {
 
     const classes = useStyles()
 

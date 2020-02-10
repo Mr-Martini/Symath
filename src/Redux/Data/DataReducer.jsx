@@ -1,10 +1,11 @@
 import HANDLE_DATA from './DataType'
 
 const INITIAL_STATE = {
-    graphs: null,
+    graphs: undefined,
     isLoading: false,
+    isLoadingPdf: false,
     success: '',
-    error: ''
+    error: '',
 }
 
 const DataReducer = (state = INITIAL_STATE, action) => {
@@ -28,6 +29,23 @@ const DataReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 isLoading: false,
                 success: '',
+                error: action.payload
+            }
+        case HANDLE_DATA.START_DOWNLOAD_DATA:
+            return {
+                ...state,
+                isLoadingPdf: true
+            }
+        case HANDLE_DATA.SUCCESS_DOWNLOAD_DATA:
+            return {
+                ...state,
+                isLoadingPdf: false,
+                graphs: action.payload
+            }
+        case HANDLE_DATA.FAILURE_DOWNLOAD_DATA:
+            return {
+                ...state,
+                isLoadingPdf: false,
                 error: action.payload
             }
         default: 

@@ -59,13 +59,14 @@ export class PlotComponentForPDF extends React.Component {
             B,
             errorForA,
             errorForB,
-            chiSquare
+            chiSquare,
         } = this.props
 
 
         return (
+         
             <XYPlot height={600} width={800} stroke='red'>
-                <VerticalGridLines style={{ stroke: 'black' }} />
+                <VerticalGridLines  style={{ stroke: 'black' }} />
                 <HorizontalGridLines style={{ stroke: 'black' }} />
                 <XAxis title={Xtitle}
                     style={{

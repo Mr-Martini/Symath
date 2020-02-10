@@ -11,7 +11,7 @@ import { startUploadData } from '../../Redux/Data/DataAction'
 import FileInput from '../../components/input/FileInput'
 import FeedBack from '../../components/Feedback/Feedback'
 import { setFeedTrue } from '../../Redux/FeedBack/FeedBackActions'
-
+import ProfileContent from '../../components/ProfileContent/ProfileContent'
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -63,6 +63,7 @@ const Profile = ({ userCredentials, uploadData, setFeedTrue, data, open }) => {
                 {data.success ?
                     <FeedBack duration={2000} open={open} error={data.success} severity='success' />
                     : null}
+                <ProfileContent />
             </Paper>
         </Container>
     ) : (
