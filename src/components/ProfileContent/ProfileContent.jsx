@@ -1,13 +1,14 @@
 import { Paper, Typography, Container, makeStyles } from '@material-ui/core'
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { startDownloadData } from '../../Redux/Data/DataAction'
+import { startDownloadData, startDeleteData } from '../../Redux/Data/DataAction'
 import Progress from '../Feedback/Progress'
 import '../ProfileContent/ProfileContentCss.css'
+import { Delete } from '@material-ui/icons'
 
 const useStyles = makeStyles(theme => ({
     paper: {
-        backgroundColor: '#4d4d4d',
+        backgroundColor: '#202125',
         color: 'white',
         marginTop: '2em',
         padding: '1em',
@@ -21,13 +22,23 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        justifyContent: 'center',
         marginBottom: '0.5em',
         width: '40%',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        marginTop: '1em',
+        marginRight: '0.7em',
+        padding: '0.3em',
+    },
+    boxes: {
+        backgroundColor: '#202125',
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
     }
 }))
 
-const ProfileContent = ({ downloadData, pdfsForDownload, isLoading }) => {
+const ProfileContent = ({ downloadData, pdfsForDownload, isLoadingContent, isDeletingFile, deleteData }) => {
 
     const classes = useStyles()
 
@@ -41,20 +52,24 @@ const ProfileContent = ({ downloadData, pdfsForDownload, isLoading }) => {
             <Paper className={classes.paper} elevation={12}>
                 <Typography variant='h6' color='inherit'>Your files</Typography>
                 <>
-                    {!isLoading ?
-                        <>
+                    {!isLoadingContent ?
+                        <Paper elevation={0} className={classes.boxes}>
                             {pdfsForDownload ?
                                 pdfsForDownload.map((data, index) => (
-                                    <Paper elevation={6} className={classes.data} key={index}>
+                                    <Paper elevation={12} className={classes.data} key={index}>
                                         <div style={{ cursor: 'pointer' }}>
                                             <a className='see-file-button' rel="noopener noreferrer" href={data.url} target='_blank'>See file</a>
                                         </div>
                                         <Typography variant='subtitle1' style={{ color: 'white' }}>{data.name}</Typography>
+                                        {isDeletingFile ?
+                                            <Progress />
+                                            :
+                                            <Delete onClick={() => deleteData(data.name)} style={{ color: 'rgba(255, 71, 71, 0.993)', cursor: 'pointer' }} />}
                                     </Paper>
                                 ))
                                 : <Typography>No data found</Typography>
                             }
-                        </>
+                        </Paper>
                         : <Progress />
                     }
                 </>
@@ -64,12 +79,14 @@ const ProfileContent = ({ downloadData, pdfsForDownload, isLoading }) => {
 }
 
 const mapDispatch = dispatch => ({
-    downloadData: () => dispatch(startDownloadData())
+    downloadData: () => dispatch(startDownloadData()),
+    deleteData: (name) => dispatch(startDeleteData(name))
 })
 
 const mapState = state => ({
     pdfsForDownload: state.DataReducer.graphs,
-    isLoading: state.DataReducer.isLoadingPdf
+    isLoadingContent: state.DataReducer.isLoadingPdf,
+    isDeletingFile: state.DataReducer.isDeletingFile
 })
 
 export default connect(mapState, mapDispatch)(ProfileContent)

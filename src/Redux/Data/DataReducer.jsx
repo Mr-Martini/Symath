@@ -4,6 +4,7 @@ const INITIAL_STATE = {
     graphs: undefined,
     isLoading: false,
     isLoadingPdf: false,
+    isDeletingFile: false,
     success: '',
     error: '',
 }
@@ -46,6 +47,22 @@ const DataReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 isLoadingPdf: false,
+                error: action.payload
+            }
+        case HANDLE_DATA.START_DELETE_DATA:
+            return {
+                ...state,
+                isDeletingFile: true
+            }
+        case HANDLE_DATA.SUCCESS_DELETE_DATA:
+            return {
+                ...state,
+                isDeletingFile: false,
+            }
+        case HANDLE_DATA.FAILURE_DELETE_DATA:
+            return {
+                ...state,
+                isDeletingFile: false,
                 error: action.payload
             }
         default: 

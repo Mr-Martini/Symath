@@ -1,6 +1,7 @@
 .see-file-button {
-    color: #F40057;
+    color: rgba(255, 71, 71, 0.993);
     text-decoration: none;
+    font-weight: bold;
 }
 
 .see-file-button:hover {

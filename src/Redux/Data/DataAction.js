@@ -31,3 +31,21 @@ export const failureDownloadData = error => ({
     type: HANDLE_DATA.FAILURE_DOWNLOAD_DATA,
     payload: error
 })
+
+
+
+
+
+export const startDeleteData = data => ({
+    type: HANDLE_DATA.START_DELETE_DATA,
+    payload: data
+})
+
+export const successDeleteData = () => ({
+    type: HANDLE_DATA.SUCCESS_DELETE_DATA
+})
+
+export const failureDeleteData = error => ({
+    type: HANDLE_DATA.FAILURE_DELETE_DATA,
+    payload: error
+})

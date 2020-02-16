@@ -1,7 +1,15 @@
 import { all, takeLatest, call, put } from 'redux-saga/effects'
 import HANDLE_DATA from '../Data/DataType'
 import { auth, storage, getCurrentUser } from '../../Firebase/Firebase'
-import { successUploadData, failureUploadData, successDownloadData, failureDownloadData, startDownloadData } from '../Data/DataAction'
+import { 
+    successUploadData, 
+    failureUploadData, 
+    successDownloadData, 
+    failureDownloadData, 
+    startDownloadData, 
+    failureDeleteData,
+    successDeleteData
+} from '../Data/DataAction'
 
 export function* dataUpload(data) {
     const fileSizeLimit = 500000 // 500kb
@@ -50,6 +58,21 @@ export function* dataDownload() {
     }
 }
 
+export function* dataDelete(data) {
+    const name = data.payload
+    console.log('name->', name)
+    try {
+        const user = yield call(getCurrentUser)
+        const storageRef = yield storage.ref(`users/${user.uid}/documents/PDFs/`)
+        const deleteRef = storageRef.child(`${name}`)
+        yield deleteRef.delete()
+        yield put(successDeleteData())
+        yield put(startDownloadData())
+    } catch (error) {
+        yield put(failureDeleteData(error.message))
+    }
+}
+
 
 export function* onStartDataUpload() {
     yield takeLatest(HANDLE_DATA.START_UPLOAD_DATA, dataUpload)
@@ -59,9 +82,14 @@ export function* onStartDataDownload() {
     yield takeLatest(HANDLE_DATA.START_DOWNLOAD_DATA, dataDownload)
 }
 
+export function* onStartDeleteData() {
+    yield takeLatest(HANDLE_DATA.START_DELETE_DATA, dataDelete)
+}
+
 export function* dataSaga() {
     yield all([
         call(onStartDataUpload),
-        call(onStartDataDownload)
+        call(onStartDataDownload),
+        call(onStartDeleteData)
     ])
 }
